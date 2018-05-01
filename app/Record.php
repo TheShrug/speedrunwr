@@ -40,7 +40,7 @@ class Record extends Model
 		if(!self::isValidSpeedrunComRun($run)) {
 			return false;
 		}
-		$currentRecord = Record::where('gameId', $run->game)->where('categoryId', $run->category)->first();
+		$currentRecord = Record::where('gameId', $run->game)->where('categoryId', $run->category)->where('level', $run->level)->first();
 
 		if($currentRecord) {
 			$record = $currentRecord;

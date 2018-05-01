@@ -47,7 +47,21 @@ class ApiController extends Controller
 	}
 
 	public function test() {
+		$records = [];
+		$games = Game::limit(10)->get();
+		foreach($games as $game) {
+			$records = array_merge($records, Record::createRecordsFromSpeedrunComEndpoint($game->records));
+			echo 'Created records for endpoint ' . $game->records;
+			echo 'Count ' . count(array_filter($records, array($this, 'filterFalse')));
+		}
+
+		//foreach($records as $record) {
+			var_dump($records);
+		//}
 
 	}
 
+	public function filterFalse($var) {
+		return ($var !== false);
+	}
 }

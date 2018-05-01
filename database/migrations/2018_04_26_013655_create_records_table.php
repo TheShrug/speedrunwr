@@ -23,7 +23,7 @@ class CreateRecordsTable extends Migration
             $table->boolean('hasYoutube')->default(0);
             $table->integer('competition')->default(0);
             $table->float('primaryTime');
-            $table->date('date');
+            $table->date('date')->nullable();
             $table->string('youtubeId')->nullable();
             $table->string('twitchId')->nullable();
             $table->string('level')->nullable();

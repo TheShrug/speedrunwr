@@ -39,22 +39,13 @@ class GetRecords extends Command
     public function handle()
     {
 		$records = [];
-	    $games = Game::limit(10)->get();
-        foreach($games as $game) {
+	    $games = Game::all();
+        foreach($games as $key => $game) {
         	$records = array_merge($records, Record::createRecordsFromSpeedrunComEndpoint($game->records));
-        	$this->info('Created records for endpoint ' . $game->records);
-        	$this->info('Count ' . count(array_filter($records, array($this, 'filterFalse'))));
+
+        	$this->info('Game Count: ' . $key . ' Record Count ' . count(array_filter($records)));
         }
 
-
-
-
     }
-
-	public function filterFalse($var) {
-		return ($var !== false);
-	}
-
-
 
 }
