@@ -18,10 +18,10 @@ class CreateRecordsTable extends Migration
             $table->string('runId');
             $table->string('gameId');
             $table->string('categoryId');
-            $table->string('userID');
-            $table->boolean('hasTwitch');
-            $table->boolean('hasYoutube');
-            $table->integer('competition');
+            $table->string('userId');
+            $table->boolean('hasTwitch')->default(0);
+            $table->boolean('hasYoutube')->default(0);
+            $table->integer('competition')->default(0);
             $table->float('primaryTime');
             $table->date('date');
             $table->string('youtubeId')->nullable();

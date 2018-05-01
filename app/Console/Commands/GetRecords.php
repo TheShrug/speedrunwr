@@ -25,11 +25,7 @@ class GetRecords extends Command
      */
     protected $description = 'Get all new records from speedrun.com';
 
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
+
     public function __construct()
     {
         parent::__construct();
@@ -42,36 +38,23 @@ class GetRecords extends Command
      */
     public function handle()
     {
-
-    	$interval = new \DateInterval('PT1H22M21.310S');
-
-		$this->info($interval->format('%s seconds'));
-
-
-
-    	exit;
-
-        $games = Game::limit(200)->get();
-
+		$records = [];
+	    $games = Game::limit(10)->get();
         foreach($games as $game) {
-        	getRecordsData($game->records);
+        	$records = array_merge($records, Record::createRecordsFromSpeedrunComEndpoint($game->records));
+        	$this->info('Created records for endpoint ' . $game->records);
+        	$this->info('Count ' . count(array_filter($records, array($this, 'filterFalse'))));
         }
 
-	    $this->info($games[199]);
+
+
 
     }
 
-    public function getRecordsData($endpoint) {
-	    $client = new Client();
-	    $result = $client->request('GET','https://www.speedrun.com/api/v1/games', [
-		    'query'  => [
-			    'max' => 200,
-			    'offset' => $offset
-		    ]
-	    ]);
-	    return json_decode($result->getBody());
+	public function filterFalse($var) {
+		return ($var !== false);
+	}
 
 
-    }
 
 }

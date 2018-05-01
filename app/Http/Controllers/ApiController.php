@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Client;
 use App\Game;
+use App\Record;
 
 class ApiController extends Controller
 {
@@ -43,6 +44,10 @@ class ApiController extends Controller
 			]
 		]);
 		return json_decode($result->getBody());
+	}
+
+	public function test() {
+
 	}
 
 }

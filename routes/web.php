@@ -18,6 +18,7 @@ Route::get('/api/newRun', 'ApiController@newRun');
 Route::get('/api/categories', 'ApiController@games');
 Route::get('/api/runs', 'ApiController@games');
 Route::get('/api/store', 'ApiController@store');
+Route::get('/api/test', 'apiController@test');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
