@@ -4748,15 +4748,19 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
     state: {
         activeRun: {},
         runHistory: [],
-        count: '0'
+        count: '2'
     },
     mutations: {
         setRun: function setRun(state, payload) {
+            console.log('payload');
             state.activeRun = payload;
-            state.runHistory.push(payload);
+            // state.runHistory.push(payload)
         },
         setGameCount: function setGameCount(state, payload) {
             state.count = payload;
+        },
+        increment: function increment(state) {
+            state.count++;
         }
     }
 });
@@ -4769,21 +4773,10 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('twitch-player', __WEBPACK
 var app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
     el: '#app',
     store: store,
-    beforeMount: function beforeMount() {
-        this.initializeInterface();
-    },
+    beforeMount: function beforeMount() {},
     mounted: function mounted() {},
 
-    methods: {
-        initializeInterface: function initializeInterface() {
-            __WEBPACK_IMPORTED_MODULE_2_axios___default.a.get('/api/gameCount').then(function (response) {
-                console.log(response);
-                store.commit('setGameCount', response.data.count);
-            }).catch(function (error) {
-                console.log(error);
-            });
-        }
-    }
+    methods: {}
 });
 
 /***/ }),
@@ -41116,7 +41109,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/components/Player.vue"
+Component.options.__file = "resources\\assets\\js\\components\\Player.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -41125,9 +41118,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-241fd758", Component.options)
+    hotAPI.createRecord("data-v-22cdd498", Component.options)
   } else {
-    hotAPI.reload("data-v-241fd758", Component.options)
+    hotAPI.reload("data-v-22cdd498", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -41156,12 +41149,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     mounted: function mounted() {
         console.log('Component mounted.');
     },
-    data: function data() {
-        return {
-            youtubeId: 'LW9yIR4GoVU',
-            twitchId: '251198957'
-        };
-    },
 
     methods: {
         changeVideo: function changeVideo() {
@@ -41171,6 +41158,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     computed: {
         run: function run() {
             return this.$store.state.activeRun;
+        },
+        youtubeId: function youtubeId() {
+            return this.$store.state.activeRun.youtubeId;
+        },
+        twitchId: function twitchId() {
+            return this.$store.state.activeRun.twitchId;
         }
     }
 });
@@ -41187,9 +41180,13 @@ var render = function() {
     "div",
     { staticClass: "col-md-10" },
     [
-      _c("youtube", { attrs: { "video-id": _vm.youtubeId } }),
+      _vm.youtubeId
+        ? _c("youtube", { attrs: { "video-id": _vm.youtubeId } })
+        : _vm._e(),
       _vm._v(" "),
-      _c("twitch-player", { attrs: { video: _vm.twitchId } })
+      _vm.twitchId
+        ? _c("twitch-player", { attrs: { video: _vm.twitchId } })
+        : _vm._e()
     ],
     1
   )
@@ -41200,7 +41197,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-241fd758", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-22cdd498", module.exports)
   }
 }
 
@@ -41230,7 +41227,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/components/Sidebar.vue"
+Component.options.__file = "resources\\assets\\js\\components\\Sidebar.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -41239,9 +41236,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-28cb1975", Component.options)
+    hotAPI.createRecord("data-v-00467796", Component.options)
   } else {
-    hotAPI.reload("data-v-28cb1975", Component.options)
+    hotAPI.reload("data-v-00467796", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -41288,7 +41285,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-28cb1975", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-00467796", module.exports)
   }
 }
 
@@ -41318,7 +41315,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/components/NewRun.vue"
+Component.options.__file = "resources\\assets\\js\\components\\NewRun.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -41327,9 +41324,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-2709ec42", Component.options)
+    hotAPI.createRecord("data-v-25b7e982", Component.options)
   } else {
-    hotAPI.reload("data-v-2709ec42", Component.options)
+    hotAPI.reload("data-v-25b7e982", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -41398,30 +41395,19 @@ function getRun(id) {
 
     methods: {
         getNewRun: function getNewRun() {
-            var $this = this;
-            var randomGameNumber = Math.floor(Math.random() * $this.gameCount);
-            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('https://www.speedrun.com/api/v1/games', {
-                params: {
-                    max: 1,
-                    offset: randomGameNumber
-                }
+
+            var store = this.$store;
+
+            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('/api/getNewRun', {
+                params: {}
             }).then(function (response) {
-                var game = response.data.data[0];
-                return getRecords(game);
-            }).then(function (response) {
-                var randomCategory = Math.floor(Math.random() * response.data.length);
-                var runId = response.data[randomCategory].runs[0].run.id;
-                return getRun(runId);
-            }).then(function (test) {
-                console.log('Response', test);
-            }).catch(function (response) {
-                //console.log(response);
-            });
+                store.commit('setRun', response.data.record);
+            }).catch(function (response) {});
         }
     },
     computed: {
         gameCount: function gameCount() {
-            return this.$store.state.count;
+            return store.state.count;
         }
     }
 });
@@ -41462,7 +41448,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-2709ec42", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-25b7e982", module.exports)
   }
 }
 

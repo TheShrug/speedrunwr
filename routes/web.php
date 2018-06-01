@@ -14,7 +14,7 @@
 Route::get('/', 'HomeController@index')->name('home');
 
 Route::get('/api/gameCount', 'ApiController@gameCount');
-Route::get('/api/newRun', 'ApiController@newRun');
+Route::get('/api/getNewRun', 'ApiController@newRun');
 Route::get('/api/categories', 'ApiController@games');
 Route::get('/api/runs', 'ApiController@games');
 Route::get('/api/store', 'ApiController@store');

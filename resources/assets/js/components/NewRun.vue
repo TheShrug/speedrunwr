@@ -38,6 +38,7 @@
     }
 
 
+
     export default {
         mounted() {
             console.log('Component mounted.')
@@ -50,34 +51,25 @@
         },
         methods: {
             getNewRun() {
-                var $this = this
-                var randomGameNumber = Math.floor(Math.random() * $this.gameCount);
-                axios.get('https://www.speedrun.com/api/v1/games', {
+
+                var store = this.$store
+
+                axios.get('/api/getNewRun', {
                     params: {
-                        max: 1,
-                        offset: randomGameNumber,
+
                     }
                 })
                 .then(function(response) {
-                    var game = response.data.data[0]
-                    return getRecords(game)
-                })
-                .then(function(response) {
-                    var randomCategory = Math.floor(Math.random() * response.data.length)
-                    var runId = response.data[randomCategory].runs[0].run.id
-                    return getRun(runId)
-                })
-                .then(function(test) {
-                    console.log('Response', test);
+                    store.commit('setRun', response.data.record)
                 })
                 .catch(function(response) {
-                    //console.log(response);
+
                 })
             }
         },
         computed: {
             gameCount() {
-                return this.$store.state.count
+                return store.state.count
             }
         }
     }

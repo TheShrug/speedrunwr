@@ -31,15 +31,19 @@ const store = new Vuex.Store({
     state: {
         activeRun: {},
         runHistory: [],
-        count:'0'
+        count:'2'
     },
     mutations: {
         setRun(state, payload) {
+            console.log('payload')
             state.activeRun = payload
-            state.runHistory.push(payload)
+           // state.runHistory.push(payload)
         },
         setGameCount(state, payload) {
             state.count = payload
+        },
+        increment(state) {
+            state.count++
         }
     }
 });
@@ -54,22 +58,12 @@ const app = new Vue({
     el: '#app',
     store,
     beforeMount() {
-        this.initializeInterface()
+
     },
     mounted() {
 
     },
     methods: {
-        initializeInterface() {
-            Axios.get('/api/gameCount')
-                .then(function (response) {
-                    console.log(response)
-                    store.commit('setGameCount', response.data.count);
-                })
-                .catch(function (error) {
-                    console.log(error);
-            })
-        }
 
     }
 });

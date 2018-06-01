@@ -16,17 +16,15 @@ class CreateRecordsTable extends Migration
         Schema::create('records', function (Blueprint $table) {
             $table->increments('id');
             $table->string('runId');
-            $table->string('gameId');
-            $table->string('categoryId');
-            $table->string('userId');
-            $table->boolean('hasTwitch')->default(0);
-            $table->boolean('hasYoutube')->default(0);
-            $table->integer('competition')->default(0);
-            $table->float('primaryTime');
-            $table->date('date')->nullable();
-            $table->string('youtubeId')->nullable();
-            $table->string('twitchId')->nullable();
-            $table->string('level')->nullable();
+            $table->string('gameId')->nullable();
+            $table->string('categoryId')->nullable();
+	        $table->string('levelId')->nullable();
+	        $table->string('userId')->nullable();
+	        $table->integer('competition')->default(0);
+	        $table->float('primaryTime',12,3)->nullable();
+	        $table->date('date')->nullable();
+	        $table->string('youtubeId')->nullable();
+	        $table->string('twitchId')->nullable();
             $table->timestamps();
         });
     }

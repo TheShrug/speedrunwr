@@ -10,58 +10,49 @@ use App\Record;
 
 class ApiController extends Controller
 {
-    public function games() {
-		$client = new Client();
-		$result = $client->request('GET','https://www.speedrun.com/api/v1/games', [
-			'query'  => [
-				'max' => 200,
-				'embed' => 'categories,platforms',
-				'offset' => 200
-			],
-			'delay' => 600
-		]);
-		return $result->getBody();
-    }
 
     public function newRun() {
-    	//$randomGame = Game::inRandomOrder()->get()->first();
-	    $randomGameId = rand(1, Game::max('id'));
-		$randomGame = Game::findOrFail($randomGameId);
-		return ['test' => $randomGame];
-    }
+    	$records = Record::all();
+    	$record = $records->random();
 
-    public function gameCount() {
-	    $gameCount = Game::all()->count();
-	    return ['count' => $gameCount];
-    }
-
-	public function getGames($offset) {
-		$client = new Client();
-		$result = $client->request('GET','https://www.speedrun.com/api/v1/games', [
-			'query'  => [
-				'max' => 200,
-				'offset' => $offset
-			]
-		]);
-		return json_decode($result->getBody());
-	}
-
-	public function test() {
-		$records = [];
-		$games = Game::limit(10)->get();
-		foreach($games as $game) {
-			$records = array_merge($records, Record::createRecordsFromSpeedrunComEndpoint($game->records));
-			echo 'Created records for endpoint ' . $game->records;
-			echo 'Count ' . count(array_filter($records, array($this, 'filterFalse')));
+		if($this->verifiedRecord($record)){
+			return ['record' => $record];
+		} else {
+			newRun();
 		}
 
-		//foreach($records as $record) {
-			var_dump($records);
-		//}
+    }
 
-	}
+    public function verifiedRecord($record) {
+    	$gameId = $record['gameId'];
+    	$categoryId = $record['categoryId'];
+    	$runId = $record['runId'];
+    	$levelId = $record['levelId'];
 
-	public function filterFalse($var) {
-		return ($var !== false);
-	}
+    	if($levelId) {
+		    $client = new Client();
+		    $result = $client->request('GET','https://www.speedrun.com/api/v1/leaderboards/' . $gameId . '/level/' . $levelId . '/' . $categoryId, [
+			    'query'  => [
+				    'top' => 1,
+			    ]
+		    ]);
+	    } else {
+		    $client = new Client();
+		    $result = $client->request('GET','https://www.speedrun.com/api/v1/leaderboards/' . $gameId . '/category/' . $categoryId, [
+			    'query'  => [
+				    'top' => 1,
+			    ]
+		    ]);
+	    }
+
+	    $jsonResult = json_decode($result->getBody());
+
+	    if($jsonResult->data->runs[0]->run->id == $runId){
+	    	return true;
+	    } else {
+	    	return false;
+	    }
+
+    }
+
 }

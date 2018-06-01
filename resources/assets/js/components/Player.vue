@@ -1,7 +1,7 @@
 <template>
     <div class="col-md-10">
-        <youtube :video-id="youtubeId"></youtube>
-        <twitch-player :video="twitchId"></twitch-player>
+        <youtube v-if="youtubeId" :video-id="youtubeId"></youtube>
+        <twitch-player v-if="twitchId" :video="twitchId"></twitch-player>
     </div>
 </template>
 
@@ -11,20 +11,20 @@
         mounted() {
             console.log('Component mounted.')
         },
-        data() {
-            return {
-                youtubeId: 'LW9yIR4GoVU',
-                twitchId: '251198957'
-            }
-        },
         methods: {
           changeVideo() {
-              this.youtubeId = 'ARtSqjel6Ho'
+                  this.youtubeId = 'ARtSqjel6Ho'
           }
         },
         computed: {
             run() {
                 return this.$store.state.activeRun;
+            },
+            youtubeId() {
+                return this.$store.state.activeRun.youtubeId
+            },
+            twitchId() {
+                return this.$store.state.activeRun.twitchId
             }
         }
     }
