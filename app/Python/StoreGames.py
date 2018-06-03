@@ -4,6 +4,7 @@ import time
 import requests
 import re
 import math
+from datetime import datetime
 
 from multiprocessing.dummy import Pool
 from threading import BoundedSemaphore, Timer
@@ -77,7 +78,7 @@ def GetRecords(game, offset):
     if request.status_code == 200:
         parsedJson = json.loads(request.text)
         if parsedJson['pagination']['size'] == 200:
-            GetRecords(game, parsedJson['pagination']['size'])
+            GetRecords(game, offset + parsedJson['pagination']['size'])
         #print(parsedJson['pagination']['size'])
 
         for record in parsedJson['data']:
@@ -139,6 +140,7 @@ def validVideoId(record):
         #print('didnt have a run or video', record['weblink'])
         return False
 
+
 def storeRecord(record, validVideoId):
     #print('storing record', record)
     try:
@@ -154,6 +156,14 @@ def storeRecord(record, validVideoId):
     except:
         categoryId = None
     try:
+        platform = record['runs'][0]['run']['system']['platform']
+    except:
+        platform = None
+    try:
+        region = record['runs'][0]['run']['system']['region']
+    except:
+        region = None
+    try:
         primaryTime = record['runs'][0]['run']['times']['primary_t']
     except:
         primaryTime = None
@@ -163,6 +173,19 @@ def storeRecord(record, validVideoId):
     except:
         levelId = None
 
+
+    try:
+        if record['runs'][0]['run']['date'] is not None:
+            date = record['runs'][0]['run']['date']
+            date_obj = datetime.strptime(date, '%Y-%m-%d')
+        elif record['runs'][0]['run']['submitted'] is not None:
+            date = record['runs'][0]['run']['submitted']
+            date_obj = datetime.strptime(date, '%Y-%m-%dT%H:%M:%SZ')
+
+    except Exception as error:
+        print(repr(error))
+        date_obj = None
+
     if validVideoId['site'] == 'twitch':
         twitchId = validVideoId['id']
         youtubeId = None
@@ -171,11 +194,12 @@ def storeRecord(record, validVideoId):
         youtubeId = validVideoId['id']
 
     conn = pymysql.connect(host=dbHost, user=dbUsername, passwd=dbPassword, db=dbName, charset='utf8mb4')
-    sql = "INSERT INTO `records` (`runId`, `gameId`, `categoryId`, `primaryTime`, `youtubeId`, `twitchId`, `levelId`) VALUES(%s, %s, %s, %s, %s, %s, %s)"
+    sql = "INSERT INTO `records` (`runId`, `gameId`, `categoryId`, `primaryTime`, `youtubeId`, `twitchId`, `levelId`, `platformId`, `regionId`, `date`) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
     cursor = conn.cursor()
-    cursor.execute(sql, (recordId, gameId, categoryId, primaryTime, youtubeId, twitchId, levelId))
+    cursor.execute(sql, (recordId, gameId, categoryId, primaryTime, youtubeId, twitchId, levelId, platform, region, date_obj))
     conn.commit()
     conn.close()
+
 
 start = time.time()
 
@@ -186,10 +210,8 @@ rate_limit = RatedSemaphore(99, 60)
 
 for index, game in enumerate(allGames):
     with rate_limit:
-        print('Elapsed Time: ', math.floor(time.time()-start), 's  #', index)
-        StoreAllGameRecords(game)
-
-
+        print('Elapsed Time: ', math.floor(time.time()-start), 's  #', index, game['id'])
+        GetRecords(game, 0)
 
 print('it took ', time.time()-start, ' seconds')
 

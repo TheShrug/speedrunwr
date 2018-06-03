@@ -20,9 +20,11 @@ class CreateRecordsTable extends Migration
             $table->string('categoryId')->nullable();
 	        $table->string('levelId')->nullable();
 	        $table->string('userId')->nullable();
+	        $table->string('platformId')->nullable();
+	        $table->string('regionId')->nullable();
 	        $table->integer('competition')->default(0);
 	        $table->float('primaryTime',12,3)->nullable();
-	        $table->date('date')->nullable();
+	        $table->dateTime('date')->nullable();
 	        $table->string('youtubeId')->nullable();
 	        $table->string('twitchId')->nullable();
             $table->timestamps();

@@ -13,6 +13,7 @@ class ApiController extends Controller
 
     public function newRun() {
     	$records = Record::all();
+    	//$records = Record::where('levelId', null)->get();
     	$record = $records->random();
 
 		if($this->verifiedRecord($record)){
