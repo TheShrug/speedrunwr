@@ -97,7 +97,7 @@
         },
         methods: {
             getNewRun() {
-
+                var $this = this
                 var store = this.$store
 
                 axios.get('/api/getNewRun', {
@@ -114,7 +114,7 @@
                 .then(function(response) {
                     if(response.data.record)
                         store.commit('setRun', response.data.record)
-                    console.log(response)
+                        store.dispatch('getFullRunData', response.data.record.runId)
                 })
                 .catch(function(response) {
 

@@ -30,13 +30,16 @@ Vue.use(VueTwitchPlayer)
 const store = new Vuex.Store({
     state: {
         activeRun: {},
-        runHistory: [],
-        count:'2'
+        activeRunData: null,
+        runHistory: []
     },
     mutations: {
         setRun(state, payload) {
-            console.log('payload')
+
+            var $this = this
             state.activeRun = payload
+
+
            // state.runHistory.push(payload)
         },
         setGameCount(state, payload) {
@@ -44,6 +47,24 @@ const store = new Vuex.Store({
         },
         increment(state) {
             state.count++
+        },
+        setRunData(state, payload) {
+            state.activeRunData = payload
+        }
+    },
+    actions: {
+        getFullRunData(state, payload) {
+            Axios.get('https://www.speedrun.com/api/v1/runs/' + payload, {
+                params: {
+                    embed:'game,category,players'
+                }
+            })
+            .then(function(response) {
+                state.commit('setRunData', response.data.data)
+            })
+            .catch(function(response) {
+
+            })
         }
     }
 });
@@ -51,6 +72,7 @@ const store = new Vuex.Store({
 Vue.component('player', require('./components/Player.vue'));
 Vue.component('sidebar', require('./components/Sidebar.vue'));
 Vue.component('new-run', require('./components/NewRun.vue'));
+Vue.component('run-data', require('./components/RunData.vue'));
 Vue.component('twitch-player', VueTwitchPlayer);
 
 

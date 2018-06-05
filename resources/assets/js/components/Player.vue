@@ -2,6 +2,7 @@
     <div class="col-md-10">
         <youtube v-if="youtubeId" :video-id="youtubeId"></youtube>
         <twitch-player v-if="twitchId" :video="twitchId"></twitch-player>
+        <run-data v-bind:run="runData" v-if="runData"></run-data>
     </div>
 </template>
 
@@ -25,6 +26,9 @@
             },
             twitchId() {
                 return this.$store.state.activeRun.twitchId
+            },
+            runData() {
+                return this.$store.state.activeRunData
             }
         }
     }

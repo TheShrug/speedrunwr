@@ -4747,13 +4747,15 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_5_vue_
 var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
     state: {
         activeRun: {},
-        runHistory: [],
-        count: '2'
+        activeRunData: null,
+        runHistory: []
     },
     mutations: {
         setRun: function setRun(state, payload) {
-            console.log('payload');
+
+            var $this = this;
             state.activeRun = payload;
+
             // state.runHistory.push(payload)
         },
         setGameCount: function setGameCount(state, payload) {
@@ -4761,6 +4763,20 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
         },
         increment: function increment(state) {
             state.count++;
+        },
+        setRunData: function setRunData(state, payload) {
+            state.activeRunData = payload;
+        }
+    },
+    actions: {
+        getFullRunData: function getFullRunData(state, payload) {
+            __WEBPACK_IMPORTED_MODULE_2_axios___default.a.get('https://www.speedrun.com/api/v1/runs/' + payload, {
+                params: {
+                    embed: 'game,category,players'
+                }
+            }).then(function (response) {
+                state.commit('setRunData', response.data.data);
+            }).catch(function (response) {});
         }
     }
 });
@@ -4768,6 +4784,7 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('player', __webpack_require__(364));
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('sidebar', __webpack_require__(367));
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('new-run', __webpack_require__(370));
+__WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('run-data', __webpack_require__(384));
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('twitch-player', __WEBPACK_IMPORTED_MODULE_5_vue_twitch_player___default.a);
 
 var app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
@@ -41143,6 +41160,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -41164,6 +41182,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         twitchId: function twitchId() {
             return this.$store.state.activeRun.twitchId;
+        },
+        runData: function runData() {
+            return this.$store.state.activeRunData;
         }
     }
 });
@@ -41186,7 +41207,9 @@ var render = function() {
       _vm._v(" "),
       _vm.twitchId
         ? _c("twitch-player", { attrs: { video: _vm.twitchId } })
-        : _vm._e()
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.runData ? _c("run-data", { attrs: { run: _vm.runData } }) : _vm._e()
     ],
     1
   )
@@ -41444,7 +41467,7 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 
     methods: {
         getNewRun: function getNewRun() {
-
+            var $this = this;
             var store = this.$store;
 
             __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('/api/getNewRun', {
@@ -41459,7 +41482,7 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
                 }
             }).then(function (response) {
                 if (response.data.record) store.commit('setRun', response.data.record);
-                console.log(response);
+                store.dispatch('getFullRunData', response.data.record.runId);
             }).catch(function (response) {});
         },
         formatDate: function formatDate(date) {
@@ -41754,6 +41777,123 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 374 */,
+/* 375 */,
+/* 376 */,
+/* 377 */,
+/* 378 */,
+/* 379 */,
+/* 380 */,
+/* 381 */,
+/* 382 */,
+/* 383 */,
+/* 384 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(93)
+/* script */
+var __vue_script__ = __webpack_require__(385)
+/* template */
+var __vue_template__ = __webpack_require__(386)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\RunData.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-2fa5352e", Component.options)
+  } else {
+    hotAPI.reload("data-v-2fa5352e", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 385 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    mounted: function mounted() {
+        console.log('Component mounted.');
+    },
+
+    props: ['run'],
+    methods: {},
+    computed: {}
+});
+
+/***/ }),
+/* 386 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _vm.run.category.data.name
+      ? _c("div", [_vm._v(_vm._s(_vm.run.category.data.name))])
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.run.game.data.names.international
+      ? _c("div", [_vm._v(_vm._s(_vm.run.game.data.names.international))])
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.run.players.data[0].names.international
+      ? _c("div", [
+          _vm._v("By " + _vm._s(_vm.run.players.data[0].names.international))
+        ])
+      : _vm._e()
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-2fa5352e", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);
