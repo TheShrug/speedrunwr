@@ -46,65 +46,50 @@ dbName = config.get('configuration', 'dbname')
 # Lets start parsing through API requests and making some inserts
 
 
-def GetGamesRecursive(offset):
-    gamesRequest = GetGames(offset)
-    if gamesRequest:
-        for game in gamesRequest['data']:
+def get_games_recursive(offset):
+    games_request = get_games(offset)
+    if games_request:
+        for game in games_request['data']:
             allGames.append(game)
-        if gamesRequest['pagination']['size'] == 1000:
+        if games_request['pagination']['size'] == 1000:
             print(offset)
-            GetGamesRecursive(offset + 1000)
+            get_games_recursive(offset + 1000)
 
 
-
-
-# def StoreSingleGame(game):
-
-
-def GetGames(offset):
+def get_games(offset):
     url = 'https://www.speedrun.com/api/v1/games'
     params = dict(_bulk='yes', max=1000, offset=offset)
     request = requests.get(url, params)
     if request.status_code == 200:
-        parsedJson = json.loads(request.text)
-        return parsedJson
+        parsed_json = json.loads(request.text)
+        return parsed_json
     else:
         return False
 
-def GetRecords(game, offset):
+
+def get_records(game, offset):
     url = 'https://www.speedrun.com/api/v1/games/' + game['id'] + '/records'
     params = dict(top=1, embed='players', max=200, offset=offset)
     request = requests.get(url, params)
     if request.status_code == 200:
-        parsedJson = json.loads(request.text)
-        if parsedJson['pagination']['size'] == 200:
-            GetRecords(game, offset + parsedJson['pagination']['size'])
-        #print(parsedJson['pagination']['size'])
-
-        for record in parsedJson['data']:
-            valid = validVideoId(record)
+        parsed_json = json.loads(request.text)
+        if parsed_json['pagination']['size'] == 200:
+            get_records(game, offset + parsed_json['pagination']['size'])
+        for record in parsed_json['data']:
+            valid = valid_video_id(record)
             if valid:
-                storeRecord(record, valid)
-            #print(record)
+                store_record(record, valid)
 
-        return parsedJson['data']
+        return parsed_json['data']
     else:
         return None
 
-def StoreAllGames(allGamesClean):
-    conn = pymysql.connect(host=dbHost, user=dbUsername, passwd=dbPassword, db=dbName, charset='utf8mb4')
-    sql = "INSERT INTO `games` (`name`, `speedrunId`) VALUES(%s, %s)"
-    cursor = conn.cursor()
-    cursor.executemany(sql, allGamesClean)
-    conn.commit()
-    conn.close()
 
-def StoreAllGameRecords(game):
-    GetRecords(game, 0)
+def store_all_game_records(game):
+    get_records(game, 0)
 
 
-
-def validVideoId(record):
+def valid_video_id(record):
     #print('record: ', record)
     try:
         uri = record['runs'][0]['run']['videos']['links'][0]['uri']
@@ -141,7 +126,7 @@ def validVideoId(record):
         return False
 
 
-def storeRecord(record, validVideoId):
+def store_record(record, valid_video_id):
     #print('storing record', record)
     try:
         recordId = record['runs'][0]['run']['id']
@@ -173,7 +158,6 @@ def storeRecord(record, validVideoId):
     except:
         levelId = None
 
-
     try:
         if record['runs'][0]['run']['date'] is not None:
             date = record['runs'][0]['run']['date']
@@ -181,17 +165,19 @@ def storeRecord(record, validVideoId):
         elif record['runs'][0]['run']['submitted'] is not None:
             date = record['runs'][0]['run']['submitted']
             date_obj = datetime.strptime(date, '%Y-%m-%dT%H:%M:%SZ')
+        else:
+            date_obj = None
 
     except Exception as error:
         print(repr(error))
         date_obj = None
 
-    if validVideoId['site'] == 'twitch':
-        twitchId = validVideoId['id']
+    if valid_video_id['site'] == 'twitch':
+        twitchId = valid_video_id['id']
         youtubeId = None
     else:
         twitchId = None
-        youtubeId = validVideoId['id']
+        youtubeId = valid_video_id['id']
 
     conn = pymysql.connect(host=dbHost, user=dbUsername, passwd=dbPassword, db=dbName, charset='utf8mb4')
     sql = "INSERT INTO `records` (`runId`, `gameId`, `categoryId`, `primaryTime`, `youtubeId`, `twitchId`, `levelId`, `platformId`, `regionId`, `date`) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
@@ -204,18 +190,16 @@ def storeRecord(record, validVideoId):
 start = time.time()
 
 allGames = []
-GetGamesRecursive(0)
+get_games_recursive(0)
 
 rate_limit = RatedSemaphore(99, 60)
 
 for index, game in enumerate(allGames):
     with rate_limit:
         print('Elapsed Time: ', math.floor(time.time()-start), 's  #', index, game['id'])
-        GetRecords(game, 0)
+        get_records(game, 0)
 
 print('it took ', time.time()-start, ' seconds')
-
-print(allGames[0]['id'])
 
 
 
