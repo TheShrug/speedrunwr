@@ -7,22 +7,67 @@ use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Client;
 use App\Game;
 use App\Record;
+use Mockery\Exception;
 
 class ApiController extends Controller
 {
 
-    public function newRun() {
-    	$records = Record::all();
+    public function newRun(Request $request) {
+
+	    $videoType      = $request->query('videoType');
+	    $includeLevels  = $request->query('includeLevels');
+        $beforeDate     = $request->query('beforeDate');
+        $afterDate      = $request->query('afterDate');
+        $minRunLength   = $request->query('minRunLength');
+        $maxRunLength   = $request->query('maxRunLength');
+
+	    $recordsQuery = Record::query();
+	    if($videoType == 1) {
+		    $recordsQuery->whereNotNull('twitchId');
+	    } else if($videoType == 2) {
+		    $recordsQuery->whereNotNull('youtubeId');
+	    }
+
+	    if($includeLevels == 'false') {
+	    	$recordsQuery->whereNull('levelId');
+	    }
+
+	    if($beforeDate) {
+	    	$beforeDateFormatted = date('Y-m-d H:i:s', strtotime($beforeDate));
+	    	$recordsQuery->where('date', '<', $beforeDateFormatted);
+	    }
+	    if($afterDate) {
+		    $afterDateFormatted = date('Y-m-d H:i:s', strtotime($afterDate));
+		    $recordsQuery->where('date', '>', $afterDateFormatted);
+	    }
+
+	    if($minRunLength) {
+	    	$recordsQuery->where('primaryTime', '>=', $minRunLength * 60);
+	    }
+	    if($maxRunLength) {
+	    	$recordsQuery->where('primaryTime', '<=', $maxRunLength * 60);
+	    }
+
+	    $recordQuery = $recordsQuery->toSql();
+
+		$records = $recordsQuery->get();
+
+
+
     	//$records = Record::where('levelId', null)->get();
     	$record = $records->random();
 
+
+
 		if($this->verifiedRecord($record)){
-			return ['record' => $record];
+			return ['record' => $record, 'query' => $recordQuery];
 		} else {
-			newRun();
+			$this->newRun($request);
 		}
 
     }
+
+
 
     public function verifiedRecord($record) {
     	$gameId = $record['gameId'];
@@ -53,7 +98,5 @@ class ApiController extends Controller
 	    } else {
 	    	return false;
 	    }
-
     }
-
 }

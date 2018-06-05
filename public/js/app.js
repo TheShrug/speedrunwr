@@ -41344,7 +41344,7 @@ module.exports = Component.exports
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(95);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
 //
 //
@@ -41355,41 +41355,90 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
-
-function getRecords(game) {
-    var gameId = game.id;
-    return __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('https://www.speedrun.com/api/v1/games/' + gameId + '/records', {
-        params: _defineProperty({
-            'skip-empty': true,
-            'top': 1,
-            'scope': 'full-game'
-        }, 'skip-empty', true)
-    }).then(function (response) {
-        var randomCategory = Math.floor(Math.random() * response.data.length);
-        return response.data;
-    });
-}
-
-function getRun(id) {
-    return __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('https://www.speedrun.com/api/v1/runs/' + id, {
-        params: {
-            'embed': 'players,category'
-        }
-    }).then(function (response) {
-        return response.data;
-    });
-}
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    mounted: function mounted() {
-        console.log('Component mounted.');
-    },
+    mounted: function mounted() {},
     data: function data() {
         return {
             autoPlay: false,
-            active: false
+            videoType: '0',
+            beforeDate: null,
+            afterDate: null,
+            dateFormatted: null,
+            dateMenu1: false,
+            dateMenu2: false,
+            minRunLength: null,
+            maxRunLength: null,
+            includeLevels: 0
         };
     },
 
@@ -41399,15 +41448,42 @@ function getRun(id) {
             var store = this.$store;
 
             __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('/api/getNewRun', {
-                params: {}
+                params: {
+                    videoType: this.videoType,
+                    includeLevels: this.includeLevels,
+                    beforeDate: this.beforeDate,
+                    afterDate: this.afterDate,
+                    minRunLength: this.minRunLength,
+                    maxRunLength: this.maxRunLength
+
+                }
             }).then(function (response) {
-                store.commit('setRun', response.data.record);
+                if (response.data.record) store.commit('setRun', response.data.record);
+                console.log(response);
             }).catch(function (response) {});
+        },
+        formatDate: function formatDate(date) {
+            if (!date) return null;
+
+            var _date$split = date.split('-'),
+                _date$split2 = _slicedToArray(_date$split, 3),
+                year = _date$split2[0],
+                month = _date$split2[1],
+                day = _date$split2[2];
+
+            return month + '/' + day + '/' + year;
+        },
+        clear: function clear() {
+            this.$refs.form.reset();
+            this.videoType = '0';
         }
     },
     computed: {
         gameCount: function gameCount() {
             return store.state.count;
+        },
+        computedDateFormatted: function computedDateFormatted() {
+            return this.formatDate(this.date);
         }
     }
 });
@@ -41422,13 +41498,13 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "v-form",
-    { attrs: { id: "NewRun" } },
+    { ref: "form", attrs: { id: "NewRun" } },
     [
       _c("v-btn", { attrs: { block: "" }, on: { click: _vm.getNewRun } }, [
         _vm._v("\n        New Run\n    ")
       ]),
       _vm._v(" "),
-      _c("v-checkbox", {
+      _c("v-switch", {
         attrs: { label: "Autoplay" },
         model: {
           value: _vm.autoPlay,
@@ -41437,7 +41513,228 @@ var render = function() {
           },
           expression: "autoPlay"
         }
-      })
+      }),
+      _vm._v(" "),
+      _c("v-switch", {
+        attrs: { label: "Include Levels" },
+        model: {
+          value: _vm.includeLevels,
+          callback: function($$v) {
+            _vm.includeLevels = $$v
+          },
+          expression: "includeLevels"
+        }
+      }),
+      _vm._v(" "),
+      _c(
+        "v-radio-group",
+        {
+          attrs: { label: "Video Type", row: "", default: "0" },
+          model: {
+            value: _vm.videoType,
+            callback: function($$v) {
+              _vm.videoType = $$v
+            },
+            expression: "videoType"
+          }
+        },
+        [
+          _c("v-radio", { attrs: { label: "All", value: "0" } }),
+          _vm._v(" "),
+          _c("v-radio", { attrs: { label: "Twitch", value: "1" } }),
+          _vm._v(" "),
+          _c("v-radio", { attrs: { label: "Youtube", value: "2" } })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-layout",
+        { attrs: { row: "", wrap: "" } },
+        [
+          _c(
+            "v-flex",
+            { attrs: { xs6: "" } },
+            [
+              _c("v-text-field", {
+                attrs: {
+                  type: "number",
+                  label: "Min Length",
+                  hint: "In Minutes"
+                },
+                model: {
+                  value: _vm.minRunLength,
+                  callback: function($$v) {
+                    _vm.minRunLength = $$v
+                  },
+                  expression: "minRunLength"
+                }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-flex",
+            { attrs: { xs6: "" } },
+            [
+              _c("v-text-field", {
+                attrs: {
+                  type: "number",
+                  label: "Max Length",
+                  hint: "In Minutes"
+                },
+                model: {
+                  value: _vm.maxRunLength,
+                  callback: function($$v) {
+                    _vm.maxRunLength = $$v
+                  },
+                  expression: "maxRunLength"
+                }
+              })
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-layout",
+        { attrs: { row: "", wrap: "" } },
+        [
+          _c(
+            "v-flex",
+            { attrs: { xs6: "" } },
+            [
+              _c(
+                "v-menu",
+                {
+                  attrs: {
+                    "close-on-content-click": false,
+                    "nudge-right": 40,
+                    lazy: "",
+                    transition: "scale-transition",
+                    "offset-y": "",
+                    "full-width": "",
+                    "max-width": "290px",
+                    "min-width": "290px"
+                  },
+                  model: {
+                    value: _vm.dateMenu2,
+                    callback: function($$v) {
+                      _vm.dateMenu2 = $$v
+                    },
+                    expression: "dateMenu2"
+                  }
+                },
+                [
+                  _c("v-text-field", {
+                    attrs: {
+                      slot: "activator",
+                      label: "Runs After",
+                      readonly: ""
+                    },
+                    slot: "activator",
+                    model: {
+                      value: _vm.afterDate,
+                      callback: function($$v) {
+                        _vm.afterDate = $$v
+                      },
+                      expression: "afterDate"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("v-date-picker", {
+                    attrs: { "no-title": "" },
+                    on: {
+                      input: function($event) {
+                        _vm.dateMenu2 = false
+                      }
+                    },
+                    model: {
+                      value: _vm.afterDate,
+                      callback: function($$v) {
+                        _vm.afterDate = $$v
+                      },
+                      expression: "afterDate"
+                    }
+                  })
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-flex",
+            { attrs: { xs6: "" } },
+            [
+              _c(
+                "v-menu",
+                {
+                  attrs: {
+                    "close-on-content-click": false,
+                    "nudge-right": 40,
+                    lazy: "",
+                    transition: "scale-transition",
+                    "offset-y": "",
+                    "full-width": "",
+                    "max-width": "290px",
+                    "min-width": "290px"
+                  },
+                  model: {
+                    value: _vm.dateMenu1,
+                    callback: function($$v) {
+                      _vm.dateMenu1 = $$v
+                    },
+                    expression: "dateMenu1"
+                  }
+                },
+                [
+                  _c("v-text-field", {
+                    attrs: {
+                      slot: "activator",
+                      label: "Runs Before",
+                      readonly: ""
+                    },
+                    slot: "activator",
+                    model: {
+                      value: _vm.beforeDate,
+                      callback: function($$v) {
+                        _vm.beforeDate = $$v
+                      },
+                      expression: "beforeDate"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("v-date-picker", {
+                    attrs: { "no-title": "" },
+                    on: {
+                      input: function($event) {
+                        _vm.dateMenu1 = false
+                      }
+                    },
+                    model: {
+                      value: _vm.beforeDate,
+                      callback: function($$v) {
+                        _vm.beforeDate = $$v
+                      },
+                      expression: "beforeDate"
+                    }
+                  })
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("v-btn", { on: { click: _vm.clear } }, [_vm._v("clear")])
     ],
     1
   )

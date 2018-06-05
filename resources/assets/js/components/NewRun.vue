@@ -1,13 +1,17 @@
 <template>
-    <v-form id="NewRun">
+    <v-form ref="form" id="NewRun">
         <v-btn @click="getNewRun" block>
             New Run
         </v-btn>
         <v-switch
-            :label="`Autoplay ${autoPlayLabel}`"
+            :label="`Autoplay`"
             v-model="autoPlay"
         ></v-switch>
-        <v-radio-group :label="'Video Type'" v-model="videoType" row >
+        <v-switch
+                :label="'Include Levels'"
+                v-model="includeLevels"
+        ></v-switch>
+        <v-radio-group :label="'Video Type'" v-model="videoType" row default="0">
             <v-radio label="All" value="0"></v-radio>
             <v-radio label="Twitch" value="1"></v-radio>
             <v-radio label="Youtube" value="2"></v-radio>
@@ -64,7 +68,9 @@
                     <v-date-picker v-model="beforeDate" no-title @input="dateMenu1 = false"></v-date-picker>
                 </v-menu>
             </v-flex>
+
         </v-layout>
+        <v-btn @click="clear">clear</v-btn>
     </v-form>
 </template>
 
@@ -85,7 +91,8 @@
                 dateMenu1: false,
                 dateMenu2: false,
                 minRunLength: null,
-                maxRunLength: null
+                maxRunLength: null,
+                includeLevels: 0
             }
         },
         methods: {
@@ -95,11 +102,19 @@
 
                 axios.get('/api/getNewRun', {
                     params: {
+                        videoType: this.videoType,
+                        includeLevels: this.includeLevels,
+                        beforeDate: this.beforeDate,
+                        afterDate: this.afterDate,
+                        minRunLength: this.minRunLength,
+                        maxRunLength: this.maxRunLength
 
                     }
                 })
                 .then(function(response) {
-                    store.commit('setRun', response.data.record)
+                    if(response.data.record)
+                        store.commit('setRun', response.data.record)
+                    console.log(response)
                 })
                 .catch(function(response) {
 
@@ -109,6 +124,10 @@
                 if (!date) return null
                 const [year, month, day] = date.split('-')
                 return `${month}/${day}/${year}`
+            },
+            clear() {
+                this.$refs.form.reset()
+                this.videoType = '0'
             }
         },
         computed: {
@@ -117,9 +136,6 @@
             },
             computedDateFormatted () {
                 return this.formatDate(this.date)
-            },
-            autoPlayLabel() {
-                return (this.autoPlay === true) ? 'On' : 'Off';
             }
         }
     }
