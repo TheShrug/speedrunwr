@@ -21,9 +21,12 @@
                     <v-flex md3 xs12 pr-2>
                         <sidebar></sidebar>
                     </v-flex>
-                    <v-flex md8 xs12 pl-2>
-                        <player></player>
+                    <v-flex md9 xs12 pl-2>
+                        <player xs4></player>
                     </v-flex>
+
+
+
                 </v-layout>
             </v-container>
         </v-app>

@@ -1,8 +1,11 @@
 <template>
-    <div class="col-md-10">
-        <youtube v-if="youtubeId" :video-id="youtubeId"></youtube>
-        <twitch-player v-if="twitchId" :video="twitchId"></twitch-player>
+    <div>
+        <div class="player-container">
+            <youtube v-if="youtubeId" :video-id="youtubeId" class="youtube"></youtube>
+            <twitch-player v-if="twitchId" :video="twitchId" class="twitch"></twitch-player>
+        </div>
         <run-data v-bind:run="runData" v-if="runData"></run-data>
+        <div class="test">testing</div>
     </div>
 </template>
 
@@ -33,3 +36,8 @@
         }
     }
 </script>
+
+<style>
+    .player-container > * { position: relative; overflow: hidden; padding-top: 56.25%;}
+    .player-container iframe {position: absolute;top: 0;left: 0;width: 100%;height: 100%;border: 0;}
+</style>

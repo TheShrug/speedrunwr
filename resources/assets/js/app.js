@@ -35,18 +35,10 @@ const store = new Vuex.Store({
     },
     mutations: {
         setRun(state, payload) {
-
-            var $this = this
             state.activeRun = payload
-
-
-           // state.runHistory.push(payload)
         },
         setGameCount(state, payload) {
             state.count = payload
-        },
-        increment(state) {
-            state.count++
         },
         setRunData(state, payload) {
             state.activeRunData = payload

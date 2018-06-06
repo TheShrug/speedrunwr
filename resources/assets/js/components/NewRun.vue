@@ -117,7 +117,7 @@
                         store.dispatch('getFullRunData', response.data.record.runId)
                 })
                 .catch(function(response) {
-
+                    // TODO: do something on error
                 })
             },
             formatDate (date) {
