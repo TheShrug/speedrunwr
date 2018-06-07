@@ -92,7 +92,7 @@
                 dateMenu2: false,
                 minRunLength: null,
                 maxRunLength: null,
-                includeLevels: 0
+                includeLevels: false
             }
         },
         methods: {
