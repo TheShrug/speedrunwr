@@ -1,9 +1,23 @@
 <template>
     <div>
-        <div v-if="run.game.data.names.international">{{run.game.data.names.international}}</div>
-        <div v-if="run.category.data.name">{{run.category.data.name}}</div>
-        <div v-if="run.times.primary_t">{{runTime}}</div>
-        <div v-if="run.players.data[0].names.international">By {{run.players.data[0].names.international}}</div>
+        <v-layout row wrap class="run-details">
+            <v-flex xs2 class="text-xs-center run-detail">
+                <button class="fill-height"><i class="fa fa-thumbs-up"></i> Like</button>
+            </v-flex>
+            <v-flex xs4 class="run-detail">
+                <div v-if="runGameName"><a :href="runGameLink">{{runGameName}}</a></div>
+                <div v-if="runCategoryName">{{runCategoryName}}</div>
+            </v-flex>
+            <v-flex xs4 class="run-detail">
+                <div v-if="runTime">{{runTime}}</div>
+                <div v-if="runPlayerName">
+                    By <a :href="runPlayerLink" target="_blank">{{runPlayerName}}</a>
+                    <span v-if="runPlayerTwitch"><a :href="runPlayerTwitch"><i class="fab fa-twitch"></i></a></span>
+                    <span v-if="runPlayerYoutube"><a :href="runPlayerYoutube"><i class="fab fa-youtube"></i></a></span>
+                </div>
+            </v-flex>
+        </v-layout>
+
     </div>
 </template>
 
@@ -12,21 +26,80 @@
     var momentDurationFormatSetup = require('moment-duration-format')
     export default {
         mounted() {
-            console.log('Component mounted.')
+
+        },
+        data() {
+            return {
+
+            }
         },
         props: {
             run: Object
         },
         methods: {
-            HumanizedTime(seconds) {
-                return 'test'
-            }
+
         },
         computed: {
             runTime() {
-                var time = moment.duration(this.run.times.primary_t, "seconds").format('d[d] h[hr] m[m] s.S[s]')
-                return  time
+                return (this.run.times.primary_t)
+                    ? moment.duration(this.run.times.primary_t, "seconds").format('d[d] h[hr] m[m] s.S[s]')
+                    : ''
+            },
+            runGameName() {
+                return (this.run.game.data.names.international)
+                    ? this.run.game.data.names.international
+                    : ''
+            },
+            runGameLink() {
+                return (this.run.game.data.weblink)
+                    ? this.run.game.data.weblink
+                    : ''
+            },
+            runCategoryName() {
+                return (this.run.category.data.name)
+                    ? this.run.category.data.name
+                    : ''
+            },
+            runCategoryLink() {
+                return (this.run.category.data.weblink)
+                    ? this.run.category.data.weblink
+                    : ''
+            },
+            runPlayerName() {
+                if(this.run.players.data[0].rel == 'guest'){
+                    return this.run.players.data['0'].name
+                } else if(this.run.players.data[0].names.international) {
+                    return this.run.players.data[0].names.international
+                } else {
+                    return ''
+                }
+            },
+            runPlayerLink() {
+                return (this.run.players.data[0].weblink)
+                    ? this.run.players.data[0].weblink
+                    : ''
+            },
+            runPlayerTwitch() {
+                return (this.run.players.data[0].twitch)
+                    ? this.run.players.data[0].twitch.uri
+                    : ''
+            },
+            runPlayerYoutube() {
+                return (this.run.players.data[0].youtube)
+                    ? this.run.players.data[0].youtube.uri
+                    : ''
             }
         }
     }
 </script>
+<style scoped>
+    .run-details {
+        background:#222C32;
+    }
+    .run-details .run-detail {
+        padding: 5px;
+    }
+    button {
+        width: 100%;
+    }
+</style>

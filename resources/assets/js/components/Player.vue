@@ -5,7 +5,6 @@
             <twitch-player v-if="twitchId" :video="twitchId" class="twitch"></twitch-player>
         </div>
         <run-data v-bind:run="runData" v-if="runData"></run-data>
-        <div class="test">testing</div>
     </div>
 </template>
 
@@ -16,9 +15,7 @@
             console.log('Component mounted.')
         },
         methods: {
-          changeVideo() {
-                  this.youtubeId = 'ARtSqjel6Ho'
-          }
+
         },
         computed: {
             run() {
