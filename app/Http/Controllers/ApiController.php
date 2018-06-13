@@ -98,33 +98,39 @@ class ApiController extends Controller
 
 
     public function verifiedRecord($record) {
-    	$gameId = $record['gameId'];
-    	$categoryId = $record['categoryId'];
-    	$runId = $record['runId'];
-    	$levelId = $record['levelId'];
+    	try {
+		    $gameId = $record['gameId'];
+		    $categoryId = $record['categoryId'];
+		    $runId = $record['runId'];
+		    $levelId = $record['levelId'];
 
-    	if($levelId) {
-		    $client = new Client();
-		    $result = $client->request('GET','https://www.speedrun.com/api/v1/leaderboards/' . $gameId . '/level/' . $levelId . '/' . $categoryId, [
-			    'query'  => [
-				    'top' => 1,
-			    ]
-		    ]);
-	    } else {
-		    $client = new Client();
-		    $result = $client->request('GET','https://www.speedrun.com/api/v1/leaderboards/' . $gameId . '/category/' . $categoryId, [
-			    'query'  => [
-				    'top' => 1,
-			    ]
-		    ]);
+		    if($levelId) {
+			    $client = new Client();
+			    $result = $client->request('GET','https://www.speedrun.com/api/v1/leaderboards/' . $gameId . '/level/' . $levelId . '/' . $categoryId, [
+				    'query'  => [
+					    'top' => 1,
+				    ]
+			    ]);
+		    } else {
+			    $client = new Client();
+			    $result = $client->request('GET','https://www.speedrun.com/api/v1/leaderboards/' . $gameId . '/category/' . $categoryId, [
+				    'query'  => [
+					    'top' => 1,
+				    ]
+			    ]);
+		    }
+
+		    $jsonResult = json_decode($result->getBody());
+
+		    if($jsonResult->data->runs[0]->run->id == $runId){
+			    return true;
+		    } else {
+			    return false;
+		    }
+	    } catch(Exception $e) {
+    		return false;
 	    }
 
-	    $jsonResult = json_decode($result->getBody());
 
-	    if($jsonResult->data->runs[0]->run->id == $runId){
-	    	return true;
-	    } else {
-	    	return false;
-	    }
     }
 }
