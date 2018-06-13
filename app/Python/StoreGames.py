@@ -69,7 +69,7 @@ def get_games(offset):
 
 def get_records(game, offset):
     url = 'https://www.speedrun.com/api/v1/games/' + game['id'] + '/records'
-    params = dict(top=1, embed='players', max=200, offset=offset)
+    params = dict(top=2000, embed='players', max=200, offset=offset)
     request = requests.get(url, params)
     if request.status_code == 200:
         parsed_json = json.loads(request.text)
@@ -127,7 +127,6 @@ def valid_video_id(record):
 
 
 def store_record(record, valid_video_id):
-    #print('storing record', record)
     try:
         recordId = record['runs'][0]['run']['id']
     except:
@@ -152,6 +151,10 @@ def store_record(record, valid_video_id):
         primaryTime = record['runs'][0]['run']['times']['primary_t']
     except:
         primaryTime = None
+    try:
+        competition = len(record['players']['data'])
+    except:
+        competition = 0
 
     try:
         levelId = record['level']
@@ -180,9 +183,9 @@ def store_record(record, valid_video_id):
         youtubeId = valid_video_id['id']
 
     conn = pymysql.connect(host=dbHost, user=dbUsername, passwd=dbPassword, db=dbName, charset='utf8mb4')
-    sql = "INSERT INTO `records` (`runId`, `gameId`, `categoryId`, `primaryTime`, `youtubeId`, `twitchId`, `levelId`, `platformId`, `regionId`, `date`) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+    sql = "INSERT INTO `records` (`runId`, `gameId`, `categoryId`, `primaryTime`, `youtubeId`, `twitchId`, `levelId`, `platformId`, `regionId`, `date`, `competition`) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
     cursor = conn.cursor()
-    cursor.execute(sql, (recordId, gameId, categoryId, primaryTime, youtubeId, twitchId, levelId, platform, region, date_obj))
+    cursor.execute(sql, (recordId, gameId, categoryId, primaryTime, youtubeId, twitchId, levelId, platform, region, date_obj, competition))
     conn.commit()
     conn.close()
 
