@@ -14,24 +14,6 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-    <div id="app">
-        <v-app dark>
-            <v-container fluid>
-                <v-layout row wrap>
-                    <v-flex md3 xs12 pr-2>
-                        <sidebar></sidebar>
-                    </v-flex>
-                    <v-flex md9 xs12 pl-2>
-                        <player xs4></player>
-                    </v-flex>
-
-
-
-                </v-layout>
-            </v-container>
-        </v-app>
-    </div>
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
+    @yield('content')
 </body>
 </html>

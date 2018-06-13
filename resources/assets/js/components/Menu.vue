@@ -1,5 +1,6 @@
 <template>
-    <div>
+    <div class="sidebar-container">
+        <h1>Speedrunwr.com</h1>
         <new-run></new-run>
     </div>
 </template>
@@ -14,3 +15,6 @@
         }
     }
 </script>
+<style scoped>
+    .sidebar-container { height:100%;}
+</style>

@@ -57,7 +57,7 @@ const store = new Vuex.Store({
 });
 
 Vue.component('player', require('./components/Player.vue'));
-Vue.component('sidebar', require('./components/Sidebar.vue'));
+Vue.component('app-menu', require('./components/Menu.vue'));
 Vue.component('new-run', require('./components/NewRun.vue'));
 Vue.component('run-data', require('./components/RunData.vue'));
 Vue.component('twitch-player', VueTwitchPlayer);

@@ -1,77 +1,106 @@
 <template>
     <v-form ref="form" id="NewRun">
-        <v-btn @click="getNewRun" block>
-            New Run
-        </v-btn>
-        <v-switch
-            :label="`Autoplay`"
-            v-model="autoPlay"
-        ></v-switch>
-        <v-switch
-                :label="'Include Levels'"
-                v-model="includeLevels"
-        ></v-switch>
-        <v-radio-group :label="'Video Type'" v-model="videoType" row default="0">
-            <v-radio label="All" value="0"></v-radio>
-            <v-radio label="Twitch" value="1"></v-radio>
-            <v-radio label="Youtube" value="2"></v-radio>
-        </v-radio-group>
-        <v-checkbox label="Filter by Competition" v-model="competitionEnabled"></v-checkbox>
-        <v-slider v-if="competitionEnabled" v-model="competition" max="3" step="1" prepend-icon="ac_unit" append-icon="whatshot" ticks :hide-details="true"></v-slider>
-        <v-layout row wrap>
-            <v-flex xs6>
-                <v-text-field type="number" label="Min Length" v-model="minRunLength" hint="In Minutes"></v-text-field>
+        <v-layout flex row>
+            <v-flex xs8>
+                <v-btn @click="getNewRun" block>
+                    New Run
+                </v-btn>
             </v-flex>
-            <v-flex xs6>
-                <v-text-field type="number" label="Max Length" v-model="maxRunLength" hint="In Minutes"></v-text-field>
-            </v-flex>
-        </v-layout>
-        <v-layout row wrap>
-            <v-flex xs6>
-                <v-menu
-                    :close-on-content-click="false"
-                    v-model="dateMenu2"
-                    :nudge-right="40"
-                    lazy
-                    transition="scale-transition"
-                    offset-y
-                    full-width
-                    max-width="290px"
-                    min-width="290px"
-                >
-                    <v-text-field
-                        slot="activator"
-                        v-model="afterDate"
-                        label="Runs After"
-                        readonly
-                    ></v-text-field>
-                    <v-date-picker v-model="afterDate" no-title @input="dateMenu2 = false"></v-date-picker>
-                </v-menu>
-            </v-flex>
-            <v-flex xs6>
+            <v-flex xs4>
                 <v-menu
                         :close-on-content-click="false"
-                        v-model="dateMenu1"
-                        :nudge-right="40"
+                        v-model="mainMenu"
+                        :nudge-right="0"
                         lazy
                         transition="scale-transition"
                         offset-y
                         full-width
-                        max-width="290px"
+                        max-width="100%"
                         min-width="290px"
+                        content-class="blue-grey darken-4 pa-4"
                 >
-                    <v-text-field
-                            slot="activator"
-                            v-model="beforeDate"
-                            label="Runs Before"
-                            readonly
-                    ></v-text-field>
-                    <v-date-picker v-model="beforeDate" no-title @input="dateMenu1 = false"></v-date-picker>
-                </v-menu>
-            </v-flex>
 
+                    <v-switch
+                            :label="'Include Levels'"
+                            v-model="includeLevels"
+                    ></v-switch>
+                    <v-radio-group :label="'Video Type'" v-model="videoType" row default="0">
+                        <v-radio label="All" value="0"></v-radio>
+                        <v-radio label="Twitch" value="1"></v-radio>
+                        <v-radio label="Youtube" value="2"></v-radio>
+                    </v-radio-group>
+                    <v-checkbox label="Filter by Competition" v-model="competitionEnabled"></v-checkbox>
+                    <v-slider v-if="competitionEnabled" v-model="competition" max="3" step="1" prepend-icon="ac_unit" append-icon="whatshot" ticks :hide-details="true"></v-slider>
+                    <v-layout row wrap>
+                        <v-flex xs6>
+                            <v-text-field type="number" label="Min Length" v-model="minRunLength" hint="In Minutes"></v-text-field>
+                        </v-flex>
+                        <v-flex xs6>
+                            <v-text-field type="number" label="Max Length" v-model="maxRunLength" hint="In Minutes"></v-text-field>
+                        </v-flex>
+                    </v-layout>
+                    <v-layout row wrap>
+                        <v-flex xs6>
+                            <v-menu
+                                    :close-on-content-click="false"
+                                    v-model="dateMenu2"
+                                    :nudge-right="40"
+                                    lazy
+                                    transition="scale-transition"
+                                    offset-y
+                                    full-width
+                                    max-width="290px"
+                                    min-width="290px"
+                            >
+                                <v-text-field
+                                        slot="activator"
+                                        v-model="afterDate"
+                                        label="Runs After"
+                                        readonly
+                                ></v-text-field>
+                                <v-date-picker v-model="afterDate" no-title @input="dateMenu2 = false"></v-date-picker>
+                            </v-menu>
+                        </v-flex>
+                        <v-flex xs6>
+                            <v-menu
+                                    :close-on-content-click="false"
+                                    v-model="dateMenu1"
+                                    :nudge-right="40"
+                                    lazy
+                                    transition="scale-transition"
+                                    offset-y
+                                    full-width
+                                    max-width="290px"
+                                    min-width="290px"
+                            >
+                                <v-text-field
+                                        slot="activator"
+                                        v-model="beforeDate"
+                                        label="Runs Before"
+                                        readonly
+                                ></v-text-field>
+                                <v-date-picker v-model="beforeDate" no-title @input="dateMenu1 = false"></v-date-picker>
+                            </v-menu>
+                        </v-flex>
+
+                    </v-layout>
+                    <v-btn @click="clear">clear</v-btn>
+                    <v-btn @click="toggleMenu"
+                           slot="activator"
+                    ><v-icon>filter_list</v-icon></v-btn>
+                </v-menu>
+
+            </v-flex>
         </v-layout>
-        <v-btn @click="clear">clear</v-btn>
+        <v-switch
+                :label="`Autoplay`"
+                v-model="autoPlay"
+        ></v-switch>
+
+
+
+
+
     </v-form>
 </template>
 
@@ -95,7 +124,8 @@
                 maxRunLength: null,
                 includeLevels: false,
                 competition: 0,
-                competitionEnabled: 0
+                competitionEnabled: 0,
+                mainMenu: false
             }
         },
         methods: {
@@ -120,6 +150,13 @@
             clear() {
                 this.$refs.form.reset()
                 this.videoType = '0'
+            },
+            toggleMenu() {
+                if(this.mainMenu === false) {
+                    this.mainMenu = true
+                } else {
+                    this.mainMenu = false
+                }
             }
         },
         computed: {
@@ -147,6 +184,6 @@
         }
     }
 </script>
-<style scoped>
-
+<style>
+    .settings-menu { background: #000;}
 </style>
