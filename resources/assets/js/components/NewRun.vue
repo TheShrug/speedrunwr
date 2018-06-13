@@ -16,7 +16,8 @@
             <v-radio label="Twitch" value="1"></v-radio>
             <v-radio label="Youtube" value="2"></v-radio>
         </v-radio-group>
-
+        <v-checkbox label="Filter by Competition" v-model="competitionEnabled"></v-checkbox>
+        <v-slider v-if="competitionEnabled" v-model="competition" max="3" step="1" prepend-icon="ac_unit" append-icon="whatshot" ticks :hide-details="true"></v-slider>
         <v-layout row wrap>
             <v-flex xs6>
                 <v-text-field type="number" label="Min Length" v-model="minRunLength" hint="In Minutes"></v-text-field>
@@ -28,21 +29,21 @@
         <v-layout row wrap>
             <v-flex xs6>
                 <v-menu
-                        :close-on-content-click="false"
-                        v-model="dateMenu2"
-                        :nudge-right="40"
-                        lazy
-                        transition="scale-transition"
-                        offset-y
-                        full-width
-                        max-width="290px"
-                        min-width="290px"
+                    :close-on-content-click="false"
+                    v-model="dateMenu2"
+                    :nudge-right="40"
+                    lazy
+                    transition="scale-transition"
+                    offset-y
+                    full-width
+                    max-width="290px"
+                    min-width="290px"
                 >
                     <v-text-field
-                            slot="activator"
-                            v-model="afterDate"
-                            label="Runs After"
-                            readonly
+                        slot="activator"
+                        v-model="afterDate"
+                        label="Runs After"
+                        readonly
                     ></v-text-field>
                     <v-date-picker v-model="afterDate" no-title @input="dateMenu2 = false"></v-date-picker>
                 </v-menu>
@@ -92,13 +93,16 @@
                 dateMenu2: false,
                 minRunLength: null,
                 maxRunLength: null,
-                includeLevels: false
+                includeLevels: false,
+                competition: 0,
+                competitionEnabled: 0
             }
         },
         methods: {
             getNewRun() {
                 var $this = this
                 var store = this.$store
+
 
                 axios.get('/api/getNewRun', {
                     params: {
@@ -107,12 +111,14 @@
                         beforeDate: this.beforeDate,
                         afterDate: this.afterDate,
                         minRunLength: this.minRunLength,
-                        maxRunLength: this.maxRunLength
+                        maxRunLength: this.maxRunLength,
+                        runCompetition: this.hotness
 
                     }
                 })
                 .then(function(response) {
                     if(response.data.record)
+                        store.commit('clearRun')
                         store.commit('setRun', response.data.record)
                         store.dispatch('getFullRunData', response.data.record.runId)
                 })
@@ -136,7 +142,19 @@
             },
             computedDateFormatted () {
                 return this.formatDate(this.date)
+            },
+            hotness() {
+                if(!this.competitionEnabled)
+                    return null
+                return this.competition
             }
         }
     }
 </script>
+<style scoped>
+    .menu-slider {
+        background: #222C32;
+        padding-left: 16px;
+        padding-top: 0;
+    }
+</style>
