@@ -100,31 +100,17 @@
         },
         methods: {
             getNewRun() {
-                var $this = this
-                var store = this.$store
+                let params = {
+                    videoType: this.videoType,
+                    includeLevels: this.includeLevels,
+                    beforeDate: this.beforeDate,
+                    afterDate: this.afterDate,
+                    minRunLength: this.minRunLength,
+                    maxRunLength: this.maxRunLength,
+                    runCompetition: this.hotness
 
-
-                axios.get('/api/getNewRun', {
-                    params: {
-                        videoType: this.videoType,
-                        includeLevels: this.includeLevels,
-                        beforeDate: this.beforeDate,
-                        afterDate: this.afterDate,
-                        minRunLength: this.minRunLength,
-                        maxRunLength: this.maxRunLength,
-                        runCompetition: this.hotness
-
-                    }
-                })
-                .then(function(response) {
-                    if(response.data.record)
-                        store.commit('clearRun')
-                        store.commit('setRun', response.data.record)
-                        store.dispatch('getFullRunData', response.data.record.runId)
-                })
-                .catch(function(response) {
-                    // TODO: do something on error
-                })
+                };
+                this.$root.getNewRun(params);
             },
             formatDate (date) {
                 if (!date) return null
@@ -147,14 +133,20 @@
                 if(!this.competitionEnabled)
                     return null
                 return this.competition
+            },
+            videoEnded() {
+                return this.$store.state.videoEnded
+            },
+        },
+        watch: {
+            'videoEnded': function() {
+                if(this.$store.state.videoEnded === true && this.autoPlay === true) {
+                    this.getNewRun();
+                }
             }
         }
     }
 </script>
 <style scoped>
-    .menu-slider {
-        background: #222C32;
-        padding-left: 16px;
-        padding-top: 0;
-    }
+
 </style>

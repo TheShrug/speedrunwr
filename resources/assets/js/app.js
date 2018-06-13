@@ -9,46 +9,41 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import Axios from 'axios'
 import Vuetify from 'vuetify'
+import LoadScript from 'vue-plugin-load-script';
 import VueYouTubeEmbed from 'vue-youtube-embed'
 import VueTwitchPlayer from 'vue-twitch-player'
 import 'babel-polyfill'
 
-Vue.use(Vuex)
-Vue.use(Vuetify)
-Vue.use(VueYouTubeEmbed)
-Vue.use(VueTwitchPlayer)
-
-// window.Vue = require('vue');
-// window.Vuex = require('vuex');
-
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
+Vue.use(LoadScript);
+Vue.use(Vuex);
+Vue.use(Vuetify);
+Vue.use(VueYouTubeEmbed);
+Vue.use(VueTwitchPlayer);
 
 const store = new Vuex.Store({
     state: {
         activeRun: {},
         activeRunData: null,
-        runHistory: []
+        runHistory: [],
+        videoEnded: false
     },
     mutations: {
         setRun(state, payload) {
             state.activeRun = payload
-        },
-        setGameCount(state, payload) {
-            state.count = payload
+            state.videoEnded = false
         },
         setRunData(state, payload) {
             state.activeRunData = payload
+        },
+        endVideo(state) {
+            state.videoEnded = true
         }
     },
     actions: {
         getFullRunData(state, payload) {
             Axios.get('https://www.speedrun.com/api/v1/runs/' + payload, {
                 params: {
-                    embed:'game,category,players'
+                    embed:'game.players,category.players,players'
                 }
             })
             .then(function(response) {
@@ -78,6 +73,20 @@ const app = new Vue({
 
     },
     methods: {
+        getNewRun(params) {
 
+            var store = this.$store
+
+            Axios.get('/api/getNewRun', {
+                params: params
+            })
+            .then(function(response) {
+                store.commit('setRun', response.data.record)
+                store.dispatch('getFullRunData', response.data.record.runId)
+            })
+            .catch(function(response) {
+                // TODO: do something on error
+            })
+        }
     }
 });
