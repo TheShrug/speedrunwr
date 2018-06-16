@@ -2,7 +2,10 @@
     <v-form ref="form" id="NewRun">
         <v-layout flex row>
             <v-flex xs8>
-                <v-btn @click="getNewRun" block>
+                <v-btn @click="getNewRun" block
+                       :loading="loading"
+                       :disabled="loading"
+                >
                     New Run
                 </v-btn>
             </v-flex>
@@ -96,16 +99,11 @@
                 :label="`Autoplay`"
                 v-model="autoPlay"
         ></v-switch>
-
-
-
-
-
     </v-form>
 </template>
 
 <script>
-    import axios from 'axios'
+    import Axios from 'axios'
 
     export default {
         mounted() {
@@ -125,11 +123,14 @@
                 includeLevels: false,
                 competition: 0,
                 competitionEnabled: 0,
-                mainMenu: false
+                mainMenu: false,
+                loading: false
             }
         },
         methods: {
             getNewRun() {
+                let $this = this;
+                $this.loading = true;
                 let params = {
                     videoType: this.videoType,
                     includeLevels: this.includeLevels,
@@ -140,7 +141,25 @@
                     runCompetition: this.hotness
 
                 };
-                this.$root.getNewRun(params);
+
+
+                var store = this.$store
+
+                Axios.get('/api/getNewRun', {
+                    params: params
+                })
+                .then(function(response) {
+                    $this.loading = false;
+                    store.commit('setRun', response.data.record)
+                    store.dispatch('getFullRunData', response.data.record.runId)
+                })
+                .catch(function(response) {
+                    // TODO: do something on error
+                })
+
+
+
+
             },
             formatDate (date) {
                 if (!date) return null
@@ -177,6 +196,7 @@
         },
         watch: {
             'videoEnded': function() {
+                console.log(this.$store.state.videoEnded)
                 if(this.$store.state.videoEnded === true && this.autoPlay === true) {
                     this.getNewRun();
                 }

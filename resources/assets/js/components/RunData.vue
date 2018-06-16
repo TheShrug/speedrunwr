@@ -1,19 +1,22 @@
 <template>
     <div>
-        <v-layout row wrap class="run-details">
-            <v-flex xs2 class="text-xs-center run-detail">
-                <button class="fill-height"><i class="fa fa-thumbs-up"></i> Like</button>
+        <v-layout row wrap class="run-details grey darken-3">
+            <v-flex xs2 class="text-xs-center run-detail" >
+                <v-btn outline color="grey lighten-2" block>
+                    <v-icon left>favorite</v-icon>
+                    Like
+                </v-btn>
             </v-flex>
             <v-flex xs4 class="run-detail">
-                <div v-if="runGameName"><a :href="runGameLink">{{runGameName}}</a></div>
-                <div v-if="runCategoryName">{{runCategoryName}}</div>
+                <div v-if="runGameName"><a :href="runGameLink" target="_blank">{{runGameName}}</a></div>
+                <div v-if="runCategoryName"><a :href="runCategoryLink" target="_blank">{{runCategoryName}}</a></div>
             </v-flex>
             <v-flex xs4 class="run-detail">
                 <div v-if="runTime">{{runTime}}</div>
                 <div v-if="runPlayerName">
                     By <a :href="runPlayerLink" target="_blank">{{runPlayerName}}</a>
-                    <span v-if="runPlayerTwitch"><a :href="runPlayerTwitch"><i class="fab fa-twitch"></i></a></span>
-                    <span v-if="runPlayerYoutube"><a :href="runPlayerYoutube"><i class="fab fa-youtube"></i></a></span>
+                    <span v-if="runPlayerTwitch"><a :href="runPlayerTwitch" target="_blank"><i class="fab fa-twitch"></i></a></span>
+                    <span v-if="runPlayerYoutube"><a :href="runPlayerYoutube" target="_blank"><i class="fab fa-youtube"></i></a></span>
                 </div>
             </v-flex>
         </v-layout>
@@ -93,13 +96,9 @@
     }
 </script>
 <style scoped>
-    .run-details {
-        background:#222C32;
-    }
     .run-details .run-detail {
-        padding: 5px;
+
+        font-size: 16px;
     }
-    button {
-        width: 100%;
-    }
+    a {color:#E8BF6A;}
 </style>
