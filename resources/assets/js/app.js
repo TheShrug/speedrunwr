@@ -9,6 +9,8 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import Axios from 'axios'
 import Vuetify from 'vuetify'
+import Vuelidate from 'vuelidate'
+
 import LoadScript from 'vue-plugin-load-script';
 import VueYouTubeEmbed from 'vue-youtube-embed'
 import VueTwitchPlayer from 'vue-twitch-player'
@@ -16,16 +18,19 @@ import 'babel-polyfill'
 
 Vue.use(LoadScript);
 Vue.use(Vuex);
-Vue.use(Vuetify);
+Vue.use(Vuetify)
 Vue.use(VueYouTubeEmbed);
 Vue.use(VueTwitchPlayer);
+Vue.use(Vuelidate)
 
 const store = new Vuex.Store({
     state: {
         activeRun: {},
         activeRunData: null,
         runHistory: [],
-        videoEnded: false
+        videoEnded: false,
+        user: null,
+        userLoggedIn: false
     },
     mutations: {
         setRun(state, payload) {
@@ -37,6 +42,15 @@ const store = new Vuex.Store({
         },
         endVideo(state) {
             state.videoEnded = true
+        },
+        setUser(state, payload) {
+            state.user = payload
+            if(payload !== null)
+                state.userLoggedIn = true
+        },
+        logout(state) {
+            state.user = null
+            state.userLoggedIn = false
         }
     },
     actions: {
@@ -60,6 +74,9 @@ Vue.component('player', require('./components/Player.vue'));
 Vue.component('app-menu', require('./components/Menu.vue'));
 Vue.component('new-run', require('./components/NewRun.vue'));
 Vue.component('run-data', require('./components/RunData.vue'));
+Vue.component('user', require('./components/User.vue'));
+Vue.component('login', require('./components/Login.vue'));
+Vue.component('register', require('./components/Register.vue'));
 Vue.component('twitch-player', VueTwitchPlayer);
 
 
@@ -70,22 +87,20 @@ const app = new Vue({
 
     },
     mounted() {
+        this.getUser()
 
     },
     methods: {
-        getNewRun(params) {
-
-            var store = this.$store
-
-            Axios.get('/api/getNewRun', {
-                params: params
-            })
+        getUser() {
+            let $this = this
+            Axios.get(
+                '/user'
+            )
             .then(function(response) {
-                store.commit('setRun', response.data.record)
-                store.dispatch('getFullRunData', response.data.record.runId)
+                $this.$store.commit('setUser', response.data.user)
             })
             .catch(function(response) {
-                // TODO: do something on error
+
             })
         }
     }

@@ -2,6 +2,7 @@
     <div class="sidebar-container">
         <h1>Speedrunwr.com</h1>
         <new-run></new-run>
+        <user></user>
     </div>
 </template>
 
@@ -9,6 +10,11 @@
     export default {
         mounted() {
             console.log('Component mounted.')
+        },
+        data() {
+            return  {
+                loginDialog: false,
+            }
         },
         methods: {
 
