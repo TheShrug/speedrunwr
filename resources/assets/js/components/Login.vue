@@ -22,7 +22,7 @@
                     >
                     </v-text-field>
                     <v-alert v-model="alert" dismissible :type="alertType" outline>
-                        {{alertMessage}} <resend-email v-model="resendEmailDialog"></resend-email>
+                        {{alertMessage}} <resend-email v-if="resendEmailLink" v-model="resendEmailDialog"></resend-email>
                     </v-alert>
 
 
@@ -31,6 +31,9 @@
                     <v-layout row wrap>
                         <v-flex xs6>
                             <v-btn color="primary" flat @click.stop="loginDialog=false">Close</v-btn>
+
+                            <forgot-password v-model="forgotPasswordDialog"></forgot-password>
+
                         </v-flex>
                         <v-flex xs6 class="text-xs-right">
                             <v-btn color="primary" type="submit" :loading="loading" :disabled="loading">Login</v-btn>
@@ -62,7 +65,9 @@
                 alertType: 'warning',
                 alertMessage: '',
                 loading: false,
+                resendEmailLink: false,
                 resendEmailDialog: false,
+                forgotPasswordDialog: false
             }
         },
         validations: {
@@ -94,10 +99,11 @@
                             $this.$store.commit('setUser', response.data.user);
                         }
                         if(response.data.message == 'verifiedError') {
+                            console.log(response.data.message);
                             $this.alert = true;
                             $this.alertMessage = response.data.errorMessage;
                             $this.alertType = 'warning';
-                            $this.resendEmailEnabled = true;
+                            $this.resendEmailLink = true;
                         }
 
                     }).catch(function(error) {

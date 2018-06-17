@@ -12,7 +12,9 @@
                             <message type="info" message="{{$message}}">
                             </message>
                         @endif
-
+                        @if(isset($passwordReset))
+                            <password-reset-form token="{{$passwordReset}}"></password-reset-form>
+                        @endif
                         <player xs4></player>
                     </v-flex>
                 </v-layout>

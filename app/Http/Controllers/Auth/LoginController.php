@@ -39,10 +39,4 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    public function authenticated( Request $request, $user ) {
-    	if(!$user->verified) {
-		    Auth::logout();
-		    return json_encode(['message' => 'verifiedError', 'errorMessage' => 'Your email isn\'t validated, please check your inbox for a link to activate your account.']);
-	    }
-    }
 }

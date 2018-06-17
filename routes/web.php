@@ -12,19 +12,17 @@
 */
 
 Route::get('/', 'HomeController@index')->name('home');
-
-Route::get('/api/gameCount', 'ApiController@gameCount');
 Route::get('/api/getNewRun', 'ApiController@newRun');
-Route::get('/api/categories', 'ApiController@games');
-Route::get('/api/runs', 'ApiController@games');
-Route::get('/api/store', 'ApiController@store');
+
 
 Route::get('/user', 'UserController@user');
 Route::get('/user/verify/{key}', 'Auth\VerifyUserController@verifyUser');
 Route::post('/user/verify/resend', 'Auth\VerifyUserController@resendEmail');
+Route::post('register', 'Auth\RegisterController@register');
 
+Route::post('login', 'Auth\LoginController@login');
+Route::post('logout', 'Auth\LoginController@logout');
+Route::post('password/reset/sendEmail', 'Auth\ForgotPasswordController@sendResetLinkEmail');
+Route::get('password/reset/{token}', 'Auth\ForgotPasswordController@showResetForm');
+Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');

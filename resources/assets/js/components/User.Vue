@@ -30,7 +30,6 @@
                 }).catch(function(response) {
 
                 }).then(function(response) {
-                    console.log('test');
                     $this.logoutLoading = false
                 })
             }

@@ -79,6 +79,8 @@ Vue.component('login', require('./components/Login.vue'));
 Vue.component('register', require('./components/Register.vue'));
 Vue.component('message', require('./components/Message.vue'));
 Vue.component('resend-email', require('./components/ResendEmail.vue'));
+Vue.component('forgot-password', require('./components/ForgotPassword.vue'));
+Vue.component('password-reset-form', require('./components/PasswordResetForm.vue'));
 Vue.component('twitch-player', VueTwitchPlayer);
 
 
