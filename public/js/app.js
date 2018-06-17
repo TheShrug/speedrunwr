@@ -21830,6 +21830,7 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('user', __webpack_require_
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('login', __webpack_require__(525));
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('register', __webpack_require__(553));
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('message', __webpack_require__(558));
+__WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('resend-email', __webpack_require__(571));
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('twitch-player', __WEBPACK_IMPORTED_MODULE_7_vue_twitch_player___default.a);
 
 var app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
@@ -62604,7 +62605,7 @@ exports = module.exports = __webpack_require__(46)(false);
 
 
 // module
-exports.push([module.i, "\n.sidebar-container[data-v-01e7f602] { height:100%;\n}\n", ""]);
+exports.push([module.i, "\n.sidebar-container[data-v-01e7f602] { height:100%;\n}\n.test[data-v-01e7f602] {\n    background:$primary;\n}\n", ""]);
 
 // exports
 
@@ -62619,6 +62620,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios__ = __webpack_require__(53);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_axios__);
+//
+//
 //
 //
 //
@@ -62680,7 +62683,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             alert: false,
             alertType: 'warning',
             alertMessage: '',
-            loading: false
+            loading: false,
+            resendEmailDialog: false
         };
     },
 
@@ -62710,13 +62714,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     if (response.data.message === 'success') {
                         $this.$store.commit('setUser', response.data.user);
                     }
+                    if (response.data.message == 'verifiedError') {
+                        $this.alert = true;
+                        $this.alertMessage = response.data.errorMessage;
+                        $this.alertType = 'warning';
+                        $this.resendEmailEnabled = true;
+                    }
                 }).catch(function (error) {
+                    console.log(error);
                     if (error.response.data.errors) {
                         for (var prop in error.response.data.errors) {
                             $this.alert = true;
                             $this.alertMessage = error.response.data.errors[prop][0];
                             $this.alertType = 'warning';
-                            console.log(error.response.data.errors[prop][0]);
                         }
                     }
                 }).then(function () {
@@ -63361,7 +63371,7 @@ var render = function() {
                 "v-card",
                 [
                   _c("v-card-title", { staticClass: "title" }, [
-                    _vm._v("\n                Register\n            ")
+                    _vm._v("\n                Login\n            ")
                   ]),
                   _vm._v(" "),
                   _c(
@@ -63413,9 +63423,19 @@ var render = function() {
                           _vm._v(
                             "\n                    " +
                               _vm._s(_vm.alertMessage) +
-                              "\n                "
-                          )
-                        ]
+                              " "
+                          ),
+                          _c("resend-email", {
+                            model: {
+                              value: _vm.resendEmailDialog,
+                              callback: function($$v) {
+                                _vm.resendEmailDialog = $$v
+                              },
+                              expression: "resendEmailDialog"
+                            }
+                          })
+                        ],
+                        1
                       )
                     ],
                     1
@@ -64124,6 +64144,397 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 562 */,
+/* 563 */,
+/* 564 */,
+/* 565 */,
+/* 566 */,
+/* 567 */,
+/* 568 */,
+/* 569 */,
+/* 570 */,
+/* 571 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(572)
+}
+var normalizeComponent = __webpack_require__(34)
+/* script */
+var __vue_script__ = __webpack_require__(574)
+/* template */
+var __vue_template__ = __webpack_require__(575)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-f797fc0c"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\ResendEmail.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-f797fc0c", Component.options)
+  } else {
+    hotAPI.reload("data-v-f797fc0c", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 572 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(573);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(47)("aaef0752", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-f797fc0c\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ResendEmail.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-f797fc0c\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ResendEmail.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 573 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(46)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 574 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__ = __webpack_require__(263);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios__ = __webpack_require__(53);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_axios__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    mounted: function mounted() {
+        console.log('Component mounted.');
+    },
+    data: function data() {
+        return {
+            emailAddress: '',
+            resendEmailDialog: false,
+            alert: false,
+            alertType: 'warning',
+            alertMessage: '',
+            loading: false
+        };
+    },
+
+    validations: {
+        emailAddress: {
+            required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
+            email: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["email"]
+        }
+    },
+    methods: {
+        resendEmail: function resendEmail() {
+
+            var $this = this;
+            var params = {
+                email: this.$v.emailAddress.$model
+            };
+            console.log(params);
+            if (!this.$v.$invalid) {
+                $this.loading = true;
+                __WEBPACK_IMPORTED_MODULE_1_axios___default.a.post('user/verify/resend', params).then(function (response) {
+                    if (response.data.message) {
+                        $this.alert = true;
+                        $this.alertMessage = response.data.message;
+                        $this.alertType = response.data.messageType;
+                        $this.clearForm();
+                    }
+                }).catch(function (error) {}).then(function () {
+                    $this.loading = false;
+                });
+            }
+        }
+    }
+});
+
+/***/ }),
+/* 575 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "d-inline" },
+    [
+      _c(
+        "a",
+        {
+          on: {
+            click: function($event) {
+              $event.stopPropagation()
+              _vm.resendEmailDialog = true
+            }
+          }
+        },
+        [_vm._v("Resend Email")]
+      ),
+      _vm._v(" "),
+      _c(
+        "v-dialog",
+        {
+          attrs: { "max-width": "500px" },
+          model: {
+            value: _vm.resendEmailDialog,
+            callback: function($$v) {
+              _vm.resendEmailDialog = $$v
+            },
+            expression: "resendEmailDialog"
+          }
+        },
+        [
+          _c(
+            "form",
+            {
+              ref: "form",
+              on: {
+                submit: [
+                  function($event) {
+                    _vm.resendEmail()
+                  },
+                  function($event) {
+                    $event.preventDefault()
+                  }
+                ]
+              }
+            },
+            [
+              _c(
+                "v-card",
+                [
+                  _c("v-card-title", { staticClass: "title" }, [
+                    _vm._v(
+                      "\n                    Resend Verification Email\n                "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "v-card-text",
+                    [
+                      _c("v-text-field", {
+                        attrs: {
+                          label: "Email",
+                          required: "",
+                          rules: [
+                            function() {
+                              return (
+                                !_vm.$v.emailAddress.$invalid ||
+                                "Must be valid email address"
+                              )
+                            }
+                          ]
+                        },
+                        model: {
+                          value: _vm.emailAddress,
+                          callback: function($$v) {
+                            _vm.emailAddress = $$v
+                          },
+                          expression: "emailAddress"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "v-alert",
+                        {
+                          attrs: {
+                            dismissible: "",
+                            type: _vm.alertType,
+                            outline: ""
+                          },
+                          model: {
+                            value: _vm.alert,
+                            callback: function($$v) {
+                              _vm.alert = $$v
+                            },
+                            expression: "alert"
+                          }
+                        },
+                        [
+                          _vm._v(
+                            "\n                        " +
+                              _vm._s(_vm.alertMessage) +
+                              "\n                    "
+                          )
+                        ]
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-card-actions",
+                    [
+                      _c(
+                        "v-layout",
+                        { attrs: { row: "", wrap: "" } },
+                        [
+                          _c(
+                            "v-flex",
+                            { attrs: { xs6: "" } },
+                            [
+                              _c(
+                                "v-btn",
+                                {
+                                  attrs: { color: "primary", flat: "" },
+                                  on: {
+                                    click: function($event) {
+                                      $event.stopPropagation()
+                                      _vm.resendEmailDialog = false
+                                    }
+                                  }
+                                },
+                                [_vm._v("Close")]
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-flex",
+                            {
+                              staticClass: "text-xs-right",
+                              attrs: { xs6: "" }
+                            },
+                            [
+                              _c(
+                                "v-btn",
+                                {
+                                  attrs: {
+                                    color: "primary",
+                                    type: "submit",
+                                    loading: _vm.loading,
+                                    disabled: _vm.loading
+                                  }
+                                },
+                                [_vm._v("Resend Verification")]
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ]
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-f797fc0c", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

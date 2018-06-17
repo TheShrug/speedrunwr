@@ -5,7 +5,7 @@
             <form @submit="loginUser()" v-on:submit.prevent>
             <v-card>
                 <v-card-title class="title">
-                    Register
+                    Login
                 </v-card-title>
                 <v-card-text>
 
@@ -22,8 +22,10 @@
                     >
                     </v-text-field>
                     <v-alert v-model="alert" dismissible :type="alertType" outline>
-                        {{alertMessage}}
+                        {{alertMessage}} <resend-email v-model="resendEmailDialog"></resend-email>
                     </v-alert>
+
+
                 </v-card-text>
                 <v-card-actions>
                     <v-layout row wrap>
@@ -59,7 +61,8 @@
                 alert: false,
                 alertType: 'warning',
                 alertMessage: '',
-                loading: false
+                loading: false,
+                resendEmailDialog: false,
             }
         },
         validations: {
@@ -90,13 +93,20 @@
                         if(response.data.message === 'success') {
                             $this.$store.commit('setUser', response.data.user);
                         }
+                        if(response.data.message == 'verifiedError') {
+                            $this.alert = true;
+                            $this.alertMessage = response.data.errorMessage;
+                            $this.alertType = 'warning';
+                            $this.resendEmailEnabled = true;
+                        }
+
                     }).catch(function(error) {
+                        console.log(error)
                         if(error.response.data.errors) {
                             for (var prop in error.response.data.errors) {
                                 $this.alert = true;
                                 $this.alertMessage = error.response.data.errors[prop][0];
                                 $this.alertType = 'warning'
-                                console.log(error.response.data.errors[prop][0])
                             }
                         }
                     }).then(function() {
@@ -109,4 +119,7 @@
 </script>
 <style scoped>
     .sidebar-container { height:100%;}
+    .test {
+        background:$primary;
+    }
 </style>

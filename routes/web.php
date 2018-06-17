@@ -21,6 +21,7 @@ Route::get('/api/store', 'ApiController@store');
 
 Route::get('/user', 'UserController@user');
 Route::get('/user/verify/{key}', 'Auth\VerifyUserController@verifyUser');
+Route::post('/user/verify/resend', 'Auth\VerifyUserController@resendEmail');
 
 
 

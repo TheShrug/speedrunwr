@@ -78,6 +78,7 @@ Vue.component('user', require('./components/User.vue'));
 Vue.component('login', require('./components/Login.vue'));
 Vue.component('register', require('./components/Register.vue'));
 Vue.component('message', require('./components/Message.vue'));
+Vue.component('resend-email', require('./components/ResendEmail.vue'));
 Vue.component('twitch-player', VueTwitchPlayer);
 
 
