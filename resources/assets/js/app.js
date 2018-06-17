@@ -21,7 +21,7 @@ Vue.use(Vuex);
 Vue.use(Vuetify)
 Vue.use(VueYouTubeEmbed);
 Vue.use(VueTwitchPlayer);
-Vue.use(Vuelidate)
+Vue.use(Vuelidate);
 
 const store = new Vuex.Store({
     state: {
@@ -51,17 +51,21 @@ const store = new Vuex.Store({
         logout(state) {
             state.user = null
             state.userLoggedIn = false
+        },
+        addRunDataToHistory(state, payload) {
+            state.runHistory.push(payload)
         }
     },
     actions: {
         getFullRunData(state, payload) {
-            Axios.get('https://www.speedrun.com/api/v1/runs/' + payload, {
+            Axios.get('https://www.speedrun.com/api/v1/runs/' + payload.runId, {
                 params: {
-                    embed:'game.players,category.players,players'
+                    embed:'game.players,category.players,players,level'
                 }
             })
             .then(function(response) {
                 state.commit('setRunData', response.data.data)
+                state.commit('addRunDataToHistory', {data: response.data.data, record: payload.record})
             })
             .catch(function(response) {
 
@@ -73,7 +77,8 @@ const store = new Vuex.Store({
 Vue.component('player', require('./components/Player.vue'));
 Vue.component('app-menu', require('./components/Menu.vue'));
 Vue.component('new-run', require('./components/NewRun.vue'));
-Vue.component('run-data', require('./components/RunData.vue'));
+Vue.component('player-run-data', require('./components/PlayerRunData.vue'));
+Vue.component('history-run-data', require('./components/HistoryRunData.vue'));
 Vue.component('user', require('./components/User.vue'));
 Vue.component('login', require('./components/Login.vue'));
 Vue.component('register', require('./components/Register.vue'));
@@ -81,6 +86,8 @@ Vue.component('message', require('./components/Message.vue'));
 Vue.component('resend-email', require('./components/ResendEmail.vue'));
 Vue.component('forgot-password', require('./components/ForgotPassword.vue'));
 Vue.component('password-reset-form', require('./components/PasswordResetForm.vue'));
+Vue.component('history-tabs', require('./components/HistoryTabs.vue'));
+Vue.component('history', require('./components/History.vue'));
 Vue.component('twitch-player', VueTwitchPlayer);
 
 

@@ -151,7 +151,7 @@
                 .then(function(response) {
                     $this.loading = false;
                     store.commit('setRun', response.data.record)
-                    store.dispatch('getFullRunData', response.data.record.runId)
+                    store.dispatch('getFullRunData', {runId: response.data.record.runId, 'record' : response.data.record})
                 })
                 .catch(function(response) {
                     // TODO: do something on error

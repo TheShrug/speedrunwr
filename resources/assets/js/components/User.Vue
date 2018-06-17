@@ -1,8 +1,12 @@
 <template>
-    <div class="user-info">
-        <login v-if="!userLoggedIn"></login>
-        <register v-if="!userLoggedIn"></register>
-        <v-btn v-if="userLoggedIn" small @click="logout" :loading="logoutLoading" :disabled="logoutLoading">Logout</v-btn>
+    <div>
+
+        <v-layout row>
+            <login v-if="!userLoggedIn"></login>
+            <register v-if="!userLoggedIn"></register>
+            <v-btn v-if="userLoggedIn" small @click="logout" :loading="logoutLoading" :disabled="logoutLoading">Logout</v-btn>
+        </v-layout>
+
     </div>
 </template>
 
@@ -42,5 +46,5 @@
     }
 </script>
 <style scoped>
-    .sidebar-container { height:100%;}
+
 </style>

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-layout row wrap class="run-details grey darken-3">
+        <v-layout row wrap class="run-details grey darken-3" pa-2>
             <v-flex xs2 class="text-xs-center run-detail" >
                 <v-btn outline color="grey lighten-2" block>
                     <v-icon left>favorite</v-icon>
