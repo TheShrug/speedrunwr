@@ -21,7 +21,9 @@
                             required
                     >
                     </v-text-field>
-
+                    <v-alert v-model="alert" dismissible :type="alertType" outline>
+                        {{alertMessage}}
+                    </v-alert>
                 </v-card-text>
                 <v-card-actions>
                     <v-layout row wrap>
@@ -29,7 +31,7 @@
                             <v-btn color="primary" flat @click.stop="loginDialog=false">Close</v-btn>
                         </v-flex>
                         <v-flex xs6 class="text-xs-right">
-                            <v-btn color="primary" type="submit">Login</v-btn>
+                            <v-btn color="primary" type="submit" :loading="loading" :disabled="loading">Login</v-btn>
                         </v-flex>
                     </v-layout>
                 </v-card-actions>
@@ -54,6 +56,10 @@
                 email: null,
                 password: null,
                 repeatPassword: null,
+                alert: false,
+                alertType: 'warning',
+                alertMessage: '',
+                loading: false
             }
         },
         validations: {
@@ -78,13 +84,23 @@
 
                 //finally lets register the user
                 if(!this.$v.$invalid){
+                    $this.loading = true;
                     Axios.post('/login', params
                     ).then(function(response) {
                         if(response.data.message === 'success') {
                             $this.$store.commit('setUser', response.data.user);
                         }
-                    }).catch(function(response) {
-                        console.log(response)
+                    }).catch(function(error) {
+                        if(error.response.data.errors) {
+                            for (var prop in error.response.data.errors) {
+                                $this.alert = true;
+                                $this.alertMessage = error.response.data.errors[prop][0];
+                                $this.alertType = 'warning'
+                                console.log(error.response.data.errors[prop][0])
+                            }
+                        }
+                    }).then(function() {
+                        $this.loading = false
                     })
                 }
             }

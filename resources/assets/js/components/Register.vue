@@ -2,12 +2,13 @@
     <div class="user-info">
         <v-btn small @click.stop="registerDialog = true">Register</v-btn>
         <v-dialog v-model="registerDialog" max-width="500px">
-            <v-form @submit="registerUser()" v-on:submit.prevent>
+            <v-form @submit="registerUser()" v-on:submit.prevent ref="form">
                 <v-card>
                     <v-card-title class="title">
                         Register
                     </v-card-title>
                     <v-card-text>
+
                         <v-text-field
                             label="Username"
                             v-model="userName"
@@ -38,6 +39,9 @@
                             required
                         >
                         </v-text-field>
+                        <v-alert v-model="alert" dismissible :type="alertType" outline>
+                            {{alertMessage}}
+                        </v-alert>
                     </v-card-text>
                     <v-card-actions>
                         <v-layout row wrap>
@@ -45,7 +49,7 @@
                                 <v-btn color="primary" flat @click.stop="registerDialog=false">Close</v-btn>
                             </v-flex>
                             <v-flex xs6 class="text-xs-right">
-                                <v-btn color="primary" type="submit" >Register</v-btn>
+                                <v-btn color="primary" type="submit" outline :loading="loading" :disabled="loading">Register</v-btn>
                             </v-flex>
                         </v-layout>
                     </v-card-actions>
@@ -69,7 +73,11 @@
                 userName: null,
                 email: null,
                 password: null,
-                repeatPassword: null
+                repeatPassword: null,
+                alert: false,
+                alertType: 'info',
+                alertMessage: '',
+                loading: false
             }
         },
         validations: {
@@ -94,6 +102,8 @@
 
                 let $this = this;
 
+
+
                 let params = {
                     userName : this.$v.userName.$model,
                     email : this.$v.email.$model,
@@ -103,19 +113,41 @@
 
                 //finally lets register the user
                 if(!this.$v.$invalid){
+                    $this.loading = true;
                     Axios.post('/register', params
                     ).then(function(response) {
-                        if(response.data.message === 'success') {
-                            $this.$store.commit('setUser', response.data.user)
+                        if(response.data.message) {
+                            $this.alert = true;
+                            $this.alertMessage = response.data.message;
+                            $this.alertType = response.data.messageType;
+                            $this.clearForm();
                         }
-                    }).catch(function(response) {
-                        console.log(response)
+                    }).catch(function(error) {
+                        if(error.response.data.errors) {
+                            for (var prop in error.response.data.errors) {
+                                $this.alert = true;
+                                $this.alertMessage = error.response.data.errors[prop][0];
+                                $this.alertType = 'warning'
+                                console.log(error.response.data.errors[prop][0])
+                            }
+                        }
+                    }).then(function(){
+                        $this.loading = false;
                     })
                 }
+            },
+            clearForm() {
+              this.$refs.form.reset()
             }
         }
     }
 </script>
-<style scoped>
-    .sidebar-container { height:100%;}
+<style>
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    input:-webkit-autofill:active {
+        transition: background-color 5000s ease-in-out 0s;
+        -webkit-text-fill-color: #fff !important;
+    }
 </style>

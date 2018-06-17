@@ -5,6 +5,7 @@
             <twitch-player v-if="twitchId" :video="twitchId" class="twitch" @ended="endVideo"></twitch-player>
         </div>
         <run-data v-bind:run="runData" v-if="runData" :run-comment="true"></run-data>
+
     </div>
 </template>
 

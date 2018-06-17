@@ -8,6 +8,11 @@
                         <app-menu></app-menu>
                     </v-flex>
                     <v-flex md9 xs12 pl-2>
+                        @if (isset($message))
+                            <message type="info" message="{{$message}}">
+                            </message>
+                        @endif
+
                         <player xs4></player>
                     </v-flex>
                 </v-layout>

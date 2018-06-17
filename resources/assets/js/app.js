@@ -77,6 +77,7 @@ Vue.component('run-data', require('./components/RunData.vue'));
 Vue.component('user', require('./components/User.vue'));
 Vue.component('login', require('./components/Login.vue'));
 Vue.component('register', require('./components/Register.vue'));
+Vue.component('message', require('./components/Message.vue'));
 Vue.component('twitch-player', VueTwitchPlayer);
 
 
