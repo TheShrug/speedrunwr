@@ -18,6 +18,7 @@ class VerifyUserController extends Controller
 		 	if(!$user->verified) {
 		 		$user->verified = 1;
 		 		$user->save();
+			    $userVerification->delete();
 		 		$status = 'Your email is now verified! You can now log in.';
 		    } else {
 		 		$status = 'Your e-mail has already been verified.';
