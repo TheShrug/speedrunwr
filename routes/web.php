@@ -18,9 +18,9 @@ Route::get('/api/getNewRun', 'ApiController@newRun');
 Route::get('/api/categories', 'ApiController@games');
 Route::get('/api/runs', 'ApiController@games');
 Route::get('/api/store', 'ApiController@store');
-Route::get('/api/test', 'apiController@test');
-Route::get('/user', 'UserController@user');
 
+Route::get('/user', 'UserController@user');
+Route::get('/user/verify/{key}', 'Auth\VerifyUserController@verifyUser');
 
 
 

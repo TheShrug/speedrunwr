@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Mail\VerifyEmail;
 use App\User;
 use App\Http\Controllers\Controller;
+use App\UserVerification;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
-
+use Illuminate\Support\Facades\Mail;
 class RegisterController extends Controller
 {
     /*
@@ -62,10 +64,23 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user =  User::create([
             'userName' => $data['userName'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+
+        $userVerification = UserVerification::create([
+        	'user_id' => $user->id,
+	        'key' => bin2hex(random_bytes(16))
+        ]);
+
+
+
+        Mail::to($user->email)->send(new VerifyEmail($user));
+
+
+        return $user;
+
     }
 }
