@@ -11,6 +11,13 @@ use Illuminate\Support\Facades\Mail;
 
 class VerifyUserController extends Controller
 {
+	/**
+	 * Verify the user
+	 *
+	 * @param $key
+	 *
+	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+	 */
 	public function verifyUser($key) {
 		 $userVerification = UserVerification::where('key', $key)->first();
 		 if(isset($userVerification)) {
@@ -30,6 +37,13 @@ class VerifyUserController extends Controller
 		 return view('home', ['message' => $status]);
 	}
 
+	/**
+	 * Resend a verification email
+	 *
+	 * @param  \Illuminate\Http\Request  $request
+	 *
+	 * @return string
+	 */
 	public function resendEmail(Request $request) {
 
 		$user = User::where('email', $request->email)->first();
