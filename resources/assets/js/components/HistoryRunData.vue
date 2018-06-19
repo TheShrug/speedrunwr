@@ -1,11 +1,11 @@
 <template>
     <div>
-        <v-btn class="history-link " flat color="primary" block @click="clicked">
+        <v-btn class="history-link " outline :color="color" block @click="clicked" v-bind:class="{ active : currentlyPlaying}">
             <v-card flat>
                 <v-card-title>
                     <v-layout row wrap>
                         <v-flex xs12>
-                            <h3 class="headline mb-0" v-if="runGameName">{{runGameName}}</h3>
+                            <h3 class="mb-0" v-if="runGameName">{{runGameName}}</h3>
                         </v-flex>
                         <v-flex xs12><h4 v-if="runCategoryName">{{runCategoryName}}</h4></v-flex>
                         <v-flex xs12><h3 v-if="runTime">{{runTime}}</h3></v-flex>
@@ -91,6 +91,20 @@
                 return (this.run.players.data[0].youtube)
                     ? this.run.players.data[0].youtube.uri
                     : ''
+            },
+            currentlyPlaying() {
+                if(this.record === this.$store.state.activeRun) {
+                    return true
+                } else {
+                    return false
+                }
+            },
+            color() {
+                if(this.currentlyPlaying) {
+                    return 'white'
+                } else {
+                    return 'transparent'
+                }
             }
         }
     }
@@ -98,6 +112,6 @@
 <style>
     .run-hover-enter { background: #000;}
     .history-link { height: 100%; width: 100%;text-align: left; text-transform: none; margin: 0;}
-    .history-link .btn__content { padding: 0;}
+    .history-link .btn__content { padding: 0; white-space:normal;}
     .history-link .card { width: 100%; background: none;}
 </style>

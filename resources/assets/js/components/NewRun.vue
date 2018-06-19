@@ -1,15 +1,7 @@
 <template>
     <v-form ref="form" id="NewRun">
         <v-layout flex row>
-            <v-flex xs8>
-                <v-btn @click="getNewRun" block
-                       :loading="loading"
-                       :disabled="loading"
-                >
-                    New Run
-                </v-btn>
-            </v-flex>
-            <v-flex xs4>
+            <v-flex>
                 <v-menu
                         :close-on-content-click="false"
                         v-model="mainMenu"
@@ -90,15 +82,26 @@
                     <v-btn @click="clear">clear</v-btn>
                     <v-btn @click="toggleMenu"
                            slot="activator"
-                    ><v-icon>filter_list</v-icon></v-btn>
+                           class="thin-button"
+                    ><v-icon>settings</v-icon></v-btn>
                 </v-menu>
 
             </v-flex>
+            <v-flex xs3>
+                <v-btn @click="getNewRun" block
+                       :loading="loading"
+                       :disabled="loading"
+                >
+                    New Run
+                </v-btn>
+            </v-flex>
+            <v-flex>
+                <v-switch
+                        :label="`Autoplay`"
+                        v-model="autoPlay"
+                ></v-switch>
+            </v-flex>
         </v-layout>
-        <v-switch
-                :label="`Autoplay`"
-                v-model="autoPlay"
-        ></v-switch>
     </v-form>
 </template>
 
@@ -206,4 +209,5 @@
 </script>
 <style>
     .settings-menu { background: #000;}
+    .thin-button { min-width: 0;}
 </style>

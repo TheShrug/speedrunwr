@@ -2,7 +2,7 @@
     <div>
         <div class="player-container">
             <youtube v-if="youtubeId" :video-id="youtubeId" class="youtube" :player-vars="{autoplay:1}" @ended="endVideo" @error="endVideo"></youtube>
-            <twitch-player v-if="twitchId" :video="twitchId" class="twitch" @ended="endVideo"></twitch-player>
+            <twitch-player v-if="twitchId" :video="twitchId" class="twitch" @ended="endVideo" width="640" height="390"></twitch-player>
         </div>
         <player-run-data v-bind:run="runData" v-if="runData" :run-comment="true"></player-run-data>
 

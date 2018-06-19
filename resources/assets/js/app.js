@@ -10,6 +10,7 @@ import Vuex from 'vuex'
 import Axios from 'axios'
 import Vuetify from 'vuetify'
 import Vuelidate from 'vuelidate'
+import Vuebar from 'vuebar'
 
 import LoadScript from 'vue-plugin-load-script';
 import VueYouTubeEmbed from 'vue-youtube-embed'
@@ -22,6 +23,7 @@ Vue.use(Vuetify)
 Vue.use(VueYouTubeEmbed);
 Vue.use(VueTwitchPlayer);
 Vue.use(Vuelidate);
+Vue.use(Vuebar);
 
 const store = new Vuex.Store({
     state: {
@@ -53,7 +55,7 @@ const store = new Vuex.Store({
             state.userLoggedIn = false
         },
         addRunDataToHistory(state, payload) {
-            state.runHistory.push(payload)
+            state.runHistory.unshift(payload)
         }
     },
     actions: {
