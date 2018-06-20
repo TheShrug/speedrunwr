@@ -61964,9 +61964,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    mounted: function mounted() {
-        console.log('Component mounted.');
-    },
     data: function data() {
         return {
             loginDialog: false
@@ -62311,7 +62308,6 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
     },
     watch: {
         'videoEnded': function videoEnded() {
-            console.log(this.$store.state.videoEnded);
             if (this.$store.state.videoEnded === true && this.autoPlay === true) {
                 this.getNewRun();
             }
@@ -63621,7 +63617,7 @@ exports = module.exports = __webpack_require__(14)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -63650,9 +63646,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    mounted: function mounted() {
-        console.log('Component mounted.');
-    },
     data: function data() {
         return {
             loginDialog: false,
@@ -63881,9 +63874,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    mounted: function mounted() {
-        console.log('Component mounted.');
-    },
     data: function data() {
         return {
             name: false,
@@ -63927,16 +63917,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 __WEBPACK_IMPORTED_MODULE_1_axios___default.a.post('/login', params).then(function (response) {
                     if (response.data.message === 'success') {
                         $this.$store.commit('setUser', response.data.user);
+                        $this.$store.commit('setLikedRuns', response.data.likedRuns);
                     }
                     if (response.data.message == 'verifiedError') {
-                        console.log(response.data.message);
                         $this.alert = true;
                         $this.alertMessage = response.data.errorMessage;
                         $this.alertType = 'warning';
                         $this.resendEmailLink = true;
                     }
                 }).catch(function (error) {
-                    console.log(error);
                     if (error.response.data.errors) {
                         for (var prop in error.response.data.errors) {
                             $this.alert = true;
@@ -64912,9 +64901,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    mounted: function mounted() {
-        console.log('Component mounted.');
-    },
     data: function data() {
         return {
             name: false,
@@ -64975,7 +64961,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                             $this.alert = true;
                             $this.alertMessage = error.response.data.errors[prop][0];
                             $this.alertType = 'warning';
-                            console.log(error.response.data.errors[prop][0]);
                         }
                     }
                 }).then(function () {
@@ -65452,7 +65437,7 @@ exports = module.exports = __webpack_require__(14)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -65509,9 +65494,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    mounted: function mounted() {
-        console.log('Component mounted.');
-    },
     data: function data() {
         return {
             emailAddress: '',
@@ -65536,7 +65518,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var params = {
                 email: this.$v.emailAddress.$model
             };
-            console.log(params);
+
             if (!this.$v.$invalid) {
                 $this.loading = true;
                 __WEBPACK_IMPORTED_MODULE_1_axios___default.a.post('user/verify/resend', params).then(function (response) {
@@ -65834,7 +65816,7 @@ exports = module.exports = __webpack_require__(14)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -65891,9 +65873,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    mounted: function mounted() {
-        console.log('Component mounted.');
-    },
     data: function data() {
         return {
             emailAddress: '',
@@ -66662,7 +66641,7 @@ exports = module.exports = __webpack_require__(14)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -66696,9 +66675,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    mounted: function mounted() {
-        console.log('Component mounted.');
-    },
     data: function data() {
         return {
             tabModel: 'tab-history'
@@ -66906,9 +66882,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    mounted: function mounted() {
-        console.log('Component mounted.');
-    },
     data: function data() {
         return {
             page: 1,
@@ -67076,7 +67049,7 @@ exports = module.exports = __webpack_require__(14)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -67148,11 +67121,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 params: {
                     runId: $this.runId
                 }
-
             }).then(function (response) {
                 $this.liked = response.data.message;
-
-                console.log(response);
             }).catch(function (response) {
                 // TODO: do something on error
             }).then(function () {
@@ -67308,35 +67278,37 @@ var momentDurationFormatSetup = __webpack_require__(100);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     mounted: function mounted() {
-        console.log('test');
+
         this.getRunData();
     },
     data: function data() {
         return {
-            runData: null
+            runData: null,
+            loading: false
         };
     },
 
     props: {
-        run: Object,
-        record: Object
+        run: Object
     },
     methods: {
         clicked: function clicked() {
             var store = this.$store;
-            store.commit('setRun', this.record);
-            store.commit('setRunData', this.run);
+            store.commit('setRun', this.run);
+            store.commit('setRunData', this.runData);
         },
         getRunData: function getRunData() {
             var $this = this;
-
+            $this.loading = true;
             __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('https://www.speedrun.com/api/v1/runs/' + this.run.runId, {
                 params: {
                     embed: 'game.players,category.players,players,level'
                 }
             }).then(function (response) {
                 $this.runData = response.data.data;
-            }).catch(function (response) {});
+            }).catch(function (response) {}).then(function () {
+                $this.loading = false;
+            });
         }
     },
     computed: {
@@ -67402,7 +67374,13 @@ var render = function() {
         {
           staticClass: "history-link ",
           class: { active: _vm.currentlyPlaying },
-          attrs: { outline: "", color: _vm.color, block: "" },
+          attrs: {
+            outline: "",
+            color: _vm.color,
+            block: "",
+            loading: _vm.loading,
+            disabled: _vm.loading
+          },
           on: { click: _vm.clicked }
         },
         [
@@ -67413,44 +67391,46 @@ var render = function() {
               _c(
                 "v-card-title",
                 [
-                  _c(
-                    "v-layout",
-                    { attrs: { row: "", wrap: "" } },
-                    [
-                      _c("v-flex", { attrs: { xs12: "" } }, [
-                        _vm.runGameName
-                          ? _c("h3", { staticClass: "mb-0" }, [
-                              _vm._v(_vm._s(_vm.runGameName))
-                            ])
-                          : _vm._e()
-                      ]),
-                      _vm._v(" "),
-                      _c("v-flex", { attrs: { xs12: "" } }, [
-                        _vm.runCategoryName
-                          ? _c("h4", [_vm._v(_vm._s(_vm.runCategoryName))])
-                          : _vm._e()
-                      ]),
-                      _vm._v(" "),
-                      _c("v-flex", { attrs: { xs12: "" } }, [
-                        _vm.runTime
-                          ? _c("h3", [_vm._v(_vm._s(_vm.runTime))])
-                          : _vm._e()
-                      ]),
-                      _vm._v(" "),
-                      _c("v-flex", { attrs: { xs12: "" } }, [
-                        _vm.runPlayerName
-                          ? _c("h4", [
-                              _vm._v(
-                                "\n                        By " +
-                                  _vm._s(_vm.runPlayerName) +
-                                  "\n                    "
-                              )
-                            ])
-                          : _vm._e()
-                      ])
-                    ],
-                    1
-                  )
+                  _vm.runData
+                    ? _c(
+                        "v-layout",
+                        { attrs: { row: "", wrap: "" } },
+                        [
+                          _c("v-flex", { attrs: { xs12: "" } }, [
+                            _vm.runGameName
+                              ? _c("h3", { staticClass: "mb-0" }, [
+                                  _vm._v(_vm._s(_vm.runGameName))
+                                ])
+                              : _vm._e()
+                          ]),
+                          _vm._v(" "),
+                          _c("v-flex", { attrs: { xs12: "" } }, [
+                            _vm.runCategoryName
+                              ? _c("h4", [_vm._v(_vm._s(_vm.runCategoryName))])
+                              : _vm._e()
+                          ]),
+                          _vm._v(" "),
+                          _c("v-flex", { attrs: { xs12: "" } }, [
+                            _vm.runTime
+                              ? _c("h3", [_vm._v(_vm._s(_vm.runTime))])
+                              : _vm._e()
+                          ]),
+                          _vm._v(" "),
+                          _c("v-flex", { attrs: { xs12: "" } }, [
+                            _vm.runPlayerName
+                              ? _c("h4", [
+                                  _vm._v(
+                                    "\n                        By " +
+                                      _vm._s(_vm.runPlayerName) +
+                                      "\n                    "
+                                  )
+                                ])
+                              : _vm._e()
+                          ])
+                        ],
+                        1
+                      )
+                    : _vm._e()
                 ],
                 1
               )
@@ -67602,11 +67582,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             return this.$store.state.likedRuns;
         },
         paginationLength: function paginationLength() {
-            return Math.ceil(this.$store.state.runHistory.length / this.perPage - 1) + 1;
+            return Math.ceil(this.$store.state.likedRuns.length / this.perPage - 1) + 1;
         },
         activeRunHistory: function activeRunHistory() {
 
-            return this.runHistory.slice((this.page - 1) * this.perPage, (this.page - 1) * this.perPage + this.perPage);
+            return this.likedRuns.slice((this.page - 1) * this.perPage, (this.page - 1) * this.perPage + this.perPage);
         }
     }
 });
@@ -67623,8 +67603,8 @@ var render = function() {
     "div",
     { staticClass: "history" },
     [
-      _vm._l(_vm.likedRuns, function(run) {
-        return _c("history-run-data", { key: run.id, attrs: { run: run } })
+      _vm._l(_vm.activeRunHistory, function(run) {
+        return _c("liked-run-data", { key: run.id, attrs: { run: run } })
       }),
       _vm._v(" "),
       _vm.likedRuns.length > _vm.perPage

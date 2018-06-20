@@ -12,7 +12,7 @@ class UserController extends Controller
     public function user(Request $request) {
 	    if(Auth::check()) {
 		    $user      = $request->user();
-		    $likedRuns = $user->likedRuns()->get();
+		    $likedRuns = $user->likedRuns()->orderBy('liked_run_user.created_at', 'desc')->get();
 		    return json_encode(['user' => $user, 'likedRuns' => $likedRuns]);
 	    } else {
 		    return json_encode(['user' => null, 'likedRuns' => null]);
@@ -51,11 +51,11 @@ class UserController extends Controller
 
 		    $run = $request->params['activeRun'];
 
-			unset($run['id'], $run['created_at'], $run['updated_at']);
+			unset($run['id'], $run['created_at'], $run['updated_at'], $run['pivot']);
 
 		    $likedRun = LikedRun::firstOrCreate($run);
 
-		    $alreadyLiked = $user->likedRuns->contains($likedRun->id);
+		    $alreadyLiked = $user->likedRuns->contains('runId', $likedRun->runId);
 
 		    if($alreadyLiked) {
 			    $user->likedRuns()->detach($likedRun);
@@ -65,7 +65,7 @@ class UserController extends Controller
 			    $message = 'liked';
 		    }
 
-		    $likedRuns = $user->likedRuns()->get();
+		    $likedRuns = $user->likedRuns()->orderBy('liked_run_user.created_at', 'desc')->get();
 
 		    return json_encode(['message' => $message, 'likedRuns' => $likedRuns]);
 

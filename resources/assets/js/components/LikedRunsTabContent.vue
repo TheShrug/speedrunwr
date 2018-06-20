@@ -1,6 +1,6 @@
 <template>
     <div class="history">
-        <history-run-data v-for="run in likedRuns" v-bind:run="run" :key="run.id"></history-run-data>
+        <liked-run-data v-for="run in activeRunHistory" v-bind:run="run" :key="run.id"></liked-run-data>
         <div class="text-xs-center pagination-container" v-if="likedRuns.length > perPage">
             <v-pagination :length="this.paginationLength" :total-visible="totalVisible" v-model="page"></v-pagination>
         </div>
@@ -32,11 +32,11 @@
             },
 
             paginationLength() {
-                return Math.ceil((this.$store.state.runHistory.length / this.perPage) - 1) + 1
+                return Math.ceil((this.$store.state.likedRuns.length / this.perPage) - 1) + 1
             },
             activeRunHistory() {
 
-                return this.runHistory.slice((this.page - 1) * this.perPage, (this.page - 1) * this.perPage + this.perPage)
+                return this.likedRuns.slice((this.page - 1) * this.perPage, (this.page - 1) * this.perPage + this.perPage)
             }
         }
     }

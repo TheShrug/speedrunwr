@@ -1,9 +1,9 @@
 <template>
     <div>
-        <v-btn class="history-link " outline :color="color" block @click="clicked" v-bind:class="{ active : currentlyPlaying}">
+        <v-btn class="history-link " outline :color="color" block @click="clicked" v-bind:class="{ active : currentlyPlaying}" :loading="loading" :disabled="loading">
             <v-card flat>
                 <v-card-title>
-                    <v-layout row wrap>
+                    <v-layout row wrap v-if="runData">
                         <v-flex xs12>
                             <h3 class="mb-0" v-if="runGameName">{{runGameName}}</h3>
                         </v-flex>
@@ -25,28 +25,27 @@
     import Axios from 'axios'
     export default {
         mounted() {
-            console.log('test');
+
             this.getRunData();
         },
         data() {
             return {
                 runData: null,
+                loading: false
             }
         },
         props: {
-            run: Object,
-            record: Object
+            run: Object
         },
         methods: {
             clicked() {
                 var store = this.$store
-                store.commit('setRun', this.record)
-                store.commit('setRunData', this.run)
+                store.commit('setRun', this.run)
+                store.commit('setRunData', this.runData)
             },
             getRunData() {
                 let $this = this
-
-
+                $this.loading = true
                 Axios.get('https://www.speedrun.com/api/v1/runs/' + this.run.runId, {
                     params: {
                         embed:'game.players,category.players,players,level'
@@ -55,9 +54,10 @@
                     $this.runData = response.data.data
                 }).catch(function(response) {
 
+                }).then(function() {
+                    $this.loading = false
                 })
             }
-
 
         },
         computed: {

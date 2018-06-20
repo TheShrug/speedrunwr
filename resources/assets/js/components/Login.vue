@@ -94,9 +94,9 @@
                     ).then(function(response) {
                         if(response.data.message === 'success') {
                             $this.$store.commit('setUser', response.data.user);
+                            $this.$store.commit('setLikedRuns', response.data.likedRuns);
                         }
                         if(response.data.message == 'verifiedError') {
-                            console.log(response.data.message);
                             $this.alert = true;
                             $this.alertMessage = response.data.errorMessage;
                             $this.alertType = 'warning';
