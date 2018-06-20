@@ -13,9 +13,7 @@
                 <history></history>
             </v-tab-item>
             <v-tab-item :id="`tab-liked`" v-if="userLoggedIn">
-                <v-card flat>
-                    <v-card-text>Liked</v-card-text>
-                </v-card>
+                <liked-runs-tab-content></liked-runs-tab-content>
             </v-tab-item>
         </v-tabs-items>
     </v-layout>

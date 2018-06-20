@@ -31,4 +31,8 @@ class User extends Authenticatable
     public function userVerification(){
     	return $this->hasOne('App\UserVerification');
     }
+
+    public function likedRuns() {
+    	return $this->belongsToMany('App\LikedRun')->withTimestamps();
+    }
 }

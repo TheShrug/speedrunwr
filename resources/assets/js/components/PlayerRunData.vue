@@ -2,10 +2,7 @@
     <div>
         <v-layout row wrap class="run-details grey darken-3" pa-2>
             <v-flex xs2 class="text-xs-center run-detail" >
-                <v-btn outline color="grey lighten-2" block>
-                    <v-icon left>favorite</v-icon>
-                    Like
-                </v-btn>
+                <like-run v-bind:run-id="run.id"></like-run>
             </v-flex>
             <v-flex xs4 class="run-detail">
                 <div v-if="runGameName"><a :href="runGameLink" target="_blank">{{runGameName}}</a></div>

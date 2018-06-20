@@ -20,6 +20,9 @@ Route::get('/user/verify/{key}', 'Auth\VerifyUserController@verifyUser');
 Route::post('/user/verify/resend', 'Auth\VerifyUserController@resendEmail');
 Route::post('register', 'Auth\RegisterController@register');
 
+Route::post('/user/likeRun', 'UserController@likeRun');
+Route::get('/user/likesRun', 'UserController@likesRun');
+
 Route::post('login', 'Auth\LoginController@login');
 Route::post('logout', 'Auth\LoginController@logout');
 Route::post('password/reset/sendEmail', 'Auth\ForgotPasswordController@sendResetLinkEmail');

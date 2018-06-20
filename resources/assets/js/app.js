@@ -32,7 +32,8 @@ const store = new Vuex.Store({
         runHistory: [],
         videoEnded: false,
         user: null,
-        userLoggedIn: false
+        userLoggedIn: false,
+        likedRuns: null
     },
     mutations: {
         setRun(state, payload) {
@@ -56,6 +57,9 @@ const store = new Vuex.Store({
         },
         addRunDataToHistory(state, payload) {
             state.runHistory.unshift(payload)
+        },
+        setLikedRuns(state, payload) {
+            state.likedRuns = payload
         }
     },
     actions: {
@@ -90,6 +94,9 @@ Vue.component('forgot-password', require('./components/ForgotPassword.vue'));
 Vue.component('password-reset-form', require('./components/PasswordResetForm.vue'));
 Vue.component('history-tabs', require('./components/HistoryTabs.vue'));
 Vue.component('history', require('./components/History.vue'));
+Vue.component('like-run', require('./components/LikeRun.vue'));
+Vue.component('liked-run-data', require('./components/LikedRunData.vue'));
+Vue.component('liked-runs-tab-content', require('./components/LikedRunsTabContent.vue'));
 Vue.component('twitch-player', VueTwitchPlayer);
 
 
@@ -111,6 +118,8 @@ const app = new Vue({
             )
             .then(function(response) {
                 $this.$store.commit('setUser', response.data.user)
+                $this.$store.commit('setLikedRuns', response.data.likedRuns)
+
             })
             .catch(function(response) {
 

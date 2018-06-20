@@ -13,10 +13,20 @@ class CreateLikedRunsTable extends Migration
      */
     public function up()
     {
-        Schema::create('likedruns', function (Blueprint $table) {
+        Schema::create('liked_runs', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('userId');
-            $table->integer('runId');
+            $table->string('runId', 10);
+	        $table->string('gameId')->nullable();
+	        $table->string('categoryId')->nullable();
+	        $table->string('levelId')->nullable();
+	        $table->string('userId')->nullable();
+	        $table->string('platformId')->nullable();
+	        $table->string('regionId')->nullable();
+	        $table->integer('competition')->default(0);
+	        $table->float('primaryTime',12,3)->nullable();
+	        $table->dateTime('date')->nullable();
+	        $table->string('youtubeId')->nullable();
+	        $table->string('twitchId')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +38,6 @@ class CreateLikedRunsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('likedruns');
+        Schema::dropIfExists('liked_runs');
     }
 }
