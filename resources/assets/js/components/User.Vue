@@ -14,9 +14,7 @@
     import Axios from 'axios'
 
     export default {
-        mounted() {
-            console.log('Component mounted.')
-        },
+
         data() {
             return  {
                 loginDialog: false,

@@ -58,13 +58,9 @@
                     params : {
                         runId: $this.runId
                     }
-
                 })
                 .then(function(response) {
                     $this.liked = response.data.message
-
-                    console.log(response);
-
 
                 })
                 .catch(function(response) {

@@ -40,9 +40,6 @@
     import { required, email } from 'vuelidate/lib/validators'
     import Axios from 'axios'
     export default {
-        mounted() {
-            console.log('Component mounted.')
-        },
         data() {
             return  {
                 emailAddress:'',
@@ -66,7 +63,7 @@
                 let params = {
                     email : this.$v.emailAddress.$model,
                 };
-                console.log(params);
+
                 if(!this.$v.$invalid) {
                     $this.loading = true
                     Axios.post('user/verify/resend',

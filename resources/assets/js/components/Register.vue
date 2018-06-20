@@ -63,9 +63,6 @@
     import { required, maxLength, minLength, email, sameAs } from 'vuelidate/lib/validators'
     import Axios from 'axios'
     export default {
-        mounted() {
-            console.log('Component mounted.')
-        },
         data() {
             return  {
                 name: false,
@@ -128,7 +125,6 @@
                                 $this.alert = true;
                                 $this.alertMessage = error.response.data.errors[prop][0];
                                 $this.alertType = 'warning'
-                                console.log(error.response.data.errors[prop][0])
                             }
                         }
                     }).then(function(){

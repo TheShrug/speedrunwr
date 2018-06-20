@@ -199,7 +199,6 @@
         },
         watch: {
             'videoEnded': function() {
-                console.log(this.$store.state.videoEnded)
                 if(this.$store.state.videoEnded === true && this.autoPlay === true) {
                     this.getNewRun();
                 }

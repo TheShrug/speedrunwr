@@ -50,9 +50,6 @@
     import { required } from 'vuelidate/lib/validators'
     import Axios from 'axios'
     export default {
-        mounted() {
-            console.log('Component mounted.')
-        },
         data() {
             return  {
                 name: false,
@@ -107,7 +104,6 @@
                         }
 
                     }).catch(function(error) {
-                        console.log(error)
                         if(error.response.data.errors) {
                             for (var prop in error.response.data.errors) {
                                 $this.alert = true;
