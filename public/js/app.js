@@ -61936,7 +61936,7 @@ exports = module.exports = __webpack_require__(13)(false);
 
 
 // module
-exports.push([module.i, "\n.sidebar-container[data-v-93f38854] { height:100%;\n}\n", ""]);
+exports.push([module.i, "\n.sidebar-container[data-v-93f38854] { height:100%;\n}\n\n", ""]);
 
 // exports
 
@@ -61988,7 +61988,14 @@ var render = function() {
       _c(
         "v-flex",
         { attrs: { xs2: "" } },
-        [_c("h1", [_vm._v("Speedrunwr.com")]), _vm._v(" "), _c("new-run")],
+        [
+          _c("h1", { staticClass: "logo" }, [
+            _vm._v("Speedrun"),
+            _c("span", [_vm._v("wr")])
+          ]),
+          _vm._v(" "),
+          _c("new-run")
+        ],
         1
       ),
       _vm._v(" "),
@@ -63341,7 +63348,7 @@ exports = module.exports = __webpack_require__(13)(false);
 
 
 // module
-exports.push([module.i, "\n.run-hover-enter { background: #000;\n}\n.history-link { height: 100%; width: 100%;text-align: left; text-transform: none; margin: 0;\n}\n.history-link .btn__content { padding: 0; white-space:normal;\n}\n.history-link .card { width: 100%; background: none;\n}\n", ""]);
+exports.push([module.i, "\n.run-hover-enter { background: #000;\n}\n.history-link { height: 100%; width: 100%;text-align: left; text-transform: none; margin: 0;-webkit-box-shadow:none !important;box-shadow:none !important;\n}\n.history-link .btn__content { padding: 0; white-space:normal;\n}\n.history-link .card { width: 100%; background: none;\n}\n", ""]);
 
 // exports
 
@@ -63436,7 +63443,7 @@ var momentDurationFormatSetup = __webpack_require__(100);
         },
         color: function color() {
             if (this.currentlyPlaying) {
-                return 'white';
+                return 'primary';
             } else {
                 return 'transparent';
             }
@@ -63460,7 +63467,7 @@ var render = function() {
         {
           staticClass: "history-link ",
           class: { active: _vm.currentlyPlaying },
-          attrs: { outline: "", color: _vm.color, block: "" },
+          attrs: { color: _vm.color, block: "" },
           on: { click: _vm.clicked }
         },
         [
@@ -67293,7 +67300,7 @@ exports = module.exports = __webpack_require__(13)(false);
 
 
 // module
-exports.push([module.i, "\n.run-hover-enter { background: #000;\n}\n.history-link { height: 100%; width: 100%;text-align: left; text-transform: none; margin: 0; min-height: 123px;\n}\n.history-link .btn__content { padding: 0; white-space:normal;\n}\n.history-link .card { width: 100%; background: none;\n}\n", ""]);
+exports.push([module.i, "\n.run-hover-enter { background: #000;\n}\n.history-link { height: 100%; width: 100%;text-align: left; text-transform: none; margin: 0; min-height: 123px; -webkit-box-shadow:none !important; box-shadow:none !important;\n}\n.history-link .btn__content { padding: 0; white-space:normal;\n}\n.history-link .card { width: 100%; background: none;\n}\n", ""]);
 
 // exports
 
@@ -67405,7 +67412,7 @@ var momentDurationFormatSetup = __webpack_require__(100);
         },
         color: function color() {
             if (this.currentlyPlaying) {
-                return 'white';
+                return 'primary';
             } else {
                 return 'transparent';
             }
@@ -67430,7 +67437,6 @@ var render = function() {
           staticClass: "history-link ",
           class: { active: _vm.currentlyPlaying },
           attrs: {
-            outline: "",
             color: _vm.color,
             block: "",
             loading: _vm.loading,

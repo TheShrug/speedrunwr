@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-btn class="history-link " outline :color="color" block @click="clicked" v-bind:class="{ active : currentlyPlaying}">
+        <v-btn class="history-link " :color="color" block @click="clicked" v-bind:class="{ active : currentlyPlaying}">
             <v-card flat>
                 <v-card-title>
                     <v-layout row wrap>
@@ -101,7 +101,7 @@
             },
             color() {
                 if(this.currentlyPlaying) {
-                    return 'white'
+                    return 'primary'
                 } else {
                     return 'transparent'
                 }
@@ -111,7 +111,7 @@
 </script>
 <style>
     .run-hover-enter { background: #000;}
-    .history-link { height: 100%; width: 100%;text-align: left; text-transform: none; margin: 0;}
+    .history-link { height: 100%; width: 100%;text-align: left; text-transform: none; margin: 0;box-shadow:none !important;}
     .history-link .btn__content { padding: 0; white-space:normal;}
     .history-link .card { width: 100%; background: none;}
 </style>

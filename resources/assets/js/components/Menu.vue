@@ -1,7 +1,7 @@
 <template>
     <v-layout column justify-space-between fill-height>
         <v-flex xs2>
-            <h1>Speedrunwr.com</h1>
+            <h1 class="logo">Speedrun<span>wr</span></h1>
             <new-run></new-run>
         </v-flex>
         <v-flex xs8>
@@ -27,4 +27,5 @@
 </script>
 <style scoped>
     .sidebar-container { height:100%;}
+
 </style>
