@@ -1,6 +1,6 @@
 <template>
-    <div class="user-info">
-        <v-btn small @click.stop="loginDialog = true">Login</v-btn>
+    <span class="user-info">
+        <v-btn small @click.stop="loginDialog = true" block>Login</v-btn>
         <v-dialog v-model="loginDialog" max-width="500px">
             <form @submit="loginUser()" v-on:submit.prevent>
             <v-card>
@@ -8,7 +8,6 @@
                     Login
                 </v-card-title>
                 <v-card-text>
-
                     <v-text-field
                             label="Username"
                             v-model="userName"
@@ -24,16 +23,12 @@
                     <v-alert v-model="alert" dismissible :type="alertType" outline>
                         {{alertMessage}} <resend-email v-if="resendEmailLink" v-model="resendEmailDialog"></resend-email>
                     </v-alert>
-
-
                 </v-card-text>
                 <v-card-actions>
                     <v-layout row wrap>
                         <v-flex xs6>
                             <v-btn color="primary" flat @click.stop="loginDialog=false">Close</v-btn>
-
                             <forgot-password v-model="forgotPasswordDialog"></forgot-password>
-
                         </v-flex>
                         <v-flex xs6 class="text-xs-right">
                             <v-btn color="primary" type="submit" :loading="loading" :disabled="loading">Login</v-btn>
@@ -43,7 +38,7 @@
             </v-card>
             </form>
         </v-dialog>
-    </div>
+    </span>
 </template>
 
 <script>
@@ -120,8 +115,5 @@
     }
 </script>
 <style scoped>
-    .sidebar-container { height:100%;}
-    .test {
-        background:$primary;
-    }
+
 </style>

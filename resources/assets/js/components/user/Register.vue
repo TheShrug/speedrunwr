@@ -1,6 +1,6 @@
 <template>
-    <div class="user-info">
-        <v-btn small @click.stop="registerDialog = true">Register</v-btn>
+    <span class="user-info">
+        <v-btn small @click.stop="registerDialog = true" block>Register</v-btn>
         <v-dialog v-model="registerDialog" max-width="500px">
             <v-form @submit="registerUser()" v-on:submit.prevent ref="form">
                 <v-card>
@@ -56,7 +56,7 @@
                 </v-card>
             </v-form>
         </v-dialog>
-    </div>
+    </span>
 </template>
 
 <script>
@@ -139,11 +139,5 @@
     }
 </script>
 <style>
-    input:-webkit-autofill,
-    input:-webkit-autofill:hover,
-    input:-webkit-autofill:focus,
-    input:-webkit-autofill:active {
-        transition: background-color 5000s ease-in-out 0s;
-        -webkit-text-fill-color: #fff !important;
-    }
+
 </style>

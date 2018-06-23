@@ -8,7 +8,9 @@
             <history-tabs></history-tabs>
         </v-flex>
         <v-flex xs2>
-            <user></user>
+
+                <user></user>
+
         </v-flex>
     </v-layout>
 </template>
@@ -25,8 +27,15 @@
         }
     }
 </script>
-<style scoped>
+<style>
     .logo { margin-bottom: 6px;}
     .logo a { color: #fff; text-decoration: none;}
     .logo span {font-style:italic;-webkit-text-stroke-width: 2px; -webkit-text-stroke-color: #F94645; }
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    input:-webkit-autofill:active {
+        transition: background-color 5000s ease-in-out 0s;
+        -webkit-text-fill-color: #fff !important;
+    }
 </style>

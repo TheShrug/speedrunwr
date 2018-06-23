@@ -83,20 +83,23 @@ const store = new Vuex.Store({
 Vue.component('player', require('./components/Player.vue'));
 Vue.component('app-menu', require('./components/Menu.vue'));
 Vue.component('new-run', require('./components/NewRun.vue'));
-Vue.component('user', require('./components/User.vue'));
-Vue.component('login', require('./components/Login.vue'));
-Vue.component('register', require('./components/Register.vue'));
+
 Vue.component('message', require('./components/Message.vue'));
-Vue.component('resend-email', require('./components/ResendEmail.vue'));
-Vue.component('forgot-password', require('./components/ForgotPassword.vue'));
-Vue.component('password-reset-form', require('./components/PasswordResetForm.vue'));
+
+
+
 Vue.component('history-tabs', require('./components/HistoryTabs.vue'));
 Vue.component('history', require('./components/History.vue'));
 Vue.component('like-run', require('./components/LikeRun.vue'));
 Vue.component('liked-runs-tab-content', require('./components/LikedRunsTabContent.vue'));
 Vue.component('twitch-player', VueTwitchPlayer);
 
-
+Vue.component('user', require('./components/user/User.vue'));
+Vue.component('login', require('./components/user/Login.vue'));
+Vue.component('register', require('./components/user/Register.vue'));
+Vue.component('password-reset-form', require('./components/user/PasswordResetForm.vue'));
+Vue.component('resend-email', require('./components/user/ResendEmail.vue'));
+Vue.component('forgot-password', require('./components/user/ForgotPassword.vue'));
 
 Vue.component('player-run-data', require('./components/run-data/PlayerRunData.vue'));
 Vue.component('history-run-data', require('./components/run-data/HistoryRunData.vue'));
