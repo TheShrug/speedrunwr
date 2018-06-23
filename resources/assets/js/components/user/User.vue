@@ -9,7 +9,6 @@
                 <login v-if="!userLoggedIn" class="d-inline-block"></login>
                 <register v-if="!userLoggedIn" class="d-inline-block"></register>
             </v-layout>
-
         </div>
     </v-layout>
 </template>

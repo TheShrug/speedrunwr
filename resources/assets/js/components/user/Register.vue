@@ -8,7 +8,6 @@
                         Register
                     </v-card-title>
                     <v-card-text>
-
                         <v-text-field
                             label="Username"
                             v-model="userName"
@@ -20,7 +19,6 @@
                             v-model="email"
                             required
                             :rules="[() => !$v.email.$invalid || 'Must be a valid email address']"
-
                         >
                         </v-text-field>
                         <v-text-field
