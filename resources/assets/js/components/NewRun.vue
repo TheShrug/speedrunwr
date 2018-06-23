@@ -88,7 +88,7 @@
 
             </div>
             <v-flex>
-                <v-btn @click="getNewRun" block
+                <v-btn  @click="getNewRun" block
                        :loading="loading"
                        :disabled="loading"
                 >
@@ -97,12 +97,12 @@
             </v-flex>
 
         </v-layout>
-        <div class="d-block">
+        <v-flex mt-2>
             <v-switch
                     :label="`Autoplay`"
                     v-model="autoPlay"
             ></v-switch>
-        </div>
+        </v-flex>
     </v-form>
 </template>
 

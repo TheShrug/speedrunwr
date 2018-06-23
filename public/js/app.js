@@ -61937,7 +61937,7 @@ exports = module.exports = __webpack_require__(13)(false);
 
 
 // module
-exports.push([module.i, "\n.sidebar-container[data-v-93f38854] { height:100%;\n}\n\n", ""]);
+exports.push([module.i, "\n.logo[data-v-93f38854] { margin-bottom: 6px;\n}\n.logo a[data-v-93f38854] { color: #fff; text-decoration: none;\n}\n.logo span[data-v-93f38854] {font-style:italic;-webkit-text-stroke-width: 2px; -webkit-text-stroke-color: #F94645;\n}\n", ""]);
 
 // exports
 
@@ -61991,8 +61991,14 @@ var render = function() {
         { attrs: { xs2: "" } },
         [
           _c("h1", { staticClass: "logo" }, [
-            _vm._v("Speedrun"),
-            _c("span", [_vm._v("wr")])
+            _c("a", { attrs: { href: "/", title: "Speedrun" } }, [
+              _vm._v("Speedrun"),
+              _c(
+                "span",
+                { attrs: { title: "Web Randomizer? World Records?" } },
+                [_vm._v("wr")]
+              )
+            ])
           ]),
           _vm._v(" "),
           _c("new-run")
@@ -62659,8 +62665,8 @@ var render = function() {
       ),
       _vm._v(" "),
       _c(
-        "div",
-        { staticClass: "d-block" },
+        "v-flex",
+        { attrs: { "mt-2": "" } },
         [
           _c("v-switch", {
             attrs: { label: "Autoplay" },
