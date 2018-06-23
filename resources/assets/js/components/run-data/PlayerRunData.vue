@@ -6,7 +6,12 @@
             </v-flex>
             <v-flex xs4 class="run-detail">
                 <div v-if="runGameName"><a :href="runGameLink" target="_blank">{{runGameName}}</a></div>
-                <div v-if="runCategoryName"><a :href="runCategoryLink" target="_blank">{{runCategoryName}}</a></div>
+                <div v-if="runCategoryName">
+                    <a :href="runCategoryLink" target="_blank">{{runCategoryName}}</a>
+                    <div v-if="runLevel">
+                        <a :href="runLevel.weblink" target="_blank">{{runLevel.name}}</a>
+                    </div>
+                </div>
             </v-flex>
             <v-flex xs4 class="run-detail">
                 <div v-if="runTime">{{runTime}}</div>
@@ -88,6 +93,13 @@
                 return (this.run.players.data[0].youtube)
                     ? this.run.players.data[0].youtube.uri
                     : ''
+            },
+            runLevel() {
+                if(this.run.level.data.weblink) {
+                    return this.run.level.data
+                } else {
+                    return false;
+                }
             }
         }
     }

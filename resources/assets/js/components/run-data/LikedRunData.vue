@@ -7,11 +7,11 @@
                         <v-flex xs12>
                             <h3 class="mb-0" v-if="runGameName">{{runGameName}}</h3>
                         </v-flex>
-                        <v-flex xs12><h4 v-if="runCategoryName">{{runCategoryName}}</h4></v-flex>
-                        <v-flex xs12><h3 v-if="runTime">{{runTime}}</h3></v-flex>
-                        <v-flex xs12><h4 v-if="runPlayerName">
+                        <v-flex xs12><div v-if="runCategoryName">{{runCategoryName}}<span v-if="runLevel"> - {{runLevel.name}}</span></div></v-flex>
+                        <v-flex xs12><div v-if="runTime">{{runTime}}</div></v-flex>
+                        <v-flex xs12><div v-if="runPlayerName">
                             By {{runPlayerName}}
-                        </h4></v-flex>
+                        </div></v-flex>
                     </v-layout>
                 </v-card-title>
             </v-card>
@@ -118,6 +118,13 @@
                     return 'primary'
                 } else {
                     return 'transparent'
+                }
+            },
+            runLevel() {
+                if(this.runData.level.data.weblink) {
+                    return this.runData.level.data
+                } else {
+                    return false;
                 }
             }
         }

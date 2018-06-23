@@ -23519,8 +23519,6 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('player', __webpack_require__(498));
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('app-menu', __webpack_require__(504));
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('new-run', __webpack_require__(509));
-__WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('player-run-data', __webpack_require__(514));
-__WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('history-run-data', __webpack_require__(521));
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('user', __webpack_require__(526));
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('login', __webpack_require__(531));
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('register', __webpack_require__(559));
@@ -23531,9 +23529,12 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('password-reset-form', __w
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('history-tabs', __webpack_require__(582));
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('history', __webpack_require__(587));
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('like-run', __webpack_require__(592));
-__WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('liked-run-data', __webpack_require__(597));
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('liked-runs-tab-content', __webpack_require__(602));
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('twitch-player', __WEBPACK_IMPORTED_MODULE_8_vue_twitch_player___default.a);
+
+__WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('player-run-data', __webpack_require__(617));
+__WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('history-run-data', __webpack_require__(622));
+__WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('liked-run-data', __webpack_require__(627));
 
 var app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
     el: '#app',
@@ -62689,176 +62690,10 @@ if (false) {
 }
 
 /***/ }),
-/* 514 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-function injectStyle (ssrContext) {
-  if (disposed) return
-  __webpack_require__(515)
-}
-var normalizeComponent = __webpack_require__(12)
-/* script */
-var __vue_script__ = __webpack_require__(517)
-/* template */
-var __vue_template__ = __webpack_require__(520)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = injectStyle
-/* scopeId */
-var __vue_scopeId__ = "data-v-140466cd"
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources\\assets\\js\\components\\PlayerRunData.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-140466cd", Component.options)
-  } else {
-    hotAPI.reload("data-v-140466cd", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 515 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(516);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(14)("2c2eb724", content, false, {});
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-140466cd\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./PlayerRunData.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-140466cd\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./PlayerRunData.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 516 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(13)(false);
-// imports
-
-
-// module
-exports.push([module.i, "\n.run-details .run-detail[data-v-140466cd] {\n\n    font-size: 16px;\n}\na[data-v-140466cd] {color:#E8BF6A;\n}\n", ""]);
-
-// exports
-
-
-/***/ }),
-/* 517 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-var moment = __webpack_require__(1);
-var momentDurationFormatSetup = __webpack_require__(100);
-/* harmony default export */ __webpack_exports__["default"] = ({
-    mounted: function mounted() {},
-    data: function data() {
-        return {};
-    },
-
-    props: {
-        run: Object
-    },
-    methods: {},
-    computed: {
-        runTime: function runTime() {
-            return this.run.times.primary_t ? moment.duration(this.run.times.primary_t, "seconds").format('d[d] h[hr] m[m] s.S[s]') : '';
-        },
-        runGameName: function runGameName() {
-            return this.run.game.data.names.international ? this.run.game.data.names.international : '';
-        },
-        runGameLink: function runGameLink() {
-            return this.run.game.data.weblink ? this.run.game.data.weblink : '';
-        },
-        runCategoryName: function runCategoryName() {
-            return this.run.category.data.name ? this.run.category.data.name : '';
-        },
-        runCategoryLink: function runCategoryLink() {
-            return this.run.category.data.weblink ? this.run.category.data.weblink : '';
-        },
-        runPlayerName: function runPlayerName() {
-            if (this.run.players.data[0].rel == 'guest') {
-                return this.run.players.data['0'].name;
-            } else if (this.run.players.data[0].names.international) {
-                return this.run.players.data[0].names.international;
-            } else {
-                return '';
-            }
-        },
-        runPlayerLink: function runPlayerLink() {
-            return this.run.players.data[0].weblink ? this.run.players.data[0].weblink : '';
-        },
-        runPlayerTwitch: function runPlayerTwitch() {
-            return this.run.players.data[0].twitch ? this.run.players.data[0].twitch.uri : '';
-        },
-        runPlayerYoutube: function runPlayerYoutube() {
-            return this.run.players.data[0].youtube ? this.run.players.data[0].youtube.uri : '';
-        }
-    }
-});
-
-/***/ }),
+/* 514 */,
+/* 515 */,
+/* 516 */,
+/* 517 */,
 /* 518 */
 /***/ (function(module, exports) {
 
@@ -63155,391 +62990,12 @@ module.exports = webpackContext;
 webpackContext.id = 519;
 
 /***/ }),
-/* 520 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c(
-        "v-layout",
-        {
-          staticClass: "run-details grey darken-3",
-          attrs: { row: "", wrap: "", "pa-2": "" }
-        },
-        [
-          _c(
-            "v-flex",
-            { staticClass: "text-xs-center run-detail", attrs: { xs2: "" } },
-            [_c("like-run", { attrs: { "run-id": _vm.run.id } })],
-            1
-          ),
-          _vm._v(" "),
-          _c("v-flex", { staticClass: "run-detail", attrs: { xs4: "" } }, [
-            _vm.runGameName
-              ? _c("div", [
-                  _c(
-                    "a",
-                    { attrs: { href: _vm.runGameLink, target: "_blank" } },
-                    [_vm._v(_vm._s(_vm.runGameName))]
-                  )
-                ])
-              : _vm._e(),
-            _vm._v(" "),
-            _vm.runCategoryName
-              ? _c("div", [
-                  _c(
-                    "a",
-                    { attrs: { href: _vm.runCategoryLink, target: "_blank" } },
-                    [_vm._v(_vm._s(_vm.runCategoryName))]
-                  )
-                ])
-              : _vm._e()
-          ]),
-          _vm._v(" "),
-          _c("v-flex", { staticClass: "run-detail", attrs: { xs4: "" } }, [
-            _vm.runTime ? _c("div", [_vm._v(_vm._s(_vm.runTime))]) : _vm._e(),
-            _vm._v(" "),
-            _vm.runPlayerName
-              ? _c("div", [
-                  _vm._v("\n                By "),
-                  _c(
-                    "a",
-                    { attrs: { href: _vm.runPlayerLink, target: "_blank" } },
-                    [_vm._v(_vm._s(_vm.runPlayerName))]
-                  ),
-                  _vm._v(" "),
-                  _vm.runPlayerTwitch
-                    ? _c("span", [
-                        _c(
-                          "a",
-                          {
-                            attrs: {
-                              href: _vm.runPlayerTwitch,
-                              target: "_blank"
-                            }
-                          },
-                          [_c("i", { staticClass: "fab fa-twitch" })]
-                        )
-                      ])
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _vm.runPlayerYoutube
-                    ? _c("span", [
-                        _c(
-                          "a",
-                          {
-                            attrs: {
-                              href: _vm.runPlayerYoutube,
-                              target: "_blank"
-                            }
-                          },
-                          [_c("i", { staticClass: "fab fa-youtube" })]
-                        )
-                      ])
-                    : _vm._e()
-                ])
-              : _vm._e()
-          ])
-        ],
-        1
-      )
-    ],
-    1
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-140466cd", module.exports)
-  }
-}
-
-/***/ }),
-/* 521 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-function injectStyle (ssrContext) {
-  if (disposed) return
-  __webpack_require__(522)
-}
-var normalizeComponent = __webpack_require__(12)
-/* script */
-var __vue_script__ = __webpack_require__(524)
-/* template */
-var __vue_template__ = __webpack_require__(525)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = injectStyle
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources\\assets\\js\\components\\HistoryRunData.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-f1b05f50", Component.options)
-  } else {
-    hotAPI.reload("data-v-f1b05f50", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 522 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(523);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(14)("175e9e74", content, false, {});
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-f1b05f50\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./HistoryRunData.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-f1b05f50\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./HistoryRunData.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 523 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(13)(false);
-// imports
-
-
-// module
-exports.push([module.i, "\n.run-hover-enter { background: #000;\n}\n.history-link { height: 100%; width: 100%;text-align: left; text-transform: none; margin: 0;-webkit-box-shadow:none !important;box-shadow:none !important;\n}\n.history-link .btn__content { padding: 0; white-space:normal;\n}\n.history-link .card { width: 100%; background: none;\n}\n", ""]);
-
-// exports
-
-
-/***/ }),
-/* 524 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-var moment = __webpack_require__(1);
-var momentDurationFormatSetup = __webpack_require__(100);
-/* harmony default export */ __webpack_exports__["default"] = ({
-    mounted: function mounted() {},
-    data: function data() {
-        return {};
-    },
-
-    props: {
-        run: Object,
-        record: Object
-    },
-    methods: {
-        clicked: function clicked() {
-            var store = this.$store;
-            store.commit('setRun', this.record);
-            store.commit('setRunData', this.run);
-        }
-    },
-    computed: {
-        runTime: function runTime() {
-            return this.run.times.primary_t ? moment.duration(this.run.times.primary_t, "seconds").format('d[d] h[hr] m[m] s.S[s]') : '';
-        },
-        runGameName: function runGameName() {
-            return this.run.game.data.names.international ? this.run.game.data.names.international : '';
-        },
-        runGameLink: function runGameLink() {
-            return this.run.game.data.weblink ? this.run.game.data.weblink : '';
-        },
-        runCategoryName: function runCategoryName() {
-            return this.run.category.data.name ? this.run.category.data.name : '';
-        },
-        runCategoryLink: function runCategoryLink() {
-            return this.run.category.data.weblink ? this.run.category.data.weblink : '';
-        },
-        runPlayerName: function runPlayerName() {
-            if (this.run.players.data[0].rel == 'guest') {
-                return this.run.players.data['0'].name;
-            } else if (this.run.players.data[0].names.international) {
-                return this.run.players.data[0].names.international;
-            } else {
-                return '';
-            }
-        },
-        runPlayerLink: function runPlayerLink() {
-            return this.run.players.data[0].weblink ? this.run.players.data[0].weblink : '';
-        },
-        runPlayerTwitch: function runPlayerTwitch() {
-            return this.run.players.data[0].twitch ? this.run.players.data[0].twitch.uri : '';
-        },
-        runPlayerYoutube: function runPlayerYoutube() {
-            return this.run.players.data[0].youtube ? this.run.players.data[0].youtube.uri : '';
-        },
-        currentlyPlaying: function currentlyPlaying() {
-            if (this.record === this.$store.state.activeRun) {
-                return true;
-            } else {
-                return false;
-            }
-        },
-        color: function color() {
-            if (this.currentlyPlaying) {
-                return 'primary';
-            } else {
-                return 'transparent';
-            }
-        }
-    }
-});
-
-/***/ }),
-/* 525 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c(
-        "v-btn",
-        {
-          staticClass: "history-link ",
-          class: { active: _vm.currentlyPlaying },
-          attrs: { color: _vm.color, block: "" },
-          on: { click: _vm.clicked }
-        },
-        [
-          _c(
-            "v-card",
-            { attrs: { flat: "" } },
-            [
-              _c(
-                "v-card-title",
-                [
-                  _c(
-                    "v-layout",
-                    { attrs: { row: "", wrap: "" } },
-                    [
-                      _c("v-flex", { attrs: { xs12: "" } }, [
-                        _vm.runGameName
-                          ? _c("h3", { staticClass: "mb-0" }, [
-                              _vm._v(_vm._s(_vm.runGameName))
-                            ])
-                          : _vm._e()
-                      ]),
-                      _vm._v(" "),
-                      _c("v-flex", { attrs: { xs12: "" } }, [
-                        _vm.runCategoryName
-                          ? _c("h4", [_vm._v(_vm._s(_vm.runCategoryName))])
-                          : _vm._e()
-                      ]),
-                      _vm._v(" "),
-                      _c("v-flex", { attrs: { xs12: "" } }, [
-                        _vm.runTime
-                          ? _c("h3", [_vm._v(_vm._s(_vm.runTime))])
-                          : _vm._e()
-                      ]),
-                      _vm._v(" "),
-                      _c("v-flex", { attrs: { xs12: "" } }, [
-                        _vm.runPlayerName
-                          ? _c("h4", [
-                              _vm._v(
-                                "\n                        By " +
-                                  _vm._s(_vm.runPlayerName) +
-                                  "\n                    "
-                              )
-                            ])
-                          : _vm._e()
-                      ])
-                    ],
-                    1
-                  )
-                ],
-                1
-              )
-            ],
-            1
-          )
-        ],
-        1
-      )
-    ],
-    1
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-f1b05f50", module.exports)
-  }
-}
-
-/***/ }),
+/* 520 */,
+/* 521 */,
+/* 522 */,
+/* 523 */,
+/* 524 */,
+/* 525 */,
 /* 526 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -67215,307 +66671,11 @@ if (false) {
 }
 
 /***/ }),
-/* 597 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-function injectStyle (ssrContext) {
-  if (disposed) return
-  __webpack_require__(598)
-}
-var normalizeComponent = __webpack_require__(12)
-/* script */
-var __vue_script__ = __webpack_require__(600)
-/* template */
-var __vue_template__ = __webpack_require__(601)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = injectStyle
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources\\assets\\js\\components\\LikedRunData.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-5305d35f", Component.options)
-  } else {
-    hotAPI.reload("data-v-5305d35f", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 598 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(599);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(14)("ad45ef80", content, false, {});
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5305d35f\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./LikedRunData.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5305d35f\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./LikedRunData.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 599 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(13)(false);
-// imports
-
-
-// module
-exports.push([module.i, "\n.run-hover-enter { background: #000;\n}\n.history-link { height: 100%; width: 100%;text-align: left; text-transform: none; margin: 0; min-height: 123px; -webkit-box-shadow:none !important; box-shadow:none !important;\n}\n.history-link .btn__content { padding: 0; white-space:normal;\n}\n.history-link .card { width: 100%; background: none;\n}\n", ""]);
-
-// exports
-
-
-/***/ }),
-/* 600 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-var moment = __webpack_require__(1);
-var momentDurationFormatSetup = __webpack_require__(100);
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    mounted: function mounted() {
-
-        this.getRunData();
-    },
-    data: function data() {
-        return {
-            runData: null,
-            loading: false
-        };
-    },
-
-    props: {
-        run: Object
-    },
-    methods: {
-        clicked: function clicked() {
-            var store = this.$store;
-            store.commit('setRun', this.run);
-            store.commit('setRunData', this.runData);
-        },
-        getRunData: function getRunData() {
-            var $this = this;
-            $this.loading = true;
-            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('https://www.speedrun.com/api/v1/runs/' + this.run.runId, {
-                params: {
-                    embed: 'game.players,category.players,players,level'
-                }
-            }).then(function (response) {
-                $this.runData = response.data.data;
-            }).catch(function (response) {}).then(function () {
-                $this.loading = false;
-            });
-        }
-    },
-    computed: {
-        runTime: function runTime() {
-            return this.runData.times.primary_t ? moment.duration(this.runData.times.primary_t, "seconds").format('d[d] h[hr] m[m] s.S[s]') : '';
-        },
-        runGameName: function runGameName() {
-            return this.runData.game.data.names.international ? this.runData.game.data.names.international : '';
-        },
-        runGameLink: function runGameLink() {
-            return this.runData.game.data.weblink ? this.runData.game.data.weblink : '';
-        },
-        runCategoryName: function runCategoryName() {
-            return this.runData.category.data.name ? this.runData.category.data.name : '';
-        },
-        runCategoryLink: function runCategoryLink() {
-            return this.runData.category.data.weblink ? this.runData.category.data.weblink : '';
-        },
-        runPlayerName: function runPlayerName() {
-            if (this.runData.players.data[0].rel === 'guest') {
-                return this.runData.players.data['0'].name;
-            } else if (this.runData.players.data[0].names.international) {
-                return this.runData.players.data[0].names.international;
-            } else {
-                return '';
-            }
-        },
-        runPlayerLink: function runPlayerLink() {
-            return this.runData.players.data[0].weblink ? this.runData.players.data[0].weblink : '';
-        },
-        runPlayerTwitch: function runPlayerTwitch() {
-            return this.runData.players.data[0].twitch ? this.runData.players.data[0].twitch.uri : '';
-        },
-        runPlayerYoutube: function runPlayerYoutube() {
-            return this.runData.players.data[0].youtube ? this.runData.players.data[0].youtube.uri : '';
-        },
-        currentlyPlaying: function currentlyPlaying() {
-            return this.run.runId === this.$store.state.activeRun.runId;
-        },
-        color: function color() {
-            if (this.currentlyPlaying) {
-                return 'primary';
-            } else {
-                return 'transparent';
-            }
-        }
-    }
-});
-
-/***/ }),
-/* 601 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c(
-        "v-btn",
-        {
-          staticClass: "history-link ",
-          class: { active: _vm.currentlyPlaying },
-          attrs: {
-            color: _vm.color,
-            block: "",
-            loading: _vm.loading,
-            disabled: _vm.loading
-          },
-          on: { click: _vm.clicked }
-        },
-        [
-          _c(
-            "v-card",
-            { attrs: { flat: "" } },
-            [
-              _c(
-                "v-card-title",
-                [
-                  _vm.runData
-                    ? _c(
-                        "v-layout",
-                        { attrs: { row: "", wrap: "" } },
-                        [
-                          _c("v-flex", { attrs: { xs12: "" } }, [
-                            _vm.runGameName
-                              ? _c("h3", { staticClass: "mb-0" }, [
-                                  _vm._v(_vm._s(_vm.runGameName))
-                                ])
-                              : _vm._e()
-                          ]),
-                          _vm._v(" "),
-                          _c("v-flex", { attrs: { xs12: "" } }, [
-                            _vm.runCategoryName
-                              ? _c("h4", [_vm._v(_vm._s(_vm.runCategoryName))])
-                              : _vm._e()
-                          ]),
-                          _vm._v(" "),
-                          _c("v-flex", { attrs: { xs12: "" } }, [
-                            _vm.runTime
-                              ? _c("h3", [_vm._v(_vm._s(_vm.runTime))])
-                              : _vm._e()
-                          ]),
-                          _vm._v(" "),
-                          _c("v-flex", { attrs: { xs12: "" } }, [
-                            _vm.runPlayerName
-                              ? _c("h4", [
-                                  _vm._v(
-                                    "\n                        By " +
-                                      _vm._s(_vm.runPlayerName) +
-                                      "\n                    "
-                                  )
-                                ])
-                              : _vm._e()
-                          ])
-                        ],
-                        1
-                      )
-                    : _vm._e()
-                ],
-                1
-              )
-            ],
-            1
-          )
-        ],
-        1
-      )
-    ],
-    1
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-5305d35f", module.exports)
-  }
-}
-
-/***/ }),
+/* 597 */,
+/* 598 */,
+/* 599 */,
+/* 600 */,
+/* 601 */,
 /* 602 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -67721,6 +66881,924 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 608 */,
+/* 609 */,
+/* 610 */,
+/* 611 */,
+/* 612 */,
+/* 613 */,
+/* 614 */,
+/* 615 */,
+/* 616 */,
+/* 617 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(618)
+}
+var normalizeComponent = __webpack_require__(12)
+/* script */
+var __vue_script__ = __webpack_require__(620)
+/* template */
+var __vue_template__ = __webpack_require__(621)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-66ca927b"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\run-data\\PlayerRunData.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-66ca927b", Component.options)
+  } else {
+    hotAPI.reload("data-v-66ca927b", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 618 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(619);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(14)("da42bdd6", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-66ca927b\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./PlayerRunData.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-66ca927b\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./PlayerRunData.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 619 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(13)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.run-details .run-detail[data-v-66ca927b] {\n\n    font-size: 16px;\n}\na[data-v-66ca927b] {color:#E8BF6A;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 620 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+var moment = __webpack_require__(1);
+var momentDurationFormatSetup = __webpack_require__(100);
+/* harmony default export */ __webpack_exports__["default"] = ({
+    mounted: function mounted() {},
+    data: function data() {
+        return {};
+    },
+
+    props: {
+        run: Object
+    },
+    methods: {},
+    computed: {
+        runTime: function runTime() {
+            return this.run.times.primary_t ? moment.duration(this.run.times.primary_t, "seconds").format('d[d] h[hr] m[m] s.S[s]') : '';
+        },
+        runGameName: function runGameName() {
+            return this.run.game.data.names.international ? this.run.game.data.names.international : '';
+        },
+        runGameLink: function runGameLink() {
+            return this.run.game.data.weblink ? this.run.game.data.weblink : '';
+        },
+        runCategoryName: function runCategoryName() {
+            return this.run.category.data.name ? this.run.category.data.name : '';
+        },
+        runCategoryLink: function runCategoryLink() {
+            return this.run.category.data.weblink ? this.run.category.data.weblink : '';
+        },
+        runPlayerName: function runPlayerName() {
+            if (this.run.players.data[0].rel == 'guest') {
+                return this.run.players.data['0'].name;
+            } else if (this.run.players.data[0].names.international) {
+                return this.run.players.data[0].names.international;
+            } else {
+                return '';
+            }
+        },
+        runPlayerLink: function runPlayerLink() {
+            return this.run.players.data[0].weblink ? this.run.players.data[0].weblink : '';
+        },
+        runPlayerTwitch: function runPlayerTwitch() {
+            return this.run.players.data[0].twitch ? this.run.players.data[0].twitch.uri : '';
+        },
+        runPlayerYoutube: function runPlayerYoutube() {
+            return this.run.players.data[0].youtube ? this.run.players.data[0].youtube.uri : '';
+        },
+        runLevel: function runLevel() {
+            if (this.run.level.data.weblink) {
+                return this.run.level.data;
+            } else {
+                return false;
+            }
+        }
+    }
+});
+
+/***/ }),
+/* 621 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c(
+        "v-layout",
+        {
+          staticClass: "run-details grey darken-3",
+          attrs: { row: "", wrap: "", "pa-2": "" }
+        },
+        [
+          _c(
+            "v-flex",
+            { staticClass: "text-xs-center run-detail", attrs: { xs2: "" } },
+            [_c("like-run", { attrs: { "run-id": _vm.run.id } })],
+            1
+          ),
+          _vm._v(" "),
+          _c("v-flex", { staticClass: "run-detail", attrs: { xs4: "" } }, [
+            _vm.runGameName
+              ? _c("div", [
+                  _c(
+                    "a",
+                    { attrs: { href: _vm.runGameLink, target: "_blank" } },
+                    [_vm._v(_vm._s(_vm.runGameName))]
+                  )
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.runCategoryName
+              ? _c("div", [
+                  _c(
+                    "a",
+                    { attrs: { href: _vm.runCategoryLink, target: "_blank" } },
+                    [_vm._v(_vm._s(_vm.runCategoryName))]
+                  ),
+                  _vm._v(" "),
+                  _vm.runLevel
+                    ? _c("div", [
+                        _c(
+                          "a",
+                          {
+                            attrs: {
+                              href: _vm.runLevel.weblink,
+                              target: "_blank"
+                            }
+                          },
+                          [_vm._v(_vm._s(_vm.runLevel.name))]
+                        )
+                      ])
+                    : _vm._e()
+                ])
+              : _vm._e()
+          ]),
+          _vm._v(" "),
+          _c("v-flex", { staticClass: "run-detail", attrs: { xs4: "" } }, [
+            _vm.runTime ? _c("div", [_vm._v(_vm._s(_vm.runTime))]) : _vm._e(),
+            _vm._v(" "),
+            _vm.runPlayerName
+              ? _c("div", [
+                  _vm._v("\n                By "),
+                  _c(
+                    "a",
+                    { attrs: { href: _vm.runPlayerLink, target: "_blank" } },
+                    [_vm._v(_vm._s(_vm.runPlayerName))]
+                  ),
+                  _vm._v(" "),
+                  _vm.runPlayerTwitch
+                    ? _c("span", [
+                        _c(
+                          "a",
+                          {
+                            attrs: {
+                              href: _vm.runPlayerTwitch,
+                              target: "_blank"
+                            }
+                          },
+                          [_c("i", { staticClass: "fab fa-twitch" })]
+                        )
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.runPlayerYoutube
+                    ? _c("span", [
+                        _c(
+                          "a",
+                          {
+                            attrs: {
+                              href: _vm.runPlayerYoutube,
+                              target: "_blank"
+                            }
+                          },
+                          [_c("i", { staticClass: "fab fa-youtube" })]
+                        )
+                      ])
+                    : _vm._e()
+                ])
+              : _vm._e()
+          ])
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-66ca927b", module.exports)
+  }
+}
+
+/***/ }),
+/* 622 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(623)
+}
+var normalizeComponent = __webpack_require__(12)
+/* script */
+var __vue_script__ = __webpack_require__(625)
+/* template */
+var __vue_template__ = __webpack_require__(626)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\run-data\\HistoryRunData.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-e5b1cb2c", Component.options)
+  } else {
+    hotAPI.reload("data-v-e5b1cb2c", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 623 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(624);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(14)("7e9c3e09", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-e5b1cb2c\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./HistoryRunData.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-e5b1cb2c\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./HistoryRunData.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 624 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(13)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.run-hover-enter { background: #000;\n}\n.history-link { height: 100%; width: 100%;text-align: left; text-transform: none; margin: 0;-webkit-box-shadow:none !important;box-shadow:none !important;\n}\n.history-link .btn__content { padding: 0; white-space:normal;\n}\n.history-link .card { width: 100%; background: none;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 625 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+var moment = __webpack_require__(1);
+var momentDurationFormatSetup = __webpack_require__(100);
+/* harmony default export */ __webpack_exports__["default"] = ({
+    mounted: function mounted() {},
+    data: function data() {
+        return {};
+    },
+
+    props: {
+        run: Object,
+        record: Object
+    },
+    methods: {
+        clicked: function clicked() {
+            var store = this.$store;
+            store.commit('setRun', this.record);
+            store.commit('setRunData', this.run);
+        }
+    },
+    computed: {
+        runTime: function runTime() {
+            return this.run.times.primary_t ? moment.duration(this.run.times.primary_t, "seconds").format('d[d] h[hr] m[m] s.S[s]') : '';
+        },
+        runGameName: function runGameName() {
+            return this.run.game.data.names.international ? this.run.game.data.names.international : '';
+        },
+        runGameLink: function runGameLink() {
+            return this.run.game.data.weblink ? this.run.game.data.weblink : '';
+        },
+        runCategoryName: function runCategoryName() {
+            return this.run.category.data.name ? this.run.category.data.name : '';
+        },
+        runCategoryLink: function runCategoryLink() {
+            return this.run.category.data.weblink ? this.run.category.data.weblink : '';
+        },
+        runPlayerName: function runPlayerName() {
+            if (this.run.players.data[0].rel === 'guest') {
+                return this.run.players.data['0'].name;
+            } else if (this.run.players.data[0].names.international) {
+                return this.run.players.data[0].names.international;
+            } else {
+                return '';
+            }
+        },
+        runPlayerLink: function runPlayerLink() {
+            return this.run.players.data[0].weblink ? this.run.players.data[0].weblink : '';
+        },
+        runPlayerTwitch: function runPlayerTwitch() {
+            return this.run.players.data[0].twitch ? this.run.players.data[0].twitch.uri : '';
+        },
+        runPlayerYoutube: function runPlayerYoutube() {
+            return this.run.players.data[0].youtube ? this.run.players.data[0].youtube.uri : '';
+        },
+        currentlyPlaying: function currentlyPlaying() {
+            return this.record === this.$store.state.activeRun;
+        },
+        color: function color() {
+            if (this.currentlyPlaying) {
+                return 'primary';
+            } else {
+                return 'transparent';
+            }
+        },
+        runLevel: function runLevel() {
+            if (this.run.level.data.weblink) {
+                return this.run.level.data;
+            } else {
+                return false;
+            }
+        }
+    }
+});
+
+/***/ }),
+/* 626 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c(
+        "v-btn",
+        {
+          staticClass: "history-link ",
+          class: { active: _vm.currentlyPlaying },
+          attrs: { color: _vm.color, block: "" },
+          on: { click: _vm.clicked }
+        },
+        [
+          _c(
+            "v-card",
+            { attrs: { flat: "" } },
+            [
+              _c(
+                "v-card-title",
+                [
+                  _c(
+                    "v-layout",
+                    { attrs: { row: "", wrap: "" } },
+                    [
+                      _c("v-flex", { attrs: { xs12: "" } }, [
+                        _vm.runGameName
+                          ? _c("h3", { staticClass: "mb-0" }, [
+                              _vm._v(_vm._s(_vm.runGameName))
+                            ])
+                          : _vm._e()
+                      ]),
+                      _vm._v(" "),
+                      _c("v-flex", { attrs: { xs12: "" } }, [
+                        _vm.runCategoryName
+                          ? _c("div", [
+                              _vm._v(_vm._s(_vm.runCategoryName)),
+                              _vm.runLevel
+                                ? _c("span", [
+                                    _vm._v(" - " + _vm._s(_vm.runLevel.name))
+                                  ])
+                                : _vm._e()
+                            ])
+                          : _vm._e()
+                      ]),
+                      _vm._v(" "),
+                      _c("v-flex", { attrs: { xs12: "" } }, [
+                        _vm.runTime
+                          ? _c("div", [_vm._v(_vm._s(_vm.runTime))])
+                          : _vm._e()
+                      ]),
+                      _vm._v(" "),
+                      _c("v-flex", { attrs: { xs12: "" } }, [
+                        _vm.runPlayerName
+                          ? _c("div", [
+                              _vm._v(
+                                "\n                        By " +
+                                  _vm._s(_vm.runPlayerName) +
+                                  "\n                    "
+                              )
+                            ])
+                          : _vm._e()
+                      ])
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-e5b1cb2c", module.exports)
+  }
+}
+
+/***/ }),
+/* 627 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(628)
+}
+var normalizeComponent = __webpack_require__(12)
+/* script */
+var __vue_script__ = __webpack_require__(630)
+/* template */
+var __vue_template__ = __webpack_require__(631)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\run-data\\LikedRunData.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-3bd70c1e", Component.options)
+  } else {
+    hotAPI.reload("data-v-3bd70c1e", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 628 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(629);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(14)("ef404cfa", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-3bd70c1e\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./LikedRunData.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-3bd70c1e\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./LikedRunData.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 629 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(13)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.run-hover-enter { background: #000;\n}\n.history-link { height: 100%; width: 100%;text-align: left; text-transform: none; margin: 0; min-height: 123px; -webkit-box-shadow:none !important; box-shadow:none !important;\n}\n.history-link .btn__content { padding: 0; white-space:normal;\n}\n.history-link .card { width: 100%; background: none;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 630 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+var moment = __webpack_require__(1);
+var momentDurationFormatSetup = __webpack_require__(100);
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    mounted: function mounted() {
+
+        this.getRunData();
+    },
+    data: function data() {
+        return {
+            runData: null,
+            loading: false
+        };
+    },
+
+    props: {
+        run: Object
+    },
+    methods: {
+        clicked: function clicked() {
+            var store = this.$store;
+            store.commit('setRun', this.run);
+            store.commit('setRunData', this.runData);
+        },
+        getRunData: function getRunData() {
+            var $this = this;
+            $this.loading = true;
+            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('https://www.speedrun.com/api/v1/runs/' + this.run.runId, {
+                params: {
+                    embed: 'game.players,category.players,players,level'
+                }
+            }).then(function (response) {
+                $this.runData = response.data.data;
+            }).catch(function (response) {}).then(function () {
+                $this.loading = false;
+            });
+        }
+    },
+    computed: {
+        runTime: function runTime() {
+            return this.runData.times.primary_t ? moment.duration(this.runData.times.primary_t, "seconds").format('d[d] h[hr] m[m] s.S[s]') : '';
+        },
+        runGameName: function runGameName() {
+            return this.runData.game.data.names.international ? this.runData.game.data.names.international : '';
+        },
+        runGameLink: function runGameLink() {
+            return this.runData.game.data.weblink ? this.runData.game.data.weblink : '';
+        },
+        runCategoryName: function runCategoryName() {
+            return this.runData.category.data.name ? this.runData.category.data.name : '';
+        },
+        runCategoryLink: function runCategoryLink() {
+            return this.runData.category.data.weblink ? this.runData.category.data.weblink : '';
+        },
+        runPlayerName: function runPlayerName() {
+            if (this.runData.players.data[0].rel === 'guest') {
+                return this.runData.players.data['0'].name;
+            } else if (this.runData.players.data[0].names.international) {
+                return this.runData.players.data[0].names.international;
+            } else {
+                return '';
+            }
+        },
+        runPlayerLink: function runPlayerLink() {
+            return this.runData.players.data[0].weblink ? this.runData.players.data[0].weblink : '';
+        },
+        runPlayerTwitch: function runPlayerTwitch() {
+            return this.runData.players.data[0].twitch ? this.runData.players.data[0].twitch.uri : '';
+        },
+        runPlayerYoutube: function runPlayerYoutube() {
+            return this.runData.players.data[0].youtube ? this.runData.players.data[0].youtube.uri : '';
+        },
+        currentlyPlaying: function currentlyPlaying() {
+            return this.run.runId === this.$store.state.activeRun.runId;
+        },
+        color: function color() {
+            if (this.currentlyPlaying) {
+                return 'primary';
+            } else {
+                return 'transparent';
+            }
+        },
+        runLevel: function runLevel() {
+            if (this.runData.level.data.weblink) {
+                return this.runData.level.data;
+            } else {
+                return false;
+            }
+        }
+    }
+});
+
+/***/ }),
+/* 631 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c(
+        "v-btn",
+        {
+          staticClass: "history-link ",
+          class: { active: _vm.currentlyPlaying },
+          attrs: {
+            color: _vm.color,
+            block: "",
+            loading: _vm.loading,
+            disabled: _vm.loading
+          },
+          on: { click: _vm.clicked }
+        },
+        [
+          _c(
+            "v-card",
+            { attrs: { flat: "" } },
+            [
+              _c(
+                "v-card-title",
+                [
+                  _vm.runData
+                    ? _c(
+                        "v-layout",
+                        { attrs: { row: "", wrap: "" } },
+                        [
+                          _c("v-flex", { attrs: { xs12: "" } }, [
+                            _vm.runGameName
+                              ? _c("h3", { staticClass: "mb-0" }, [
+                                  _vm._v(_vm._s(_vm.runGameName))
+                                ])
+                              : _vm._e()
+                          ]),
+                          _vm._v(" "),
+                          _c("v-flex", { attrs: { xs12: "" } }, [
+                            _vm.runCategoryName
+                              ? _c("div", [
+                                  _vm._v(_vm._s(_vm.runCategoryName)),
+                                  _vm.runLevel
+                                    ? _c("span", [
+                                        _vm._v(
+                                          " - " + _vm._s(_vm.runLevel.name)
+                                        )
+                                      ])
+                                    : _vm._e()
+                                ])
+                              : _vm._e()
+                          ]),
+                          _vm._v(" "),
+                          _c("v-flex", { attrs: { xs12: "" } }, [
+                            _vm.runTime
+                              ? _c("div", [_vm._v(_vm._s(_vm.runTime))])
+                              : _vm._e()
+                          ]),
+                          _vm._v(" "),
+                          _c("v-flex", { attrs: { xs12: "" } }, [
+                            _vm.runPlayerName
+                              ? _c("div", [
+                                  _vm._v(
+                                    "\n                        By " +
+                                      _vm._s(_vm.runPlayerName) +
+                                      "\n                    "
+                                  )
+                                ])
+                              : _vm._e()
+                          ])
+                        ],
+                        1
+                      )
+                    : _vm._e()
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-3bd70c1e", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

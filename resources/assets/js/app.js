@@ -83,8 +83,6 @@ const store = new Vuex.Store({
 Vue.component('player', require('./components/Player.vue'));
 Vue.component('app-menu', require('./components/Menu.vue'));
 Vue.component('new-run', require('./components/NewRun.vue'));
-Vue.component('player-run-data', require('./components/PlayerRunData.vue'));
-Vue.component('history-run-data', require('./components/HistoryRunData.vue'));
 Vue.component('user', require('./components/User.vue'));
 Vue.component('login', require('./components/Login.vue'));
 Vue.component('register', require('./components/Register.vue'));
@@ -95,9 +93,14 @@ Vue.component('password-reset-form', require('./components/PasswordResetForm.vue
 Vue.component('history-tabs', require('./components/HistoryTabs.vue'));
 Vue.component('history', require('./components/History.vue'));
 Vue.component('like-run', require('./components/LikeRun.vue'));
-Vue.component('liked-run-data', require('./components/LikedRunData.vue'));
 Vue.component('liked-runs-tab-content', require('./components/LikedRunsTabContent.vue'));
 Vue.component('twitch-player', VueTwitchPlayer);
+
+
+
+Vue.component('player-run-data', require('./components/run-data/PlayerRunData.vue'));
+Vue.component('history-run-data', require('./components/run-data/HistoryRunData.vue'));
+Vue.component('liked-run-data', require('./components/run-data/LikedRunData.vue'));
 
 
 const app = new Vue({

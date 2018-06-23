@@ -7,11 +7,11 @@
                         <v-flex xs12>
                             <h3 class="mb-0" v-if="runGameName">{{runGameName}}</h3>
                         </v-flex>
-                        <v-flex xs12><h4 v-if="runCategoryName">{{runCategoryName}}</h4></v-flex>
-                        <v-flex xs12><h3 v-if="runTime">{{runTime}}</h3></v-flex>
-                        <v-flex xs12><h4 v-if="runPlayerName">
+                        <v-flex xs12><div v-if="runCategoryName">{{runCategoryName}}<span v-if="runLevel"> - {{runLevel.name}}</span></div></v-flex>
+                        <v-flex xs12><div v-if="runTime">{{runTime}}</div></v-flex>
+                        <v-flex xs12><div v-if="runPlayerName">
                             By {{runPlayerName}}
-                        </h4></v-flex>
+                        </div></v-flex>
                     </v-layout>
                 </v-card-title>
             </v-card>
@@ -69,7 +69,7 @@
                     : ''
             },
             runPlayerName() {
-                if(this.run.players.data[0].rel == 'guest'){
+                if(this.run.players.data[0].rel === 'guest'){
                     return this.run.players.data['0'].name
                 } else if(this.run.players.data[0].names.international) {
                     return this.run.players.data[0].names.international
@@ -93,17 +93,20 @@
                     : ''
             },
             currentlyPlaying() {
-                if(this.record === this.$store.state.activeRun) {
-                    return true
-                } else {
-                    return false
-                }
+                return (this.record === this.$store.state.activeRun)
             },
             color() {
                 if(this.currentlyPlaying) {
                     return 'primary'
                 } else {
                     return 'transparent'
+                }
+            },
+            runLevel() {
+                if(this.run.level.data.weblink) {
+                    return this.run.level.data
+                } else {
+                    return false;
                 }
             }
         }
