@@ -125,7 +125,7 @@
 </script>
 <style>
     .run-hover-enter { background: #000;}
-    .history-link { height: 100%; width: 100%;text-align: left; text-transform: none; margin: 0;}
+    .history-link { height: 100%; width: 100%;text-align: left; text-transform: none; margin: 0; min-height: 123px;}
     .history-link .btn__content { padding: 0; white-space:normal;}
     .history-link .card { width: 100%; background: none;}
 </style>

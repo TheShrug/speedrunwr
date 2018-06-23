@@ -1,10 +1,12 @@
 <template>
-    <div class="history">
-        <liked-run-data v-for="run in activeRunHistory" v-bind:run="run" :key="run.id"></liked-run-data>
+    <v-layout column class="history" align-content-space-between fill-height>
+        <v-flex>
+            <liked-run-data v-for="run in activeRunHistory" v-bind:run="run" :key="run.id"></liked-run-data>
+        </v-flex>
         <div class="text-xs-center pagination-container" v-if="likedRuns.length > perPage">
             <v-pagination :length="this.paginationLength" :total-visible="totalVisible" v-model="page"></v-pagination>
         </div>
-    </div>
+    </v-layout>
 </template>
 
 <script>

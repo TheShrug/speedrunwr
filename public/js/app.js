@@ -4935,16 +4935,6 @@ module.exports = function normalizeComponent (
 /* 13 */
 /***/ (function(module, exports) {
 
-module.exports = function (it) {
-  if (typeof it != 'function') throw TypeError(it + ' is not a function!');
-  return it;
-};
-
-
-/***/ }),
-/* 14 */
-/***/ (function(module, exports) {
-
 /*
 	MIT License http://www.opensource.org/licenses/mit-license.php
 	Author Tobias Koppers @sokra
@@ -5024,7 +5014,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 15 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -5249,6 +5239,16 @@ function applyToTag (styleElement, obj) {
     styleElement.appendChild(document.createTextNode(css))
   }
 }
+
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports) {
+
+module.exports = function (it) {
+  if (typeof it != 'function') throw TypeError(it + ' is not a function!');
+  return it;
+};
 
 
 /***/ }),
@@ -5705,7 +5705,7 @@ module.exports = Object.getPrototypeOf || function (O) {
 /***/ (function(module, exports, __webpack_require__) {
 
 // optional / simple context binding
-var aFunction = __webpack_require__(13);
+var aFunction = __webpack_require__(15);
 module.exports = function (fn, that, length) {
   aFunction(fn);
   if (that === undefined) return fn;
@@ -7173,7 +7173,7 @@ module.exports = function (KEY, length, exec) {
 
 // 7.3.20 SpeciesConstructor(O, defaultConstructor)
 var anObject = __webpack_require__(2);
-var aFunction = __webpack_require__(13);
+var aFunction = __webpack_require__(15);
 var SPECIES = __webpack_require__(6)('species');
 module.exports = function (O, D) {
   var C = anObject(O).constructor;
@@ -7351,7 +7351,7 @@ module.exports = function (COLLECTION) {
 
 // https://tc39.github.io/proposal-setmap-offrom/
 var $export = __webpack_require__(0);
-var aFunction = __webpack_require__(13);
+var aFunction = __webpack_require__(15);
 var ctx = __webpack_require__(24);
 var forOf = __webpack_require__(47);
 
@@ -8075,7 +8075,7 @@ module.exports = function () {
 "use strict";
 
 // 25.4.1.5 NewPromiseCapability(C)
-var aFunction = __webpack_require__(13);
+var aFunction = __webpack_require__(15);
 
 function PromiseCapability(C) {
   var resolve, reject;
@@ -10757,7 +10757,7 @@ module.exports = !$assign || __webpack_require__(4)(function () {
 
 "use strict";
 
-var aFunction = __webpack_require__(13);
+var aFunction = __webpack_require__(15);
 var isObject = __webpack_require__(5);
 var invoke = __webpack_require__(115);
 var arraySlice = [].slice;
@@ -10918,7 +10918,7 @@ module.exports = function (iterator, fn, value, entries) {
 /* 123 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var aFunction = __webpack_require__(13);
+var aFunction = __webpack_require__(15);
 var toObject = __webpack_require__(11);
 var IObject = __webpack_require__(54);
 var toLength = __webpack_require__(10);
@@ -23412,7 +23412,7 @@ module.exports = Math.scale || function scale(x, inLow, inHigh, outLow, outHigh)
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(266);
-module.exports = __webpack_require__(605);
+module.exports = __webpack_require__(607);
 
 
 /***/ }),
@@ -23532,7 +23532,7 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('history-tabs', __webpack_
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('history', __webpack_require__(587));
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('like-run', __webpack_require__(592));
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('liked-run-data', __webpack_require__(597));
-__WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('liked-runs-tab-content', __webpack_require__(600));
+__WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('liked-runs-tab-content', __webpack_require__(602));
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('twitch-player', __WEBPACK_IMPORTED_MODULE_8_vue_twitch_player___default.a);
 
 var app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
@@ -58350,7 +58350,7 @@ $export($export.P + $export.F * __webpack_require__(4)(function () {
 "use strict";
 
 var $export = __webpack_require__(0);
-var aFunction = __webpack_require__(13);
+var aFunction = __webpack_require__(15);
 var toObject = __webpack_require__(11);
 var fails = __webpack_require__(4);
 var $sort = [].sort;
@@ -58859,7 +58859,7 @@ var ctx = __webpack_require__(24);
 var classof = __webpack_require__(56);
 var $export = __webpack_require__(0);
 var isObject = __webpack_require__(5);
-var aFunction = __webpack_require__(13);
+var aFunction = __webpack_require__(15);
 var anInstance = __webpack_require__(46);
 var forOf = __webpack_require__(47);
 var speciesConstructor = __webpack_require__(66);
@@ -59320,7 +59320,7 @@ __webpack_require__(34)('Float64', 8, function (init) {
 
 // 26.1.1 Reflect.apply(target, thisArgument, argumentsList)
 var $export = __webpack_require__(0);
-var aFunction = __webpack_require__(13);
+var aFunction = __webpack_require__(15);
 var anObject = __webpack_require__(2);
 var rApply = (__webpack_require__(3).Reflect || {}).apply;
 var fApply = Function.apply;
@@ -59343,7 +59343,7 @@ $export($export.S + $export.F * !__webpack_require__(4)(function () {
 // 26.1.2 Reflect.construct(target, argumentsList [, newTarget])
 var $export = __webpack_require__(0);
 var create = __webpack_require__(43);
-var aFunction = __webpack_require__(13);
+var aFunction = __webpack_require__(15);
 var anObject = __webpack_require__(2);
 var isObject = __webpack_require__(5);
 var fails = __webpack_require__(4);
@@ -59680,7 +59680,7 @@ var $export = __webpack_require__(0);
 var flattenIntoArray = __webpack_require__(136);
 var toObject = __webpack_require__(11);
 var toLength = __webpack_require__(10);
-var aFunction = __webpack_require__(13);
+var aFunction = __webpack_require__(15);
 var arraySpeciesCreate = __webpack_require__(92);
 
 $export($export.P, 'Array', {
@@ -59926,7 +59926,7 @@ $export($export.S, 'Object', {
 
 var $export = __webpack_require__(0);
 var toObject = __webpack_require__(11);
-var aFunction = __webpack_require__(13);
+var aFunction = __webpack_require__(15);
 var $defineProperty = __webpack_require__(9);
 
 // B.2.2.2 Object.prototype.__defineGetter__(P, getter)
@@ -59945,7 +59945,7 @@ __webpack_require__(8) && $export($export.P + __webpack_require__(69), 'Object',
 
 var $export = __webpack_require__(0);
 var toObject = __webpack_require__(11);
-var aFunction = __webpack_require__(13);
+var aFunction = __webpack_require__(15);
 var $defineProperty = __webpack_require__(9);
 
 // B.2.2.3 Object.prototype.__defineSetter__(P, setter)
@@ -60507,7 +60507,7 @@ metadata.exp({ hasOwnMetadata: function hasOwnMetadata(metadataKey, target /* , 
 
 var $metadata = __webpack_require__(35);
 var anObject = __webpack_require__(2);
-var aFunction = __webpack_require__(13);
+var aFunction = __webpack_require__(15);
 var toMetaKey = $metadata.key;
 var ordinaryDefineOwnMetadata = $metadata.set;
 
@@ -60552,7 +60552,7 @@ var global = __webpack_require__(3);
 var core = __webpack_require__(28);
 var microtask = __webpack_require__(96)();
 var OBSERVABLE = __webpack_require__(6)('observable');
-var aFunction = __webpack_require__(13);
+var aFunction = __webpack_require__(15);
 var anObject = __webpack_require__(2);
 var anInstance = __webpack_require__(46);
 var redefineAll = __webpack_require__(48);
@@ -61686,7 +61686,7 @@ var content = __webpack_require__(500);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(15)("5b40ad82", content, false, {});
+var update = __webpack_require__(14)("5b40ad82", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -61705,7 +61705,7 @@ if(false) {
 /* 500 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(14)(false);
+exports = module.exports = __webpack_require__(13)(false);
 // imports
 
 
@@ -61912,7 +61912,7 @@ var content = __webpack_require__(506);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(15)("55091d64", content, false, {});
+var update = __webpack_require__(14)("55091d64", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -61931,7 +61931,7 @@ if(false) {
 /* 506 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(14)(false);
+exports = module.exports = __webpack_require__(13)(false);
 // imports
 
 
@@ -62071,7 +62071,7 @@ var content = __webpack_require__(511);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(15)("1315ac09", content, false, {});
+var update = __webpack_require__(14)("1315ac09", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -62090,12 +62090,12 @@ if(false) {
 /* 511 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(14)(false);
+exports = module.exports = __webpack_require__(13)(false);
 // imports
 
 
 // module
-exports.push([module.i, "\n.settings-menu { background: #000;\n}\n.thin-button { min-width: 0;\n}\n", ""]);
+exports.push([module.i, "\n.settings-menu { background: #000;\n}\n.thin-button { min-width: 0; margin-left: 0;\n}\n", ""]);
 
 // exports
 
@@ -62110,6 +62110,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
+//
 //
 //
 //
@@ -62332,7 +62333,7 @@ var render = function() {
         { attrs: { flex: "", row: "" } },
         [
           _c(
-            "v-flex",
+            "div",
             [
               _c(
                 "v-menu",
@@ -62629,7 +62630,6 @@ var render = function() {
           _vm._v(" "),
           _c(
             "v-flex",
-            { attrs: { xs3: "" } },
             [
               _c(
                 "v-btn",
@@ -62645,24 +62645,25 @@ var render = function() {
               )
             ],
             1
-          ),
-          _vm._v(" "),
-          _c(
-            "v-flex",
-            [
-              _c("v-switch", {
-                attrs: { label: "Autoplay" },
-                model: {
-                  value: _vm.autoPlay,
-                  callback: function($$v) {
-                    _vm.autoPlay = $$v
-                  },
-                  expression: "autoPlay"
-                }
-              })
-            ],
-            1
           )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "d-block" },
+        [
+          _c("v-switch", {
+            attrs: { label: "Autoplay" },
+            model: {
+              value: _vm.autoPlay,
+              callback: function($$v) {
+                _vm.autoPlay = $$v
+              },
+              expression: "autoPlay"
+            }
+          })
         ],
         1
       )
@@ -62742,7 +62743,7 @@ var content = __webpack_require__(516);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(15)("2c2eb724", content, false, {});
+var update = __webpack_require__(14)("2c2eb724", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -62761,7 +62762,7 @@ if(false) {
 /* 516 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(14)(false);
+exports = module.exports = __webpack_require__(13)(false);
 // imports
 
 
@@ -63316,7 +63317,7 @@ var content = __webpack_require__(523);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(15)("175e9e74", content, false, {});
+var update = __webpack_require__(14)("175e9e74", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -63335,7 +63336,7 @@ if(false) {
 /* 523 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(14)(false);
+exports = module.exports = __webpack_require__(13)(false);
 // imports
 
 
@@ -63593,7 +63594,7 @@ var content = __webpack_require__(528);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(15)("4afecc00", content, false, {});
+var update = __webpack_require__(14)("4afecc00", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -63612,7 +63613,7 @@ if(false) {
 /* 528 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(14)(false);
+exports = module.exports = __webpack_require__(13)(false);
 // imports
 
 
@@ -63783,7 +63784,7 @@ var content = __webpack_require__(533);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(15)("93f75e1e", content, false, {});
+var update = __webpack_require__(14)("93f75e1e", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -63802,7 +63803,7 @@ if(false) {
 /* 533 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(14)(false);
+exports = module.exports = __webpack_require__(13)(false);
 // imports
 
 
@@ -64797,7 +64798,7 @@ var content = __webpack_require__(561);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(15)("cf9822fe", content, false, {});
+var update = __webpack_require__(14)("cf9822fe", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -64816,7 +64817,7 @@ if(false) {
 /* 561 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(14)(false);
+exports = module.exports = __webpack_require__(13)(false);
 // imports
 
 
@@ -65413,7 +65414,7 @@ var content = __webpack_require__(569);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(15)("aaef0752", content, false, {});
+var update = __webpack_require__(14)("aaef0752", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -65432,7 +65433,7 @@ if(false) {
 /* 569 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(14)(false);
+exports = module.exports = __webpack_require__(13)(false);
 // imports
 
 
@@ -65792,7 +65793,7 @@ var content = __webpack_require__(574);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(15)("1024f1cf", content, false, {});
+var update = __webpack_require__(14)("1024f1cf", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -65811,7 +65812,7 @@ if(false) {
 /* 574 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(14)(false);
+exports = module.exports = __webpack_require__(13)(false);
 // imports
 
 
@@ -66171,7 +66172,7 @@ var content = __webpack_require__(579);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(15)("25d9273f", content, false, {});
+var update = __webpack_require__(14)("25d9273f", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -66190,7 +66191,7 @@ if(false) {
 /* 579 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(14)(false);
+exports = module.exports = __webpack_require__(13)(false);
 // imports
 
 
@@ -66617,7 +66618,7 @@ var content = __webpack_require__(584);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(15)("77bf242e", content, false, {});
+var update = __webpack_require__(14)("77bf242e", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -66636,7 +66637,7 @@ if(false) {
 /* 584 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(14)(false);
+exports = module.exports = __webpack_require__(13)(false);
 // imports
 
 
@@ -66733,6 +66734,7 @@ var render = function() {
       _c(
         "v-tabs-items",
         {
+          staticClass: "fill-height",
           model: {
             value: _vm.tabModel,
             callback: function($$v) {
@@ -66744,7 +66746,7 @@ var render = function() {
         [
           _c(
             "v-tab-item",
-            { attrs: { id: "tab-history" } },
+            { staticClass: "fill-height", attrs: { id: "tab-history" } },
             [_c("history")],
             1
           ),
@@ -66752,7 +66754,7 @@ var render = function() {
           _vm.userLoggedIn
             ? _c(
                 "v-tab-item",
-                { attrs: { id: "tab-liked" } },
+                { staticClass: "fill-height", attrs: { id: "tab-liked" } },
                 [_c("liked-runs-tab-content")],
                 1
               )
@@ -66836,7 +66838,7 @@ var content = __webpack_require__(589);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(15)("9005571c", content, false, {});
+var update = __webpack_require__(14)("9005571c", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -66855,7 +66857,7 @@ if(false) {
 /* 589 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(14)(false);
+exports = module.exports = __webpack_require__(13)(false);
 // imports
 
 
@@ -66871,6 +66873,8 @@ exports.push([module.i, "\n.pagination-container button { height: 25px; width: 2
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
 //
 //
 //
@@ -66917,15 +66921,26 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "div",
-    { staticClass: "history" },
+    "v-layout",
+    {
+      staticClass: "history",
+      attrs: {
+        column: "",
+        "align-content-space-between": "",
+        "fill-height": ""
+      }
+    },
     [
-      _vm._l(_vm.activeRunHistory, function(run) {
-        return _c("history-run-data", {
-          key: run.data.id,
-          attrs: { run: run.data, record: run.record }
+      _c(
+        "v-flex",
+        _vm._l(_vm.activeRunHistory, function(run) {
+          return _c("history-run-data", {
+            key: run.data.id,
+            staticClass: "flex",
+            attrs: { run: run.data, record: run.record }
+          })
         })
-      }),
+      ),
       _vm._v(" "),
       _vm.runHistory.length > _vm.perPage
         ? _c(
@@ -66950,7 +66965,7 @@ var render = function() {
           )
         : _vm._e()
     ],
-    2
+    1
   )
 }
 var staticRenderFns = []
@@ -67025,7 +67040,7 @@ var content = __webpack_require__(594);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(15)("2a2ed6da", content, false, {});
+var update = __webpack_require__(14)("2a2ed6da", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -67044,7 +67059,7 @@ if(false) {
 /* 594 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(14)(false);
+exports = module.exports = __webpack_require__(13)(false);
 // imports
 
 
@@ -67199,13 +67214,13 @@ if (false) {
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(615)
+  __webpack_require__(598)
 }
 var normalizeComponent = __webpack_require__(12)
 /* script */
-var __vue_script__ = __webpack_require__(598)
+var __vue_script__ = __webpack_require__(600)
 /* template */
-var __vue_template__ = __webpack_require__(599)
+var __vue_template__ = __webpack_require__(601)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -67245,6 +67260,46 @@ module.exports = Component.exports
 
 /***/ }),
 /* 598 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(599);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(14)("ad45ef80", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5305d35f\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./LikedRunData.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5305d35f\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./LikedRunData.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 599 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(13)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.run-hover-enter { background: #000;\n}\n.history-link { height: 100%; width: 100%;text-align: left; text-transform: none; margin: 0; min-height: 123px;\n}\n.history-link .btn__content { padding: 0; white-space:normal;\n}\n.history-link .card { width: 100%; background: none;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 600 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -67359,7 +67414,7 @@ var momentDurationFormatSetup = __webpack_require__(100);
 });
 
 /***/ }),
-/* 599 */
+/* 601 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -67455,19 +67510,19 @@ if (false) {
 }
 
 /***/ }),
-/* 600 */
+/* 602 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(601)
+  __webpack_require__(603)
 }
 var normalizeComponent = __webpack_require__(12)
 /* script */
-var __vue_script__ = __webpack_require__(603)
+var __vue_script__ = __webpack_require__(605)
 /* template */
-var __vue_template__ = __webpack_require__(604)
+var __vue_template__ = __webpack_require__(606)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -67506,17 +67561,17 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 601 */
+/* 603 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(602);
+var content = __webpack_require__(604);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(15)("70ff0886", content, false, {});
+var update = __webpack_require__(14)("70ff0886", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -67532,10 +67587,10 @@ if(false) {
 }
 
 /***/ }),
-/* 602 */
+/* 604 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(14)(false);
+exports = module.exports = __webpack_require__(13)(false);
 // imports
 
 
@@ -67546,11 +67601,13 @@ exports.push([module.i, "\n.pagination-container button { height: 25px; width: 2
 
 
 /***/ }),
-/* 603 */
+/* 605 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
 //
 //
 //
@@ -67592,7 +67649,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 604 */
+/* 606 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -67600,12 +67657,22 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "div",
-    { staticClass: "history" },
+    "v-layout",
+    {
+      staticClass: "history",
+      attrs: {
+        column: "",
+        "align-content-space-between": "",
+        "fill-height": ""
+      }
+    },
     [
-      _vm._l(_vm.activeRunHistory, function(run) {
-        return _c("liked-run-data", { key: run.id, attrs: { run: run } })
-      }),
+      _c(
+        "v-flex",
+        _vm._l(_vm.activeRunHistory, function(run) {
+          return _c("liked-run-data", { key: run.id, attrs: { run: run } })
+        })
+      ),
       _vm._v(" "),
       _vm.likedRuns.length > _vm.perPage
         ? _c(
@@ -67630,7 +67697,7 @@ var render = function() {
           )
         : _vm._e()
     ],
-    2
+    1
   )
 }
 var staticRenderFns = []
@@ -67644,59 +67711,10 @@ if (false) {
 }
 
 /***/ }),
-/* 605 */
+/* 607 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 606 */,
-/* 607 */,
-/* 608 */,
-/* 609 */,
-/* 610 */,
-/* 611 */,
-/* 612 */,
-/* 613 */,
-/* 614 */,
-/* 615 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(616);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(15)("ad45ef80", content, false, {});
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5305d35f\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./LikedRunData.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5305d35f\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./LikedRunData.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 616 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(14)(false);
-// imports
-
-
-// module
-exports.push([module.i, "\n.run-hover-enter { background: #000;\n}\n.history-link { height: 100%; width: 100%;text-align: left; text-transform: none; margin: 0;\n}\n.history-link .btn__content { padding: 0; white-space:normal;\n}\n.history-link .card { width: 100%; background: none;\n}\n", ""]);
-
-// exports
-
 
 /***/ })
 /******/ ]);

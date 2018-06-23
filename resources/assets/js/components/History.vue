@@ -1,10 +1,12 @@
 <template>
-    <div class="history">
-        <history-run-data v-for="run in activeRunHistory" v-bind:run="run.data" v-bind:record="run.record" :key="run.data.id" ></history-run-data>
+    <v-layout column class="history" align-content-space-between fill-height>
+        <v-flex>
+            <history-run-data v-for="run in activeRunHistory" v-bind:run="run.data" v-bind:record="run.record" :key="run.data.id" class="flex"></history-run-data>
+        </v-flex>
         <div class="text-xs-center pagination-container" v-if="runHistory.length > perPage">
             <v-pagination :length="this.paginationLength" :total-visible="totalVisible" v-model="page"></v-pagination>
         </div>
-    </div>
+    </v-layout>
 </template>
 
 <script>
