@@ -1,5 +1,5 @@
 <template>
-    <v-btn color="primary" block @click="likeRun()" :loading="loading" :disabled="loading">
+    <v-btn color="primary" flat block @click="likeRun()" :loading="loading" :disabled="loading">
         <v-icon left>favorite</v-icon>
         <span v-if="liked">Unlike</span>
         <span v-if="!liked">Like</span>

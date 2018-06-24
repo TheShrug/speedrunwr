@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-btn class="history-link " :color="color" block @click="clicked" v-bind:class="{ active : currentlyPlaying}" :loading="loading" :disabled="loading">
+        <v-btn class="history-link " flat :color="color" block @click="clicked" v-bind:class="{ active : currentlyPlaying}" :loading="loading" :disabled="loading">
             <v-card flat>
                 <v-card-title>
                     <v-layout row wrap v-if="runData">
@@ -114,11 +114,7 @@
                 return (this.run.runId === this.$store.state.activeRun.runId)
             },
             color() {
-                if(this.currentlyPlaying) {
-                    return 'primary'
-                } else {
-                    return 'transparent'
-                }
+                return 'white'
             },
             runLevel() {
                 if(this.runData.level.data.weblink) {
@@ -131,8 +127,9 @@
     }
 </script>
 <style>
-    .run-hover-enter { background: #000;}
-    .history-link { height: 100%; width: 100%;text-align: left; text-transform: none; margin: 0; min-height: 123px; box-shadow:none !important;}
+
+    .history-link { height: 100%; width: 100%;text-align: left; text-transform: none; margin: 0; min-height: 123px; box-shadow:none !important; border:1px solid transparent;}
+    .history-link.active {border:1px solid rgba(255, 255, 255, 0.34);}
     .history-link .btn__content { padding: 0; white-space:normal;}
     .history-link .card { width: 100%; background: none;}
 </style>
