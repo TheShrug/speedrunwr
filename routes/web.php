@@ -13,6 +13,7 @@
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/api/getNewRun', 'ApiController@newRun');
+Route::get('/api/findRun', 'ApiController@findRun');
 
 
 Route::get('/user', 'UserController@user');
@@ -22,6 +23,8 @@ Route::post('register', 'Auth\RegisterController@register');
 
 Route::post('/user/likeRun', 'UserController@likeRun');
 Route::get('/user/likesRun', 'UserController@likesRun');
+
+Route::get('/run/{id}', 'RunController@run');
 
 Route::post('login', 'Auth\LoginController@login');
 Route::post('logout', 'Auth\LoginController@logout');

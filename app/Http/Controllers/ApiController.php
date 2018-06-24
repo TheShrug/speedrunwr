@@ -7,6 +7,7 @@ use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Client;
 use App\Game;
 use App\Record;
+use App\LikedRun;
 use Mockery\Exception;
 
 class ApiController extends Controller
@@ -92,6 +93,24 @@ class ApiController extends Controller
 		} else {
 			$this->newRun($request);
 		}
+
+    }
+
+    public function findRun(Request $request) {
+
+    	$runId = $request->query('runId');
+
+    	$record = Record::where('runId', $runId)->first();
+    	if($record) {
+    		return response()->json($record);
+	    }
+
+	    $likedRun = LikedRun::where('runId', $runId)->first();
+		if($likedRun) {
+			return $likedRun;
+		}
+
+    	return response()->json(['message' => 'No Run Found'], 404);
 
     }
 

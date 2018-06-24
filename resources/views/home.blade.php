@@ -15,7 +15,7 @@
                         @if(isset($passwordReset))
                             <password-reset-form token="{{$passwordReset}}"></password-reset-form>
                         @endif
-                        <player></player>
+                        <router-view></router-view>
                     </v-flex>
                 </v-layout>
             </v-container>

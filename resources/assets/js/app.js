@@ -11,19 +11,27 @@ import Axios from 'axios'
 import Vuetify from 'vuetify'
 import Vuelidate from 'vuelidate'
 import Vuebar from 'vuebar'
+import VueRouter from 'vue-router'
 
 import LoadScript from 'vue-plugin-load-script';
 import VueYouTubeEmbed from 'vue-youtube-embed'
 import VueTwitchPlayer from 'vue-twitch-player'
 import 'babel-polyfill'
 
+import Player from './components/Player.vue'
+
 Vue.use(LoadScript);
 Vue.use(Vuex);
-Vue.use(Vuetify)
+Vue.use(Vuetify, {
+    theme: {
+        primary: '#E8BF6A',
+    }
+})
 Vue.use(VueYouTubeEmbed);
 Vue.use(VueTwitchPlayer);
 Vue.use(Vuelidate);
 Vue.use(Vuebar);
+Vue.use(VueRouter);
 
 const store = new Vuex.Store({
     state: {
@@ -39,6 +47,7 @@ const store = new Vuex.Store({
         setRun(state, payload) {
             state.activeRun = payload
             state.videoEnded = false
+            router.push({path: '/run/' + payload.runId})
         },
         setRunData(state, payload) {
             state.activeRunData = payload
@@ -80,13 +89,12 @@ const store = new Vuex.Store({
     }
 });
 
+
+
 Vue.component('player', require('./components/Player.vue'));
 Vue.component('app-menu', require('./components/Menu.vue'));
 Vue.component('new-run', require('./components/NewRun.vue'));
-
 Vue.component('message', require('./components/Message.vue'));
-
-
 
 Vue.component('history-tabs', require('./components/HistoryTabs.vue'));
 Vue.component('history', require('./components/History.vue'));
@@ -105,10 +113,19 @@ Vue.component('player-run-data', require('./components/run-data/PlayerRunData.vu
 Vue.component('history-run-data', require('./components/run-data/HistoryRunData.vue'));
 Vue.component('liked-run-data', require('./components/run-data/LikedRunData.vue'));
 
+const routes = [
+    {path: '/run/:id', component: Player}
+]
+
+const router = new VueRouter({
+    routes,
+})
+
 
 const app = new Vue({
     el: '#app',
     store,
+    router,
     beforeMount() {
 
     },

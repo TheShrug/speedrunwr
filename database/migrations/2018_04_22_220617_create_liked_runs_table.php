@@ -22,7 +22,7 @@ class CreateLikedRunsTable extends Migration
 	        $table->string('userId')->nullable();
 	        $table->string('platformId')->nullable();
 	        $table->string('regionId')->nullable();
-	        $table->integer('competition')->default(0);
+	        $table->integer('competition')->default(null)->nullable();
 	        $table->float('primaryTime',12,3)->nullable();
 	        $table->dateTime('date')->nullable();
 	        $table->string('youtubeId')->nullable();

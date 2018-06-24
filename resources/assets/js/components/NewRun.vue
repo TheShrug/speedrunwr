@@ -146,7 +146,6 @@
 
                 };
 
-
                 var store = this.$store
 
                 Axios.get('/api/getNewRun', {
@@ -156,12 +155,11 @@
                     $this.loading = false;
                     store.commit('setRun', response.data.record)
                     store.dispatch('getFullRunData', {runId: response.data.record.runId, 'record' : response.data.record})
+                    $this.$router.push({path: '/run/' + response.data.record.runId})
                 })
                 .catch(function(response) {
                     // TODO: do something on error
                 })
-
-
 
 
             },

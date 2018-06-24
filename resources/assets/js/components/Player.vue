@@ -10,12 +10,42 @@
 </template>
 
 <script>
+    import Axios from 'axios'
     export default {
         mounted() {
+            console.log('mountedtest');
+            this.getRunDetails(this.$route.params.id);
         },
         methods: {
             endVideo() {
                 this.$store.commit('endVideo')
+            },
+            getRunDetails(runId) {
+                let $this = this
+                // check if its different than the current run
+
+                if($this.$store.state.activeRun.runId !== runId) {
+                    // check if it is a record or is a liked run
+                    Axios.get('/api/findRun', {
+                        params: {
+                            runId,
+                        }
+                    }).then(function(response) {
+
+                        $this.$store.commit('setRun', response.data)
+                        $this.$store.dispatch('getFullRunData', {runId: response.data.runId, 'record' : response.data})
+
+                    }).catch(function(error) {
+                        if(error.response.status === 404) {
+                            console.log('Could not find');
+                        }
+                    }).then(function() {
+
+                    });
+                }
+
+
+
             }
         },
         computed: {
@@ -34,6 +64,17 @@
             },
             runData() {
                 return this.$store.state.activeRunData
+            },
+            userLoggedIn() {
+                return this.$store.state.userLoggedIn
+            },
+        },
+        watch: {
+            $route: function (route) {
+                if(route.params.id !== this.$store.state.activeRun.runId) {
+                    this.getRunDetails(route.params.id)
+                }
+
             }
         }
     }
