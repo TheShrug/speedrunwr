@@ -1,10 +1,10 @@
 <template>
     <div>
-        <v-layout row wrap class="run-details grey darken-3" pa-2>
-            <v-flex xs2 class="text-xs-center run-detail" >
+        <v-layout row wrap class="run-details grey darken-3"pa-1>
+            <v-flex xs2 class="text-xs-center run-detail"  pa-2>
                 <like-run v-bind:run-id="run.id"></like-run>
             </v-flex>
-            <v-flex xs4 class="run-detail">
+            <v-flex xs4 class="run-detail" pa-2>
                 <div v-if="runGameName"><a :href="runGameLink" target="_blank">{{runGameName}}</a></div>
                 <div v-if="runCategoryName">
                     <a :href="runCategoryLink" target="_blank">{{runCategoryName}}</a>
@@ -13,7 +13,7 @@
                     </div>
                 </div>
             </v-flex>
-            <v-flex xs4 class="run-detail">
+            <v-flex xs4 class="run-detail" pa-2>
                 <div v-if="runTime">{{runTime}}</div>
                 <div v-if="runPlayerName">
                     By <a :href="runPlayerLink" target="_blank">{{runPlayerName}}</a>
@@ -22,7 +22,6 @@
                 </div>
             </v-flex>
         </v-layout>
-
     </div>
 </template>
 
