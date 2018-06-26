@@ -10,7 +10,7 @@
                         transition="scale-transition"
                         offset-y
                         full-width
-                        max-width="100%"
+                        max-width="330px"
                         min-width="290px"
                         content-class="blue-grey darken-4 pa-4"
                 >
@@ -26,6 +26,15 @@
                     </v-radio-group>
                     <v-checkbox label="Filter by Competition" v-model="competitionEnabled"></v-checkbox>
                     <v-slider v-if="competitionEnabled" v-model="competition" max="3" step="1" prepend-icon="ac_unit" append-icon="whatshot" ticks :hide-details="true"></v-slider>
+                    <v-select
+                            v-model="platform"
+                            :items="platforms"
+                            label="Platform"
+                            multiple
+                            chips
+                    >
+
+                    </v-select>
                     <v-layout row wrap>
                         <v-flex xs6>
                             <v-text-field type="number" label="Min Length" v-model="minRunLength" hint="In Minutes"></v-text-field>
@@ -111,7 +120,7 @@
 
     export default {
         mounted() {
-
+            this.getPlatforms()
         },
         data() {
             return {
@@ -128,7 +137,9 @@
                 competition: 0,
                 competitionEnabled: 0,
                 mainMenu: false,
-                loading: false
+                loading: false,
+                platform: null,
+                platforms: []
             }
         },
         methods: {
@@ -142,7 +153,8 @@
                     afterDate: this.afterDate,
                     minRunLength: this.minRunLength,
                     maxRunLength: this.maxRunLength,
-                    runCompetition: this.hotness
+                    runCompetition: this.hotness,
+                    platform: this.platform
 
                 };
 
@@ -178,6 +190,26 @@
                 } else {
                     this.mainMenu = false
                 }
+            },
+            getPlatforms() {
+                let $this = this;
+
+                Axios.get('https://www.speedrun.com/api/v1/platforms', {
+                    params: {
+                        max: '200'
+                    }
+                }).then(function(response) {
+                    if(response.status === 200) {
+                        response.data.data.forEach(function(platform) {
+                            $this.platforms.push({
+                                text: platform.name,
+                                value: platform.id
+                            })
+                        })
+                    }
+                }).catch(function(response) {
+
+                })
             }
         },
         computed: {

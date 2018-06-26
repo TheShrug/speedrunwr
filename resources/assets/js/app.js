@@ -75,7 +75,7 @@ const store = new Vuex.Store({
         getFullRunData(state, payload) {
             Axios.get('https://www.speedrun.com/api/v1/runs/' + payload.runId, {
                 params: {
-                    embed:'game.players,category.players,players,level'
+                    embed:'game.players,category.players,players,level,platform'
                 }
             })
             .then(function(response) {

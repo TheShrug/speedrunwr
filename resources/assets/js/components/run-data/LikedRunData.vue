@@ -48,7 +48,7 @@
                 $this.loading = true
                 Axios.get('https://www.speedrun.com/api/v1/runs/' + this.run.runId, {
                     params: {
-                        embed:'game.players,category.players,players,level'
+                        embed:'game.players,category.players,players,level,platform'
                     }
                 }).then(function(response) {
                     $this.runData = response.data.data

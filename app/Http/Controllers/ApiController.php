@@ -22,6 +22,7 @@ class ApiController extends Controller
         $minRunLength   = $request->query('minRunLength');
         $maxRunLength   = $request->query('maxRunLength');
         $runCompetition   = $request->query('runCompetition');
+        $platform       = $request->query('platform');
 
 	    $recordsQuery = Record::query();
 	    if($videoType == 1) {
@@ -74,6 +75,10 @@ class ApiController extends Controller
 		    $recordsQuery->where('competition', '>=', $queryCompetitionMin);
 		    $recordsQuery->where('competition', '<=', $queryCompetitionMax);
 
+	    }
+
+	    if($platform) {
+	    	$recordsQuery->whereIn('platformId', $platform);
 	    }
 
 

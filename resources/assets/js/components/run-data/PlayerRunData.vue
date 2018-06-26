@@ -4,7 +4,7 @@
             <v-flex xs2 class="text-xs-center run-detail"  pa-2>
                 <like-run v-bind:run-id="run.id"></like-run>
             </v-flex>
-            <v-flex xs4 class="run-detail" pa-2>
+            <v-flex class="run-detail" pa-2>
                 <div v-if="runGameName"><a :href="runGameLink" target="_blank">{{runGameName}}</a></div>
                 <div v-if="runCategoryName">
                     <a :href="runCategoryLink" target="_blank">{{runCategoryName}}</a>
@@ -13,13 +13,19 @@
                     </div>
                 </div>
             </v-flex>
-            <v-flex xs4 class="run-detail" pa-2>
+            <v-flex class="run-detail" pa-2>
                 <div v-if="runTime">{{runTime}}</div>
                 <div v-if="runPlayerName">
                     By <a :href="runPlayerLink" target="_blank">{{runPlayerName}}</a>
                     <span v-if="runPlayerTwitch"><a :href="runPlayerTwitch" target="_blank"><i class="fab fa-twitch"></i></a></span>
                     <span v-if="runPlayerYoutube"><a :href="runPlayerYoutube" target="_blank"><i class="fab fa-youtube"></i></a></span>
                 </div>
+            </v-flex>
+            <v-flex class="run-detail" pa-2>
+                <div v-if="runPlatform">
+                    {{runPlatform}}
+                </div>
+
             </v-flex>
         </v-layout>
     </div>
@@ -99,6 +105,9 @@
                 } else {
                     return false;
                 }
+            },
+            runPlatform() {
+                return (this.run.platform.data.name) ? this.run.platform.data.name : null
             }
         }
     }
