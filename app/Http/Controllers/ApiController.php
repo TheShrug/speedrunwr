@@ -86,7 +86,9 @@ class ApiController extends Controller
 
 		$records = $recordsQuery->get();
 
-
+		if(count($records) < 1) {
+			return response(['message' => 'no runs found'], 404);
+		}
 
     	//$records = Record::where('levelId', null)->get();
     	$record = $records->random();

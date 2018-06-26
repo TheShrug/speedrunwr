@@ -64931,6 +64931,10 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -64955,7 +64959,8 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
             mainMenu: false,
             loading: false,
             platform: null,
-            platforms: []
+            platforms: [],
+            couldNotFind: false
         };
     },
 
@@ -64963,6 +64968,7 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
         getNewRun: function getNewRun() {
             var $this = this;
             $this.loading = true;
+            $this.couldNotFind = false;
             var params = {
                 videoType: this.videoType,
                 includeLevels: this.includeLevels,
@@ -64984,9 +64990,18 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
                 store.commit('setRun', response.data.record);
                 store.dispatch('getFullRunData', { runId: response.data.record.runId, 'record': response.data.record });
                 $this.$router.push({ path: '/run/' + response.data.record.runId });
-            }).catch(function (response) {
-                // TODO: do something on error
+            }).catch(function (error) {
+                if (error.response.status === 404) $this.showNotFound();
+            }).then(function () {
+                $this.loading = false;
             });
+        },
+        showNotFound: function showNotFound() {
+            var $this = this;
+            this.couldNotFind = true;
+            setTimeout(function () {
+                $this.couldNotFind = false;
+            }, 5000);
         },
         formatDate: function formatDate(date) {
             if (!date) return null;
@@ -65026,7 +65041,7 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
                         });
                     });
                 }
-            }).catch(function (response) {});
+            }).catch(function (error) {});
         }
     },
     computed: {
@@ -65395,6 +65410,31 @@ var render = function() {
                   on: { click: _vm.getNewRun }
                 },
                 [_vm._v("\n                New Run\n            ")]
+              ),
+              _vm._v(" "),
+              _c(
+                "v-tooltip",
+                {
+                  attrs: { bottom: "" },
+                  model: {
+                    value: _vm.couldNotFind,
+                    callback: function($$v) {
+                      _vm.couldNotFind = $$v
+                    },
+                    expression: "couldNotFind"
+                  }
+                },
+                [
+                  _c("div", {
+                    staticClass: "activator",
+                    attrs: { slot: "activator" },
+                    slot: "activator"
+                  }),
+                  _vm._v(" "),
+                  _c("span", [
+                    _vm._v("Could not find a run with the current filters.")
+                  ])
+                ]
               )
             ],
             1

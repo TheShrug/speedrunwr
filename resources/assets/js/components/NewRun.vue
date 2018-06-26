@@ -97,12 +97,16 @@
 
             </div>
             <v-flex>
-                <v-btn  @click="getNewRun" block
+                <v-btn @click="getNewRun" block
                        :loading="loading"
                        :disabled="loading"
                 >
                     New Run
                 </v-btn>
+                <v-tooltip bottom v-model="couldNotFind">
+                    <div slot="activator" class="activator"></div>
+                    <span>Could not find a run with the current filters.</span>
+                </v-tooltip>
             </v-flex>
 
         </v-layout>
@@ -139,13 +143,15 @@
                 mainMenu: false,
                 loading: false,
                 platform: null,
-                platforms: []
+                platforms: [],
+                couldNotFind: false
             }
         },
         methods: {
             getNewRun() {
                 let $this = this;
                 $this.loading = true;
+                $this.couldNotFind = false;
                 let params = {
                     videoType: this.videoType,
                     includeLevels: this.includeLevels,
@@ -162,18 +168,26 @@
 
                 Axios.get('/api/getNewRun', {
                     params: params
-                })
-                .then(function(response) {
+                }).then(function(response) {
                     $this.loading = false;
                     store.commit('setRun', response.data.record)
                     store.dispatch('getFullRunData', {runId: response.data.record.runId, 'record' : response.data.record})
                     $this.$router.push({path: '/run/' + response.data.record.runId})
-                })
-                .catch(function(response) {
-                    // TODO: do something on error
+                }).catch(function(error) {
+                    if(error.response.status === 404)
+                        $this.showNotFound()
+                }).then(function(){
+                    $this.loading = false
                 })
 
 
+            },
+            showNotFound() {
+                let $this = this
+                this.couldNotFind = true
+                setTimeout(function() {
+                    $this.couldNotFind = false
+                }, 5000)
             },
             formatDate (date) {
                 if (!date) return null
@@ -207,7 +221,7 @@
                             })
                         })
                     }
-                }).catch(function(response) {
+                }).catch(function(error) {
 
                 })
             }
