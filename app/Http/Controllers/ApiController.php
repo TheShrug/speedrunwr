@@ -21,8 +21,11 @@ class ApiController extends Controller
         $afterDate      = $request->query('afterDate');
         $minRunLength   = $request->query('minRunLength');
         $maxRunLength   = $request->query('maxRunLength');
-        $runCompetition   = $request->query('runCompetition');
+        $runCompetition = $request->query('runCompetition');
         $platform       = $request->query('platform');
+
+
+
 
 	    $recordsQuery = Record::query();
 	    if($videoType == 1) {
@@ -55,16 +58,12 @@ class ApiController extends Controller
 		    $queryCompetitionMin = 0;
 		    $queryCompetitionMax = 0;
 		    switch ($runCompetition) {
-			    case(0) :
-			    	$queryCompetitionMin = 0;
-			    	$queryCompetitionMax = 3;
-			    	break;
 			    case(1) :
-				    $queryCompetitionMin = 4;
-				    $queryCompetitionMax = 10;
+				    $queryCompetitionMin = 0;
+				    $queryCompetitionMax = 5;
 				    break;
 			    case(2) :
-				    $queryCompetitionMin = 11;
+				    $queryCompetitionMin = 6;
 				    $queryCompetitionMax = 20;
 				    break;
 			    case(3) :

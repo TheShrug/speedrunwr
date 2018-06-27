@@ -64935,6 +64935,12 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -64954,7 +64960,7 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
             minRunLength: null,
             maxRunLength: null,
             includeLevels: false,
-            competition: 0,
+            competition: '0',
             competitionEnabled: 0,
             mainMenu: false,
             loading: false,
@@ -64976,7 +64982,7 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
                 afterDate: this.afterDate,
                 minRunLength: this.minRunLength,
                 maxRunLength: this.maxRunLength,
-                runCompetition: this.hotness,
+                runCompetition: this.competition,
                 platform: this.platform
 
             };
@@ -65050,10 +65056,6 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
         },
         computedDateFormatted: function computedDateFormatted() {
             return this.formatDate(this.date);
-        },
-        hotness: function hotness() {
-            if (!this.competitionEnabled) return null;
-            return this.competition;
         },
         videoEnded: function videoEnded() {
             return this.$store.state.videoEnded;
@@ -65143,36 +65145,29 @@ var render = function() {
                     1
                   ),
                   _vm._v(" "),
-                  _c("v-checkbox", {
-                    attrs: { label: "Filter by Competition" },
-                    model: {
-                      value: _vm.competitionEnabled,
-                      callback: function($$v) {
-                        _vm.competitionEnabled = $$v
-                      },
-                      expression: "competitionEnabled"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _vm.competitionEnabled
-                    ? _c("v-slider", {
-                        attrs: {
-                          max: "3",
-                          step: "1",
-                          "prepend-icon": "ac_unit",
-                          "append-icon": "whatshot",
-                          ticks: "",
-                          "hide-details": true
+                  _c(
+                    "v-radio-group",
+                    {
+                      attrs: { label: "Competition", row: "", default: "0" },
+                      model: {
+                        value: _vm.competition,
+                        callback: function($$v) {
+                          _vm.competition = $$v
                         },
-                        model: {
-                          value: _vm.competition,
-                          callback: function($$v) {
-                            _vm.competition = $$v
-                          },
-                          expression: "competition"
-                        }
-                      })
-                    : _vm._e(),
+                        expression: "competition"
+                      }
+                    },
+                    [
+                      _c("v-radio", { attrs: { label: "All", value: "0" } }),
+                      _vm._v(" "),
+                      _c("v-radio", { attrs: { label: "Low", value: "1" } }),
+                      _vm._v(" "),
+                      _c("v-radio", { attrs: { label: "Med", value: "2" } }),
+                      _vm._v(" "),
+                      _c("v-radio", { attrs: { label: "High", value: "3" } })
+                    ],
+                    1
+                  ),
                   _vm._v(" "),
                   _c("v-select", {
                     attrs: {

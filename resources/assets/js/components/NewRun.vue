@@ -24,9 +24,15 @@
                         <v-radio label="Twitch" value="1"></v-radio>
                         <v-radio label="Youtube" value="2"></v-radio>
                     </v-radio-group>
-                    <v-checkbox label="Filter by Competition" v-model="competitionEnabled"></v-checkbox>
-                    <v-slider v-if="competitionEnabled" v-model="competition" max="3" step="1" prepend-icon="ac_unit" append-icon="whatshot" ticks :hide-details="true"></v-slider>
-                    <v-select
+
+                    <v-radio-group :label="'Competition'" v-model="competition" row default="0">
+                        <v-radio label="All" value="0"></v-radio>
+                        <v-radio label="Low" value="1"></v-radio>
+                        <v-radio label="Med" value="2"></v-radio>
+                        <v-radio label="High" value="3"></v-radio>
+                    </v-radio-group>
+
+                            <v-select
                             v-model="platform"
                             :items="platforms"
                             label="Platform"
@@ -138,7 +144,7 @@
                 minRunLength: null,
                 maxRunLength: null,
                 includeLevels: false,
-                competition: 0,
+                competition: '0',
                 competitionEnabled: 0,
                 mainMenu: false,
                 loading: false,
@@ -159,7 +165,7 @@
                     afterDate: this.afterDate,
                     minRunLength: this.minRunLength,
                     maxRunLength: this.maxRunLength,
-                    runCompetition: this.hotness,
+                    runCompetition: this.competition,
                     platform: this.platform
 
                 };
@@ -232,11 +238,6 @@
             },
             computedDateFormatted () {
                 return this.formatDate(this.date)
-            },
-            hotness() {
-                if(!this.competitionEnabled)
-                    return null
-                return this.competition
             },
             videoEnded() {
                 return this.$store.state.videoEnded
