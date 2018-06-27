@@ -183,24 +183,49 @@ def store_record(record, valid_video_id):
         youtubeId = valid_video_id['id']
 
     conn = pymysql.connect(host=dbHost, user=dbUsername, passwd=dbPassword, db=dbName, charset='utf8mb4')
-    sql = "INSERT INTO `records` (`runId`, `gameId`, `categoryId`, `primaryTime`, `youtubeId`, `twitchId`, `levelId`, `platformId`, `regionId`, `date`, `competition`) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+    sql = "INSERT INTO `" + table_name + "` (`runId`, `gameId`, `categoryId`, `primaryTime`, `youtubeId`, `twitchId`, `levelId`, `platformId`, `regionId`, `date`, `competition`) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
     cursor = conn.cursor()
     cursor.execute(sql, (recordId, gameId, categoryId, primaryTime, youtubeId, twitchId, levelId, platform, region, date_obj, competition))
     conn.commit()
     conn.close()
 
+def create_new_table():
+
+    conn = pymysql.connect(host=dbHost, user=dbUsername, passwd=dbPassword, db=dbName, charset='utf8mb4')
+    sql = "CREATE TABLE `"+ table_name +"` LIKE `records`"
+    cursor = conn.cursor()
+    cursor.execute(sql)
+    conn.commit()
+    conn.close()
+
+def update_active_table() :
+    conn = pymysql.connect(host=dbHost, user=dbUsername, passwd=dbPassword, db=dbName, charset='utf8mb4')
+    sql = "insert into `active_records` (`table_name`, `created_at`, `updated_at`) values(%s, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP())"
+    cursor = conn.cursor()
+    cursor.execute(sql, (table_name))
+    conn.commit()
+    conn.close()
+
+
+
 
 start = time.time()
 
+table_name = 'records_' + str(math.floor(start))
+
+create_new_table()
 allGames = []
 get_games_recursive(0)
-
 rate_limit = RatedSemaphore(99, 60)
-
 for index, game in enumerate(allGames):
     with rate_limit:
         print('Elapsed Time: ', math.floor(time.time()-start), 's  #', index, game['id'])
         get_records(game, 0)
+
+update_active_table()
+
+
+
 
 print('it took ', time.time()-start, ' seconds')
 

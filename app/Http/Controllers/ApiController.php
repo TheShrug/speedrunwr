@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Client;
-use App\Game;
 use App\Record;
 use App\LikedRun;
 use Mockery\Exception;
@@ -23,9 +22,6 @@ class ApiController extends Controller
         $maxRunLength   = $request->query('maxRunLength');
         $runCompetition = $request->query('runCompetition');
         $platform       = $request->query('platform');
-
-
-
 
 	    $recordsQuery = Record::query();
 	    if($videoType == 1) {

@@ -6,10 +6,26 @@ use Illuminate\Database\Eloquent\Model;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Client;
 use App\VideoIdParser;
+use App\ActiveRecord;
 
 class Record extends Model
+
 {
-    public static function createRecordsFromSpeedrunComEndpoint($endpoint) {
+
+
+
+
+	function __construct( array $attributes = [] ) {
+		parent::__construct( $attributes );
+
+		$activeTable = ActiveRecord::orderBy('created_at', 'desc')->first();
+
+		$this->setTable($activeTable->table_name);
+
+	}
+
+
+	public static function createRecordsFromSpeedrunComEndpoint($endpoint) {
 
     	$records = array();
 
@@ -100,6 +116,8 @@ class Record extends Model
 		return true;
 
 	}
+
+
 
 
 
