@@ -40,6 +40,17 @@ class LoginController extends Controller
     }
 
 	/**
+	 * Get the login username to be used by the controller.
+	 *
+	 * @return string
+	 */
+	public function username()
+	{
+		return 'userName';
+	}
+
+
+	/**
 	 * Validate the user login request.
 	 *
 	 * @param  \Illuminate\Http\Request  $request
