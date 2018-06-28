@@ -41,6 +41,25 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
+	/**
+	 * Handle a registration request for the application.
+	 *
+	 * @param  \Illuminate\Http\Request  $request
+	 * @return \Illuminate\Http\Response
+	 */
+	public function register(Request $request)
+	{
+
+		$this->validator($request->all())->validate();
+
+		event(new Registered($user = $this->create($request->all())));
+
+		// $this->guard()->login($user);
+
+		return $this->registered($request, $user)
+			?: json_encode(['messageType' => 'success', 'message' => 'An email has been sent to ' . $user->email . ' with a link to verify your account']);
+	}
+
     /**
      * Get a validator for an incoming registration request.
      *
@@ -83,4 +102,18 @@ class RegisterController extends Controller
         return $user;
 
     }
+
+	/**
+	 * Get the post register / login redirect path.
+	 *
+	 * @return string
+	 */
+	public function redirectPath()
+	{
+		if (method_exists($this, 'redirectTo')) {
+			return $this->redirectTo();
+		}
+
+		return property_exists($this, 'redirectTo') ? $this->redirectTo : '/home';
+	}
 }
