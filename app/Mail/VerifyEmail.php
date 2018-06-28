@@ -29,6 +29,6 @@ class VerifyEmail extends Mailable
      */
     public function build()
     {
-        return $this->view('email.verifyUser');
+        return $this->subject('SpeedrunWR Email Verification')->view('email.verifyUser');
     }
 }

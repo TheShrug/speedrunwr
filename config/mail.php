@@ -56,7 +56,7 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'webmaster@speedrun.com'),
+        'address' => env('MAIL_FROM_ADDRESS', 'webmaster@speedrunwr.com'),
         'name' => env('MAIL_FROM_NAME', 'SpeedrunWR'),
     ],
 
