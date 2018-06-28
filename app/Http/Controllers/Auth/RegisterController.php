@@ -5,10 +5,14 @@ namespace App\Http\Controllers\Auth;
 use App\Mail\VerifyEmail;
 use App\User;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use App\UserVerification;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Auth\Events\Registered;
+
+
 class RegisterController extends Controller
 {
     /*
@@ -59,6 +63,8 @@ class RegisterController extends Controller
 		return $this->registered($request, $user)
 			?: json_encode(['messageType' => 'success', 'message' => 'An email has been sent to ' . $user->email . ' with a link to verify your account']);
 	}
+
+
 
     /**
      * Get a validator for an incoming registration request.
