@@ -37,8 +37,6 @@ class Record extends Model
 	    }
 		return $records;
 
-
-
     }
 
     public static function createRecordFromSpeedrunComRun($run) {
@@ -52,8 +50,6 @@ class Record extends Model
 		} else {
 			$record = new Record();
 		}
-
-
 
 		$videoIdParser = new VideoIdParser($run->videos->links[0]->uri);
 
@@ -79,7 +75,6 @@ class Record extends Model
 	    } else {
 		    $record->userId     = $run->players[0]->id;
 	    }
-
 
 		$record->primaryTime = $run->times->primary_t;
 		$record->date = $run->date;
