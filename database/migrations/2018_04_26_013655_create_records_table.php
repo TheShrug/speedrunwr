@@ -15,18 +15,18 @@ class CreateRecordsTable extends Migration
     {
         Schema::create('records', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('runId');
-            $table->string('gameId')->nullable();
-            $table->string('categoryId')->nullable();
-	        $table->string('levelId')->nullable();
-	        $table->string('userId')->nullable();
-	        $table->string('platformId')->nullable();
-	        $table->string('regionId')->nullable();
+            $table->string('runId')->index();
+            $table->string('gameId')->nullable()->index();
+            $table->string('categoryId')->nullable()->index();
+	        $table->string('levelId')->nullable()->index();
+	        $table->string('userId')->nullable()->index();
+	        $table->string('platformId')->nullable()->index();
+	        $table->string('regionId')->nullable()->index();
 	        $table->integer('competition')->default(0);
 	        $table->float('primaryTime',12,3)->nullable();
 	        $table->dateTime('date')->nullable();
-	        $table->string('youtubeId')->nullable();
-	        $table->string('twitchId')->nullable();
+	        $table->string('youtubeId')->nullable()->index();
+	        $table->string('twitchId')->nullable()->index();
             $table->timestamps();
         });
     }

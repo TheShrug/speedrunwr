@@ -200,19 +200,15 @@ def create_new_table():
 
 def update_active_table() :
     conn = pymysql.connect(host=dbHost, user=dbUsername, passwd=dbPassword, db=dbName, charset='utf8mb4')
-    sql = "insert into `active_records` (`table_name`, `created_at`, `updated_at`) values(%s, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP())"
     cursor = conn.cursor()
-    cursor.execute(sql, (table_name))
+    view_sql = "CREATE OR REPLACE VIEW `vw_records` AS select * from `" + table_name + "`"
+    cursor.execute(view_sql)
     conn.commit()
     conn.close()
 
 
-
-
 start = time.time()
-
 table_name = 'records_' + str(math.floor(start))
-
 create_new_table()
 allGames = []
 get_games_recursive(0)
@@ -223,9 +219,6 @@ for index, game in enumerate(allGames):
         get_records(game, 0)
 
 update_active_table()
-
-
-
 
 print('it took ', time.time()-start, ' seconds')
 

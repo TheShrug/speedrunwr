@@ -12,18 +12,7 @@ class Record extends Model
 
 {
 
-
-
-
-	function __construct( array $attributes = [] ) {
-		parent::__construct( $attributes );
-
-		$activeTable = ActiveRecord::orderBy('created_at', 'desc')->first();
-
-		$this->setTable($activeTable->table_name);
-
-	}
-
+	protected $table = 'vw_records';
 
 	public static function createRecordsFromSpeedrunComEndpoint($endpoint) {
 
