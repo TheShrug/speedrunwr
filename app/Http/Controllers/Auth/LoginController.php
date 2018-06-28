@@ -80,4 +80,33 @@ class LoginController extends Controller
 
 	}
 
+	/**
+	 * Get the failed login response instance.
+	 *
+	 * @param  \Illuminate\Http\Request  $request
+	 * @return \Symfony\Component\HttpFoundation\Response
+	 *
+	 * @throws ValidationException
+	 */
+	protected function sendFailedLoginResponse(Request $request)
+	{
+		throw ValidationException::withMessages([
+			$this->username() => [trans('auth.failed')],
+		]);
+	}
+
+	/**
+	 * Log the user out of the application.
+	 *
+	 * @param \Illuminate\Http\Request  $request
+	 * @return \Illuminate\Http\Response
+	 */
+	public function logout(Request $request)
+	{
+		$this->guard()->logout();
+		$request->session()->flush();
+		$request->session()->regenerate();
+		return redirect('/');
+	}
+
 }
