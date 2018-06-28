@@ -36,4 +36,28 @@ class ResetPasswordController extends Controller
     {
         $this->middleware('guest');
     }
+
+	/**
+	 * Get the response for a failed password reset.
+	 *
+	 * @param  \Illuminate\Http\Request  $request
+	 * @param  string  $response
+	 * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
+	 */
+	protected function sendResetFailedResponse(Request $request, $response)
+	{
+		return json_encode(['messageType' => 'error', 'message' => trans($response)]);
+	}
+
+	/**
+	 * Get the response for a successful password reset.
+	 *
+	 * @param  \Illuminate\Http\Request  $request
+	 * @param  string  $response
+	 * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
+	 */
+	protected function sendResetResponse($request, $response)
+	{
+		return json_encode(['message' => 'success', 'user' => $request->user()]);
+	}
 }
