@@ -64941,6 +64941,7 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 //
 //
 //
+//
 
 
 
@@ -65174,6 +65175,7 @@ var render = function() {
                       items: _vm.platforms,
                       label: "Platform",
                       multiple: "",
+                      autocomplete: "",
                       chips: ""
                     },
                     model: {

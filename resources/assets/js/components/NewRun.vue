@@ -37,6 +37,7 @@
                             :items="platforms"
                             label="Platform"
                             multiple
+                            autocomplete
                             chips
                     >
 
