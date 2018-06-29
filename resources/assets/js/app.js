@@ -33,6 +33,7 @@ Vue.use(Vuelidate);
 Vue.use(Vuebar);
 Vue.use(VueRouter);
 
+
 const store = new Vuex.Store({
     state: {
         activeRun: {},
@@ -95,6 +96,7 @@ Vue.component('player', require('./components/Player.vue'));
 Vue.component('app-menu', require('./components/Menu.vue'));
 Vue.component('new-run', require('./components/NewRun.vue'));
 Vue.component('message', require('./components/Message.vue'));
+Vue.component('front-post', require('./components/FrontPost.vue'));
 
 Vue.component('history-tabs', require('./components/HistoryTabs.vue'));
 Vue.component('history', require('./components/History.vue'));
@@ -113,8 +115,11 @@ Vue.component('player-run-data', require('./components/run-data/PlayerRunData.vu
 Vue.component('history-run-data', require('./components/run-data/HistoryRunData.vue'));
 Vue.component('liked-run-data', require('./components/run-data/LikedRunData.vue'));
 
+
+
 const routes = [
-    {path: '/run/:id', component: Player}
+    {path: '/run/:id', component: Player},
+    {path: '/', component: require('./components/FrontPost.vue')},
 ]
 
 const router = new VueRouter({
