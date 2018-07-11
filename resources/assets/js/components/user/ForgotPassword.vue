@@ -58,12 +58,10 @@
         },
         methods: {
             sendPasswordResetEmail() {
-
                 let $this = this;
                 let params = {
                     email : this.$v.emailAddress.$model,
                 };
-
                 if(!this.$v.$invalid) {
                     $this.loading = true
                     Axios.post('/password/reset/sendEmail',
@@ -74,11 +72,13 @@
                             $this.alertMessage = response.data.message;
                             $this.alertType = response.data.messageType;
                             $this.clearForm();
+                            $this.emailAddress = '';
                         }
                     }).catch(function(error) {
 
                     }).then(function() {
                         $this.loading = false
+
                     })
                 }
 

@@ -34,8 +34,6 @@
                         <v-alert v-model="alert" dismissible :type="alertType" outline>
                             {{alertMessage}}
                         </v-alert>
-
-
                     </v-card-text>
                     <v-card-actions>
                         <v-layout row wrap>
@@ -101,6 +99,7 @@
                     Axios.post('/password/reset', params
                     ).then(function(response) {
                         if(response.data.message === 'success') {
+                            $this.email = '';
                             window.location = '/';
                             return
                         }
@@ -114,6 +113,7 @@
 
                     }).then(function() {
                         $this.loading = false;
+
                     })
                 }
             }

@@ -68664,8 +68664,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 
 
@@ -68714,6 +68712,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 $this.loading = true;
                 __WEBPACK_IMPORTED_MODULE_1_axios___default.a.post('/password/reset', params).then(function (response) {
                     if (response.data.message === 'success') {
+                        $this.email = '';
                         window.location = '/';
                         return;
                     }
@@ -69497,12 +69496,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     methods: {
         sendPasswordResetEmail: function sendPasswordResetEmail() {
-
             var $this = this;
             var params = {
                 email: this.$v.emailAddress.$model
             };
-
             if (!this.$v.$invalid) {
                 $this.loading = true;
                 __WEBPACK_IMPORTED_MODULE_1_axios___default.a.post('/password/reset/sendEmail', params).then(function (response) {
@@ -69511,6 +69508,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         $this.alertMessage = response.data.message;
                         $this.alertType = response.data.messageType;
                         $this.clearForm();
+                        $this.emailAddress = '';
                     }
                 }).catch(function (error) {}).then(function () {
                     $this.loading = false;
