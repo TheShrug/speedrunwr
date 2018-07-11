@@ -36,7 +36,7 @@ class RatedSemaphore(BoundedSemaphore):
 
 # CONFIG
 config = configparser.ConfigParser()
-config.read('config.ini')
+config.read('./config.ini')
 dbHost = config.get('configuration', 'dbHost')
 dbUsername = config.get('configuration', 'dbUsername')
 dbPassword = config.get('configuration', 'dbPassword')
