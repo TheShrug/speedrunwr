@@ -1,9 +1,23 @@
 <template>
-    <v-btn color="primary" flat block @click="likeRun()" :loading="loading" :disabled="loading">
+    <div>
+    <v-btn v-if="userLoggedIn" color="primary" flat block @click="likeRun()" :loading="loading" :disabled="loading">
         <v-icon left>favorite</v-icon>
         <span v-if="liked">Unlike</span>
         <span v-if="!liked">Like</span>
     </v-btn>
+    <v-tooltip top v-if="!userLoggedIn">
+        <v-btn
+                slot="activator"
+                color="primary"
+                flat
+                block
+        >
+            <v-icon left>favorite</v-icon>
+            <span>Like</span>
+        </v-btn>
+        <span>You must be logged in to like runs!</span>
+    </v-tooltip>
+    </div>
 </template>
 
 <script>
