@@ -4,7 +4,7 @@
             <v-tab :href="`#tab-history`">
                 History
             </v-tab>
-            <v-tab :href="`#tab-liked`" v-if="userLoggedIn">
+            <v-tab :href="`#tab-liked`">
                 Liked
             </v-tab>
         </v-tabs>
@@ -12,8 +12,11 @@
             <v-tab-item :id="`tab-history`" class="fill-height">
                 <history></history>
             </v-tab-item>
-            <v-tab-item :id="`tab-liked`" v-if="userLoggedIn" class="fill-height">
-                <liked-runs-tab-content></liked-runs-tab-content>
+            <v-tab-item :id="`tab-liked`" class="fill-height">
+                <liked-runs-tab-content v-if="userLoggedIn"></liked-runs-tab-content>
+                <v-flex v-if="!userLoggedIn" pa-3>
+                    You must be logged in to view your liked runs.
+                </v-flex>
             </v-tab-item>
         </v-tabs-items>
     </v-layout>
