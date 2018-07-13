@@ -39,6 +39,6 @@
         }
     }
 </script>
-<style>
+<style scoped>
     .pagination-container button { height: 25px; width: 25px;}
 </style>

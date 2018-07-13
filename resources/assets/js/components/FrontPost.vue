@@ -1,6 +1,6 @@
 <template>
     <v-layout row class="post">
-        <v-flex sm6 xs12>
+        <v-flex lg6 sm12>
             <h1>Speedrun World Records</h1>
             <p>Find new interesting speedgames, speedruns, or speedrunners by watching <em>only the best</em>.</p>
             <p>The speedrunning community is <a href="http://kotaku.com/awesome-games-done-quick-raises-a-record-breaking-2-2-1791230734" target="_blank" title="Awesome Games Done Quick Raises A Record Breaking $2.2 Million For Cancer Prevention">large</a>! The number of <a href="http://www.speedrun.com/statistics" title="" target="_blank">games</a>, categories and <a href="http://www.speedrun.com/statistics/users" title="Theres lots of em, trust me!">users</a> at <a href="http://www.speedrun.com" title="Thanks to speedrun.com for their API and making this whole project possible">speedrun.com</a> is getting larger every day.</p>

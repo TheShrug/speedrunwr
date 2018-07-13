@@ -121,6 +121,7 @@
             <v-switch
                     :label="`Autoplay`"
                     v-model="autoPlay"
+                    hide-details
             ></v-switch>
         </v-flex>
     </v-form>
