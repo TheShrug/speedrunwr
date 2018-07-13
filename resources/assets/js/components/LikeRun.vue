@@ -1,6 +1,6 @@
 <template>
     <div>
-    <v-btn v-if="userLoggedIn" color="primary" flat  @click="likeRun()" :loading="loading" :disabled="loading">
+    <v-btn v-if="userLoggedIn" color="primary" flat outline @click="likeRun()" :loading="loading" :disabled="loading">
         <v-icon left>favorite</v-icon>
         <span v-if="liked">Unlike</span>
         <span v-if="!liked">Like</span>
@@ -10,6 +10,7 @@
                 slot="activator"
                 color="primary"
                 flat
+                outline
         >
             <v-icon left>favorite</v-icon>
             <span>Like</span>
@@ -101,6 +102,6 @@
         }
     }
 </script>
-<style>
-
+<style scoped>
+    button.btn { margin: 0;}
 </style>
