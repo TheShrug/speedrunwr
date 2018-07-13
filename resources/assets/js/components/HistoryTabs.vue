@@ -35,7 +35,7 @@
 <script>
     export default {
         mounted() {
-            if($vuetify.breakpoint.smAndDown) this.visible = false
+            if(this.$vuetify.breakpoint.smAndDown) this.visible = false
         },
         data() {
             return  {
