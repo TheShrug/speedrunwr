@@ -1,10 +1,10 @@
 <template>
-    <div>
-        <v-layout row wrap class="run-details grey darken-3"pa-1>
-            <v-flex xs2 class="text-xs-center run-detail"  pa-2>
+    <div class="run-data-container" :class="{'mobile-mode': $vuetify.breakpoint.smAndDown }">
+        <v-layout row wrap class="run-details grey darken-3" pa-1>
+            <v-flex md3 sm3 xs12 pa-2>
                 <like-run v-bind:run-id="run.id"></like-run>
             </v-flex>
-            <v-flex class="run-detail" pa-2>
+            <v-flex md3 sm4 xs12 pa-2>
                 <div v-if="runGameName"><a :href="runGameLink" target="_blank">{{runGameName}}</a></div>
                 <div v-if="runCategoryName">
                     <a :href="runCategoryLink" target="_blank">{{runCategoryName}}</a>
@@ -13,7 +13,7 @@
                     </div>
                 </div>
             </v-flex>
-            <v-flex class="run-detail" pa-2>
+            <v-flex md3 sm3 xs12 pa-2>
                 <div v-if="runTime">{{runTime}}</div>
                 <div v-if="runPlayerName">
                     By <a :href="runPlayerLink" target="_blank">{{runPlayerName}}</a>
@@ -21,7 +21,7 @@
                     <span v-if="runPlayerYoutube"><a :href="runPlayerYoutube" target="_blank"><i class="fab fa-youtube"></i></a></span>
                 </div>
             </v-flex>
-            <v-flex class="run-detail" pa-2>
+            <v-flex md3 sm2 xs12 pa-2>
                 <div v-if="runPlatform">
                     {{runPlatform}}
                 </div>
@@ -35,19 +35,8 @@
     var moment = require('moment')
     var momentDurationFormatSetup = require('moment-duration-format')
     export default {
-        mounted() {
-
-        },
-        data() {
-            return {
-
-            }
-        },
         props: {
             run: Object
-        },
-        methods: {
-
         },
         computed: {
             runTime() {
@@ -113,6 +102,9 @@
     }
 </script>
 <style scoped>
+    .run-data-container.mobile-mode {
+        margin-bottom: 50px;
+    }
     .run-details .run-detail {
 
         font-size: 16px;

@@ -12,7 +12,6 @@
     import Axios from 'axios'
     export default {
         mounted() {
-            console.log('mountedtest');
             this.getRunDetails(this.$route.params.id);
         },
         methods: {
@@ -42,8 +41,6 @@
 
                     });
                 }
-
-
 
             }
         },

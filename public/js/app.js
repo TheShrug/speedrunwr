@@ -64474,7 +64474,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     mounted: function mounted() {
-        console.log('mountedtest');
         this.getRunDetails(this.$route.params.id);
     },
 
@@ -66463,7 +66462,7 @@ exports = module.exports = __webpack_require__(13)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -66476,7 +66475,6 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
-//
 //
 //
 //
@@ -66594,7 +66592,6 @@ var render = function() {
               attrs: {
                 color: "primary",
                 flat: "",
-                block: "",
                 loading: _vm.loading,
                 disabled: _vm.loading
               },
@@ -66623,12 +66620,7 @@ var render = function() {
               _c(
                 "v-btn",
                 {
-                  attrs: {
-                    slot: "activator",
-                    color: "primary",
-                    flat: "",
-                    block: ""
-                  },
+                  attrs: { slot: "activator", color: "primary", flat: "" },
                   slot: "activator"
                 },
                 [
@@ -69881,7 +69873,7 @@ exports = module.exports = __webpack_require__(13)(false);
 
 
 // module
-exports.push([module.i, "\n.run-details .run-detail[data-v-66ca927b] {\n\n    font-size: 16px;\n}\na[data-v-66ca927b] {color:#E8BF6A;\n}\n", ""]);
+exports.push([module.i, "\n.run-data-container.mobile-mode[data-v-66ca927b] {\n    margin-bottom: 50px;\n}\n.run-details .run-detail[data-v-66ca927b] {\n\n    font-size: 16px;\n}\na[data-v-66ca927b] {color:#E8BF6A;\n}\n", ""]);
 
 // exports
 
@@ -69929,15 +69921,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 var moment = __webpack_require__(1);
 var momentDurationFormatSetup = __webpack_require__(100);
 /* harmony default export */ __webpack_exports__["default"] = ({
-    mounted: function mounted() {},
-    data: function data() {
-        return {};
-    },
-
     props: {
         run: Object
     },
-    methods: {},
     computed: {
         runTime: function runTime() {
             return this.run.times.primary_t ? moment.duration(this.run.times.primary_t, "seconds").format('d[d] h[hr] m[m] s.S[s]') : '';
@@ -70291,6 +70277,10 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
+    {
+      staticClass: "run-data-container",
+      class: { "mobile-mode": _vm.$vuetify.breakpoint.smAndDown }
+    },
     [
       _c(
         "v-layout",
@@ -70301,15 +70291,12 @@ var render = function() {
         [
           _c(
             "v-flex",
-            {
-              staticClass: "text-xs-center run-detail",
-              attrs: { xs2: "", "pa-2": "" }
-            },
+            { attrs: { md3: "", sm3: "", xs12: "", "pa-2": "" } },
             [_c("like-run", { attrs: { "run-id": _vm.run.id } })],
             1
           ),
           _vm._v(" "),
-          _c("v-flex", { staticClass: "run-detail", attrs: { "pa-2": "" } }, [
+          _c("v-flex", { attrs: { md3: "", sm4: "", xs12: "", "pa-2": "" } }, [
             _vm.runGameName
               ? _c("div", [
                   _c(
@@ -70346,7 +70333,7 @@ var render = function() {
               : _vm._e()
           ]),
           _vm._v(" "),
-          _c("v-flex", { staticClass: "run-detail", attrs: { "pa-2": "" } }, [
+          _c("v-flex", { attrs: { md3: "", sm3: "", xs12: "", "pa-2": "" } }, [
             _vm.runTime ? _c("div", [_vm._v(_vm._s(_vm.runTime))]) : _vm._e(),
             _vm._v(" "),
             _vm.runPlayerName
@@ -70391,7 +70378,7 @@ var render = function() {
               : _vm._e()
           ]),
           _vm._v(" "),
-          _c("v-flex", { staticClass: "run-detail", attrs: { "pa-2": "" } }, [
+          _c("v-flex", { attrs: { md3: "", sm2: "", xs12: "", "pa-2": "" } }, [
             _vm.runPlatform
               ? _c("div", [
                   _vm._v(
