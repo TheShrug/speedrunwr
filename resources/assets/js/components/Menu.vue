@@ -1,17 +1,15 @@
 <template>
     <v-layout column justify-space-between fill-height>
-        <v-flex xs2>
+        <div>
             <h1 class="logo"><a href="/" title="Speedrun">Speedrun<span title="Web Randomizer? World Records?">wr</span></a></h1>
             <new-run></new-run>
-        </v-flex>
-        <v-flex xs8>
+        </div>
+        <div>
             <history-tabs></history-tabs>
-        </v-flex>
-        <v-flex xs2>
-
-                <user></user>
-
-        </v-flex>
+        </div>
+        <div class="user">
+            <user></user>
+        </div>
     </v-layout>
 </template>
 
@@ -37,5 +35,8 @@
     input:-webkit-autofill:active {
         transition: background-color 5000s ease-in-out 0s;
         -webkit-text-fill-color: #fff !important;
+    }
+    .user {
+        margin-top: auto;
     }
 </style>

@@ -3,7 +3,7 @@
     <div id="app">
         <v-app dark>
             <v-container fluid pa-0>
-                <v-layout row wrap fill-height>
+                <v-layout row wrap :class="{'fill-height': $vuetify.breakpoint.mdAndUp}">
                     <v-flex lg3 md4 sm12 class="blue-grey darken-3" pa-3>
                         <app-menu></app-menu>
                     </v-flex>

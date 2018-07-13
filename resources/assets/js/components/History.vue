@@ -1,5 +1,5 @@
 <template>
-    <v-layout column class="history" align-content-space-between fill-height>
+    <v-layout column align-content-space-between fill-height v-show="visible">
         <v-flex>
             <history-run-data v-for="run in activeRunHistory" v-bind:run="run.data" v-bind:record="run.record" :key="run.data.id" class="flex"></history-run-data>
         </v-flex>
@@ -11,12 +11,12 @@
 
 <script>
     export default {
-
         data() {
             return  {
                 page: 1,
                 totalVisible: 7,
-                perPage: 5
+                perPage: 5,
+                visible: true
             }
         },
         methods: {

@@ -64609,7 +64609,7 @@ var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-93f38854"
+var __vue_scopeId__ = null
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
@@ -64652,13 +64652,13 @@ var content = __webpack_require__(508);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(14)("55091d64", content, false, {});
+var update = __webpack_require__(14)("2a0d7af1", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-93f38854\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Menu.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-93f38854\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Menu.vue");
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-93f38854\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Menu.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-93f38854\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Menu.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -64676,7 +64676,7 @@ exports = module.exports = __webpack_require__(13)(false);
 
 
 // module
-exports.push([module.i, "\n.logo[data-v-93f38854] { margin-bottom: 6px;\n}\n.logo a[data-v-93f38854] { color: #fff; text-decoration: none;\n}\n.logo span[data-v-93f38854] {font-style:italic;-webkit-text-stroke-width: 2px; -webkit-text-stroke-color: #F94645;\n}\ninput[data-v-93f38854]:-webkit-autofill,\ninput[data-v-93f38854]:-webkit-autofill:hover,\ninput[data-v-93f38854]:-webkit-autofill:focus,\ninput[data-v-93f38854]:-webkit-autofill:active {\n    -webkit-transition: background-color 5000s ease-in-out 0s;\n    transition: background-color 5000s ease-in-out 0s;\n    -webkit-text-fill-color: #fff !important;\n}\n.toggle[data-v-93f38854] { position: absolute; z-index: 9; top: -15px;\n}\n\n", ""]);
+exports.push([module.i, "\n.logo { margin-bottom: 6px;\n}\n.logo a { color: #fff; text-decoration: none;\n}\n.logo span {font-style:italic;-webkit-text-stroke-width: 2px; -webkit-text-stroke-color: #F94645;\n}\ninput:-webkit-autofill,\ninput:-webkit-autofill:hover,\ninput:-webkit-autofill:focus,\ninput:-webkit-autofill:active {\n    -webkit-transition: background-color 5000s ease-in-out 0s;\n    transition: background-color 5000s ease-in-out 0s;\n    -webkit-text-fill-color: #fff !important;\n}\n.user {\n    margin-top: auto;\n}\n", ""]);
 
 // exports
 
@@ -64702,23 +64702,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            loginDialog: false,
-            showHistory: true
+            loginDialog: false
         };
     },
 
-    methods: {
-        toggleHistory: function toggleHistory() {
-            this.showHistory = !this.showHistory;
-        }
-    }
+    methods: {}
 });
 
 /***/ }),
@@ -64734,8 +64726,7 @@ var render = function() {
     { attrs: { column: "", "justify-space-between": "", "fill-height": "" } },
     [
       _c(
-        "v-flex",
-        { attrs: { xs2: "" } },
+        "div",
         [
           _c("h1", { staticClass: "logo" }, [
             _c("a", { attrs: { href: "/", title: "Speedrun" } }, [
@@ -64753,11 +64744,10 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _c("v-flex", { attrs: { xs8: "" } }, [_c("history-tabs")], 1),
+      _c("div", [_c("history-tabs")], 1),
       _vm._v(" "),
-      _c("v-flex", { attrs: { xs2: "" } }, [_c("user")], 1)
-    ],
-    1
+      _c("div", { staticClass: "user" }, [_c("user")], 1)
+    ]
   )
 }
 var staticRenderFns = []
@@ -65954,7 +65944,7 @@ exports = module.exports = __webpack_require__(13)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n.history-container[data-v-4a7710ea] { position: relative;\n}\n.toggle-button[data-v-4a7710ea] { position: absolute; right: 0; top: -30px; margin: 0;\n}\n.history[data-v-4a7710ea] {-webkit-transition:all .3s;transition:all .3s; max-height: 900px;\n}\n.slide-enter[data-v-4a7710ea] { max-height: 0;\n}\n.slide-leave-to[data-v-4a7710ea] { max-height: 0;\n}\n", ""]);
 
 // exports
 
@@ -65989,15 +65979,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            tabModel: 'tab-history'
+            tabModel: 'tab-history',
+            visible: true
         };
     },
 
-    methods: {},
+    methods: {
+        toggleVisibility: function toggleVisibility() {
+            this.visible = !this.visible;
+        }
+    },
     computed: {
         userLoggedIn: function userLoggedIn() {
             return this.$store.state.userLoggedIn;
@@ -66014,69 +66016,113 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "v-layout",
-    {
-      staticClass: "blue-grey darken-4 history",
-      attrs: { column: "", "fill-height": "" }
-    },
+    "div",
+    { staticClass: "history-container" },
     [
       _c(
-        "v-tabs",
+        "v-btn",
         {
-          attrs: { "slider-color": "primary", color: "blue-grey darken-2" },
-          model: {
-            value: _vm.tabModel,
-            callback: function($$v) {
-              _vm.tabModel = $$v
-            },
-            expression: "tabModel"
-          }
+          staticClass: "toggle-button",
+          class: {
+            "hidden-md-and-up": _vm.$vuetify.breakpoint.mdAndUp && _vm.visible
+          },
+          attrs: { flat: "", small: "", color: "white" },
+          on: { click: _vm.toggleVisibility }
         },
         [
-          _c("v-tab", { attrs: { href: "#tab-history" } }, [
-            _vm._v("\n            History\n        ")
-          ]),
-          _vm._v(" "),
-          _c("v-tab", { attrs: { href: "#tab-liked" } }, [
-            _vm._v("\n            Liked\n        ")
-          ])
+          !_vm.visible ? _c("v-icon", [_vm._v("menu")]) : _vm._e(),
+          _vm.visible ? _c("v-icon", [_vm._v("close")]) : _vm._e(),
+          _vm._v(" History\n    ")
         ],
         1
       ),
       _vm._v(" "),
       _c(
-        "v-tabs-items",
-        {
-          staticClass: "fill-height",
-          model: {
-            value: _vm.tabModel,
-            callback: function($$v) {
-              _vm.tabModel = $$v
-            },
-            expression: "tabModel"
-          }
-        },
+        "transition",
+        { attrs: { name: "slide" } },
         [
           _c(
-            "v-tab-item",
-            { staticClass: "fill-height", attrs: { id: "tab-history" } },
-            [_c("history")],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "v-tab-item",
-            { staticClass: "fill-height", attrs: { id: "tab-liked" } },
+            "v-layout",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.visible,
+                  expression: "visible"
+                }
+              ],
+              staticClass: "blue-grey darken-4 history",
+              attrs: { column: "", "fill-height": "" }
+            },
             [
-              _vm.userLoggedIn ? _c("liked-runs-tab-content") : _vm._e(),
-              _vm._v(" "),
-              !_vm.userLoggedIn
-                ? _c("v-flex", { attrs: { "pa-3": "" } }, [
-                    _vm._v(
-                      "\n                You must be logged in to view your liked runs.\n            "
-                    )
+              _c(
+                "v-tabs",
+                {
+                  attrs: {
+                    "slider-color": "primary",
+                    color: "blue-grey darken-2"
+                  },
+                  model: {
+                    value: _vm.tabModel,
+                    callback: function($$v) {
+                      _vm.tabModel = $$v
+                    },
+                    expression: "tabModel"
+                  }
+                },
+                [
+                  _c("v-tab", { attrs: { href: "#tab-history" } }, [
+                    _vm._v("\n                    History\n                ")
+                  ]),
+                  _vm._v(" "),
+                  _c("v-tab", { attrs: { href: "#tab-liked" } }, [
+                    _vm._v("\n                    Liked\n                ")
                   ])
-                : _vm._e()
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-tabs-items",
+                {
+                  model: {
+                    value: _vm.tabModel,
+                    callback: function($$v) {
+                      _vm.tabModel = $$v
+                    },
+                    expression: "tabModel"
+                  }
+                },
+                [
+                  _c(
+                    "v-tab-item",
+                    { attrs: { id: "tab-history" } },
+                    [_c("history")],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-tab-item",
+                    { attrs: { id: "tab-liked" } },
+                    [
+                      _vm.userLoggedIn
+                        ? _c("liked-runs-tab-content")
+                        : _vm._e(),
+                      _vm._v(" "),
+                      !_vm.userLoggedIn
+                        ? _c("v-flex", { attrs: { "pa-3": "" } }, [
+                            _vm._v(
+                              "\n                        You must be logged in to view your liked runs.\n                    "
+                            )
+                          ])
+                        : _vm._e()
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
             ],
             1
           )
@@ -66104,13 +66150,13 @@ if (false) {
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(626)
+  __webpack_require__(529)
 }
 var normalizeComponent = __webpack_require__(12)
 /* script */
 var __vue_script__ = __webpack_require__(531)
 /* template */
-var __vue_template__ = __webpack_require__(628)
+var __vue_template__ = __webpack_require__(532)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -66149,8 +66195,46 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 529 */,
-/* 530 */,
+/* 529 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(530);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(14)("106b67ca", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-2d53416d\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./History.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-2d53416d\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./History.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 530 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(13)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.pagination-container button[data-v-2d53416d] { height: 25px; width: 25px;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
 /* 531 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -66173,7 +66257,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             page: 1,
             totalVisible: 7,
-            perPage: 5
+            perPage: 5,
+            visible: true
         };
     },
 
@@ -66196,7 +66281,79 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 532 */,
+/* 532 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "v-layout",
+    {
+      directives: [
+        {
+          name: "show",
+          rawName: "v-show",
+          value: _vm.visible,
+          expression: "visible"
+        }
+      ],
+      attrs: {
+        column: "",
+        "align-content-space-between": "",
+        "fill-height": ""
+      }
+    },
+    [
+      _c(
+        "v-flex",
+        _vm._l(_vm.activeRunHistory, function(run) {
+          return _c("history-run-data", {
+            key: run.data.id,
+            staticClass: "flex",
+            attrs: { run: run.data, record: run.record }
+          })
+        })
+      ),
+      _vm._v(" "),
+      _vm.runHistory.length > _vm.perPage
+        ? _c(
+            "div",
+            { staticClass: "text-xs-center pagination-container" },
+            [
+              _c("v-pagination", {
+                attrs: {
+                  length: this.paginationLength,
+                  "total-visible": _vm.totalVisible
+                },
+                model: {
+                  value: _vm.page,
+                  callback: function($$v) {
+                    _vm.page = $$v
+                  },
+                  expression: "page"
+                }
+              })
+            ],
+            1
+          )
+        : _vm._e()
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-2d53416d", module.exports)
+  }
+}
+
+/***/ }),
 /* 533 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -70326,7 +70483,7 @@ exports = module.exports = __webpack_require__(13)(false);
 
 
 // module
-exports.push([module.i, "\n.history-link[data-v-e5b1cb2c] { height: 100%; width: 100%;text-align: left; text-transform: none; margin: 0;-webkit-box-shadow:none !important;box-shadow:none !important;\n}\n.history-link.active[data-v-e5b1cb2c] {border:1px solid rgba(255, 255, 255, 0.34);\n}\n.history-link .btn__content[data-v-e5b1cb2c] { padding: 0; white-space:normal;\n}\n.history-link .card[data-v-e5b1cb2c] { width: 100%; background: none;\n}\n", ""]);
+exports.push([module.i, "\n.history-link[data-v-e5b1cb2c] { height: 100%; width: 100%;text-align: left; text-transform: none; border:1px solid transparent;margin: 0;-webkit-box-shadow:none !important;box-shadow:none !important;\n}\n.history-link.active[data-v-e5b1cb2c] {border:1px solid rgba(255, 255, 255, 0.34);\n}\n.history-link .btn__content[data-v-e5b1cb2c] { padding: 0; white-space:normal;\n}\n.history-link .card[data-v-e5b1cb2c] { width: 100%; background: none;\n}\n", ""]);
 
 // exports
 
@@ -70842,124 +70999,6 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 614 */,
-/* 615 */,
-/* 616 */,
-/* 617 */,
-/* 618 */,
-/* 619 */,
-/* 620 */,
-/* 621 */,
-/* 622 */,
-/* 623 */,
-/* 624 */,
-/* 625 */,
-/* 626 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(627);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(14)("106b67ca", content, false, {});
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-2d53416d\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./History.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-2d53416d\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./History.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 627 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(13)(false);
-// imports
-
-
-// module
-exports.push([module.i, "\n.pagination-container button[data-v-2d53416d] { height: 25px; width: 25px;\n}\n", ""]);
-
-// exports
-
-
-/***/ }),
-/* 628 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "v-layout",
-    {
-      staticClass: "history",
-      attrs: {
-        column: "",
-        "align-content-space-between": "",
-        "fill-height": ""
-      }
-    },
-    [
-      _c(
-        "v-flex",
-        _vm._l(_vm.activeRunHistory, function(run) {
-          return _c("history-run-data", {
-            key: run.data.id,
-            staticClass: "flex",
-            attrs: { run: run.data, record: run.record }
-          })
-        })
-      ),
-      _vm._v(" "),
-      _vm.runHistory.length > _vm.perPage
-        ? _c(
-            "div",
-            { staticClass: "text-xs-center pagination-container" },
-            [
-              _c("v-pagination", {
-                attrs: {
-                  length: this.paginationLength,
-                  "total-visible": _vm.totalVisible
-                },
-                model: {
-                  value: _vm.page,
-                  callback: function($$v) {
-                    _vm.page = $$v
-                  },
-                  expression: "page"
-                }
-              })
-            ],
-            1
-          )
-        : _vm._e()
-    ],
-    1
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-2d53416d", module.exports)
-  }
-}
 
 /***/ })
 /******/ ]);
