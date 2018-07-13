@@ -103,5 +103,5 @@
     }
 </script>
 <style scoped>
-    button.btn { margin: 0;}
+    button.btn { margin: 5px 0 0 0;}
 </style>

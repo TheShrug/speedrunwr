@@ -1,31 +1,30 @@
 <template>
     <div class="run-data-container" :class="{'mobile-mode': $vuetify.breakpoint.smAndDown }">
         <v-layout row wrap class="run-details grey darken-3" pa-1>
-            <v-flex md3 sm3 xs12 pa-2>
+            <v-flex md3 sm3 xs12 class="run-detail">
                 <like-run v-bind:run-id="run.id"></like-run>
             </v-flex>
-            <v-flex md3 sm4 xs12 pa-2>
-                <div v-if="runGameName"><a :href="runGameLink" target="_blank">{{runGameName}}</a></div>
+            <v-flex md3 sm4 xs12 class="run-detail">
+                <div v-if="runGameName"><p><a :href="runGameLink" target="_blank">{{runGameName}}</a></p></div>
                 <div v-if="runCategoryName">
-                    <a :href="runCategoryLink" target="_blank">{{runCategoryName}}</a>
-                    <div v-if="runLevel">
+                    <p><a :href="runCategoryLink" target="_blank" >{{runCategoryName}}</a></p>
+                    <p v-if="runLevel">
                         <a :href="runLevel.weblink" target="_blank">{{runLevel.name}}</a>
-                    </div>
+                    </p>
                 </div>
             </v-flex>
-            <v-flex md3 sm3 xs12 pa-2>
-                <div v-if="runTime">{{runTime}}</div>
-                <div v-if="runPlayerName">
+            <v-flex md3 sm3 xs12 class="run-detail">
+                <p v-if="runTime">{{runTime}}</p>
+                <p v-if="runPlayerName">
                     By <a :href="runPlayerLink" target="_blank">{{runPlayerName}}</a>
                     <span v-if="runPlayerTwitch"><a :href="runPlayerTwitch" target="_blank"><i class="fab fa-twitch"></i></a></span>
                     <span v-if="runPlayerYoutube"><a :href="runPlayerYoutube" target="_blank"><i class="fab fa-youtube"></i></a></span>
-                </div>
+                </p>
             </v-flex>
-            <v-flex md3 sm2 xs12 pa-2>
-                <div v-if="runPlatform">
+            <v-flex md3 sm2 xs12 class="run-detail">
+                <p v-if="runPlatform">
                     {{runPlatform}}
-                </div>
-
+                </p>
             </v-flex>
         </v-layout>
     </div>
@@ -103,11 +102,11 @@
 </script>
 <style scoped>
     .run-data-container.mobile-mode {
-        margin-bottom: 50px;
+        margin-bottom: 80px;
     }
     .run-details .run-detail {
-
-        font-size: 16px;
+        font-size: 14px;
     }
     a {color:#E8BF6A;}
+    p { margin-bottom: 5px;}
 </style>

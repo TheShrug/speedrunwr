@@ -69762,7 +69762,7 @@ exports = module.exports = __webpack_require__(13)(false);
 
 
 // module
-exports.push([module.i, "\n.run-data-container.mobile-mode[data-v-66ca927b] {\n    margin-bottom: 50px;\n}\n.run-details .run-detail[data-v-66ca927b] {\n\n    font-size: 16px;\n}\na[data-v-66ca927b] {color:#E8BF6A;\n}\n", ""]);
+exports.push([module.i, "\n.run-data-container.mobile-mode[data-v-66ca927b] {\n    margin-bottom: 80px;\n}\n.run-details .run-detail[data-v-66ca927b] {\n    font-size: 14px;\n}\na[data-v-66ca927b] {color:#E8BF6A;\n}\np[data-v-66ca927b] { margin-bottom: 5px;\n}\n", ""]);
 
 // exports
 
@@ -69773,7 +69773,6 @@ exports.push([module.i, "\n.run-data-container.mobile-mode[data-v-66ca927b] {\n 
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
 //
 //
 //
@@ -70180,104 +70179,134 @@ var render = function() {
         [
           _c(
             "v-flex",
-            { attrs: { md3: "", sm3: "", xs12: "", "pa-2": "" } },
+            {
+              staticClass: "run-detail",
+              attrs: { md3: "", sm3: "", xs12: "" }
+            },
             [_c("like-run", { attrs: { "run-id": _vm.run.id } })],
             1
           ),
           _vm._v(" "),
-          _c("v-flex", { attrs: { md3: "", sm4: "", xs12: "", "pa-2": "" } }, [
-            _vm.runGameName
-              ? _c("div", [
-                  _c(
-                    "a",
-                    { attrs: { href: _vm.runGameLink, target: "_blank" } },
-                    [_vm._v(_vm._s(_vm.runGameName))]
-                  )
-                ])
-              : _vm._e(),
-            _vm._v(" "),
-            _vm.runCategoryName
-              ? _c("div", [
-                  _c(
-                    "a",
-                    { attrs: { href: _vm.runCategoryLink, target: "_blank" } },
-                    [_vm._v(_vm._s(_vm.runCategoryName))]
-                  ),
-                  _vm._v(" "),
-                  _vm.runLevel
-                    ? _c("div", [
-                        _c(
-                          "a",
-                          {
-                            attrs: {
-                              href: _vm.runLevel.weblink,
-                              target: "_blank"
-                            }
-                          },
-                          [_vm._v(_vm._s(_vm.runLevel.name))]
-                        )
-                      ])
-                    : _vm._e()
-                ])
-              : _vm._e()
-          ]),
+          _c(
+            "v-flex",
+            {
+              staticClass: "run-detail",
+              attrs: { md3: "", sm4: "", xs12: "" }
+            },
+            [
+              _vm.runGameName
+                ? _c("div", [
+                    _c("p", [
+                      _c(
+                        "a",
+                        { attrs: { href: _vm.runGameLink, target: "_blank" } },
+                        [_vm._v(_vm._s(_vm.runGameName))]
+                      )
+                    ])
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.runCategoryName
+                ? _c("div", [
+                    _c("p", [
+                      _c(
+                        "a",
+                        {
+                          attrs: { href: _vm.runCategoryLink, target: "_blank" }
+                        },
+                        [_vm._v(_vm._s(_vm.runCategoryName))]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _vm.runLevel
+                      ? _c("p", [
+                          _c(
+                            "a",
+                            {
+                              attrs: {
+                                href: _vm.runLevel.weblink,
+                                target: "_blank"
+                              }
+                            },
+                            [_vm._v(_vm._s(_vm.runLevel.name))]
+                          )
+                        ])
+                      : _vm._e()
+                  ])
+                : _vm._e()
+            ]
+          ),
           _vm._v(" "),
-          _c("v-flex", { attrs: { md3: "", sm3: "", xs12: "", "pa-2": "" } }, [
-            _vm.runTime ? _c("div", [_vm._v(_vm._s(_vm.runTime))]) : _vm._e(),
-            _vm._v(" "),
-            _vm.runPlayerName
-              ? _c("div", [
-                  _vm._v("\n                By "),
-                  _c(
-                    "a",
-                    { attrs: { href: _vm.runPlayerLink, target: "_blank" } },
-                    [_vm._v(_vm._s(_vm.runPlayerName))]
-                  ),
-                  _vm._v(" "),
-                  _vm.runPlayerTwitch
-                    ? _c("span", [
-                        _c(
-                          "a",
-                          {
-                            attrs: {
-                              href: _vm.runPlayerTwitch,
-                              target: "_blank"
-                            }
-                          },
-                          [_c("i", { staticClass: "fab fa-twitch" })]
-                        )
-                      ])
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _vm.runPlayerYoutube
-                    ? _c("span", [
-                        _c(
-                          "a",
-                          {
-                            attrs: {
-                              href: _vm.runPlayerYoutube,
-                              target: "_blank"
-                            }
-                          },
-                          [_c("i", { staticClass: "fab fa-youtube" })]
-                        )
-                      ])
-                    : _vm._e()
-                ])
-              : _vm._e()
-          ]),
+          _c(
+            "v-flex",
+            {
+              staticClass: "run-detail",
+              attrs: { md3: "", sm3: "", xs12: "" }
+            },
+            [
+              _vm.runTime ? _c("p", [_vm._v(_vm._s(_vm.runTime))]) : _vm._e(),
+              _vm._v(" "),
+              _vm.runPlayerName
+                ? _c("p", [
+                    _vm._v("\n                By "),
+                    _c(
+                      "a",
+                      { attrs: { href: _vm.runPlayerLink, target: "_blank" } },
+                      [_vm._v(_vm._s(_vm.runPlayerName))]
+                    ),
+                    _vm._v(" "),
+                    _vm.runPlayerTwitch
+                      ? _c("span", [
+                          _c(
+                            "a",
+                            {
+                              attrs: {
+                                href: _vm.runPlayerTwitch,
+                                target: "_blank"
+                              }
+                            },
+                            [_c("i", { staticClass: "fab fa-twitch" })]
+                          )
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.runPlayerYoutube
+                      ? _c("span", [
+                          _c(
+                            "a",
+                            {
+                              attrs: {
+                                href: _vm.runPlayerYoutube,
+                                target: "_blank"
+                              }
+                            },
+                            [_c("i", { staticClass: "fab fa-youtube" })]
+                          )
+                        ])
+                      : _vm._e()
+                  ])
+                : _vm._e()
+            ]
+          ),
           _vm._v(" "),
-          _c("v-flex", { attrs: { md3: "", sm2: "", xs12: "", "pa-2": "" } }, [
-            _vm.runPlatform
-              ? _c("div", [
-                  _vm._v(
-                    "\n                " +
-                      _vm._s(_vm.runPlatform) +
-                      "\n            "
-                  )
-                ])
-              : _vm._e()
-          ])
+          _c(
+            "v-flex",
+            {
+              staticClass: "run-detail",
+              attrs: { md3: "", sm2: "", xs12: "" }
+            },
+            [
+              _vm.runPlatform
+                ? _c("p", [
+                    _vm._v(
+                      "\n                " +
+                        _vm._s(_vm.runPlatform) +
+                        "\n            "
+                    )
+                  ])
+                : _vm._e()
+            ]
+          )
         ],
         1
       )
@@ -70942,7 +70971,7 @@ exports = module.exports = __webpack_require__(13)(false);
 
 
 // module
-exports.push([module.i, "\nbutton.btn[data-v-62007766] { margin: 0;\n}\n", ""]);
+exports.push([module.i, "\nbutton.btn[data-v-62007766] { margin: 5px 0 0 0;\n}\n", ""]);
 
 // exports
 
