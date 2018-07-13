@@ -65998,6 +65998,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+    mounted: function mounted() {
+        if ($vuetify.breakpoint.smAndDown) this.visible = false;
+    },
     data: function data() {
         return {
             tabModel: 'tab-history',

@@ -34,6 +34,9 @@
 
 <script>
     export default {
+        mounted() {
+            if($vuetify.breakpoint.smAndDown) this.visible = false
+        },
         data() {
             return  {
                 tabModel : 'tab-history',
