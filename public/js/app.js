@@ -64676,7 +64676,7 @@ exports = module.exports = __webpack_require__(13)(false);
 
 
 // module
-exports.push([module.i, "\n.logo { margin-bottom: 6px;\n}\n.logo a { color: #fff; text-decoration: none;\n}\n.logo span {font-style:italic;-webkit-text-stroke-width: 2px; -webkit-text-stroke-color: #F94645;\n}\ninput:-webkit-autofill,\ninput:-webkit-autofill:hover,\ninput:-webkit-autofill:focus,\ninput:-webkit-autofill:active {\n    -webkit-transition: background-color 5000s ease-in-out 0s;\n    transition: background-color 5000s ease-in-out 0s;\n    -webkit-text-fill-color: #fff !important;\n}\n.user {\n    margin-top: auto;\n}\n", ""]);
+exports.push([module.i, "\n.logo { margin-bottom: 6px;\n}\n.logo a { color: #fff; text-decoration: none;\n}\n.logo span {font-style:italic;-webkit-text-stroke-width: 2px; -webkit-text-stroke-color: #F94645;\n}\ninput:-webkit-autofill,\ninput:-webkit-autofill:hover,\ninput:-webkit-autofill:focus,\ninput:-webkit-autofill:active {\n    -webkit-transition: background-color 5000s ease-in-out 0s;\n    transition: background-color 5000s ease-in-out 0s;\n    -webkit-text-fill-color: #fff !important;\n}\n.user {\n    margin-top: auto;\n}\n.user.fixed-bottom {\n    position: fixed;\n    bottom: 0;\n    left: 0;\n    right: 0;\n    background: #37474f;\n    padding: 0 5px;\n    z-index: 99;\n}\n", ""]);
 
 // exports
 
@@ -64746,7 +64746,15 @@ var render = function() {
       _vm._v(" "),
       _c("div", [_c("history-tabs")], 1),
       _vm._v(" "),
-      _c("div", { staticClass: "user" }, [_c("user")], 1)
+      _c(
+        "div",
+        {
+          staticClass: "user",
+          class: { "fixed-bottom": _vm.$vuetify.breakpoint.smAndDown }
+        },
+        [_c("user")],
+        1
+      )
     ]
   )
 }

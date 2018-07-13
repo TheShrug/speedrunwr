@@ -7,7 +7,7 @@
         <div>
             <history-tabs></history-tabs>
         </div>
-        <div class="user">
+        <div class="user" :class="{'fixed-bottom': $vuetify.breakpoint.smAndDown}">
             <user></user>
         </div>
     </v-layout>
@@ -38,5 +38,14 @@
     }
     .user {
         margin-top: auto;
+    }
+    .user.fixed-bottom {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: #212121;
+        padding: 0 5px;
+        z-index: 99;
     }
 </style>
