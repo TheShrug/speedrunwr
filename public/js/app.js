@@ -64676,7 +64676,7 @@ exports = module.exports = __webpack_require__(13)(false);
 
 
 // module
-exports.push([module.i, "\n.logo { margin-bottom: 6px;\n}\n.logo a { color: #fff; text-decoration: none;\n}\n.logo span {font-style:italic;-webkit-text-stroke-width: 2px; -webkit-text-stroke-color: #F94645;\n}\ninput:-webkit-autofill,\ninput:-webkit-autofill:hover,\ninput:-webkit-autofill:focus,\ninput:-webkit-autofill:active {\n    -webkit-transition: background-color 5000s ease-in-out 0s;\n    transition: background-color 5000s ease-in-out 0s;\n    -webkit-text-fill-color: #fff !important;\n}\n.user {\n    margin-top: auto;\n}\n.user.fixed-bottom {\n    position: fixed;\n    bottom: 0;\n    left: 0;\n    right: 0;\n    background: #37474f;\n    padding: 0 5px;\n    z-index: 99;\n}\n", ""]);
+exports.push([module.i, "\n.logo { margin-bottom: 6px;\n}\n.logo a { color: #fff; text-decoration: none;\n}\n.logo span {font-style:italic;-webkit-text-stroke-width: 2px; -webkit-text-stroke-color: #F94645;\n}\ninput:-webkit-autofill,\ninput:-webkit-autofill:hover,\ninput:-webkit-autofill:focus,\ninput:-webkit-autofill:active {\n    -webkit-transition: background-color 5000s ease-in-out 0s;\n    transition: background-color 5000s ease-in-out 0s;\n    -webkit-text-fill-color: #fff !important;\n}\n.user {\n    margin-top: auto;\n}\n.user.fixed-bottom {\n    position: fixed;\n    bottom: 0;\n    left: 0;\n    right: 0;\n    background: #212121;\n    padding: 0 5px;\n    z-index: 99;\n}\n", ""]);
 
 // exports
 
@@ -65994,6 +65994,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -66011,6 +66014,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     computed: {
         userLoggedIn: function userLoggedIn() {
             return this.$store.state.userLoggedIn;
+        },
+        historyCount: function historyCount() {
+            return this.$store.state.runHistory.length;
         }
     }
 });
@@ -66106,7 +66112,17 @@ var render = function() {
                   _c(
                     "v-tab-item",
                     { attrs: { id: "tab-history" } },
-                    [_c("history")],
+                    [
+                      _c("history"),
+                      _vm._v(" "),
+                      _vm.historyCount < 1
+                        ? _c("v-flex", { attrs: { "pa-3": "" } }, [
+                            _vm._v(
+                              "\n                        Start watching runs and your session history will be stored here.\n                    "
+                            )
+                          ])
+                        : _vm._e()
+                    ],
                     1
                   ),
                   _vm._v(" "),
@@ -66752,9 +66768,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    mounted: function mounted() {
-        console.log('Component mounted.');
-    },
+    mounted: function mounted() {},
     data: function data() {
         return {
             page: 1,

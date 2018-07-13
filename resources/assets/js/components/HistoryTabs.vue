@@ -16,6 +16,9 @@
                 <v-tabs-items v-model="tabModel" >
                     <v-tab-item :id="`tab-history`" >
                         <history></history>
+                        <v-flex v-if="historyCount < 1" pa-3>
+                            Start watching runs and your session history will be stored here.
+                        </v-flex>
                     </v-tab-item>
                     <v-tab-item :id="`tab-liked`" >
                         <liked-runs-tab-content v-if="userLoggedIn"></liked-runs-tab-content>
@@ -45,6 +48,9 @@
         computed: {
             userLoggedIn() {
                 return this.$store.state.userLoggedIn
+            },
+            historyCount() {
+                return this.$store.state.runHistory.length
             }
         }
     }
