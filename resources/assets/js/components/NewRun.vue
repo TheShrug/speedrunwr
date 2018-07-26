@@ -2,36 +2,31 @@
     <v-form ref="form" id="NewRun">
         <v-layout flex row>
             <div>
-                <v-menu
+                <v-navigation-drawer
                         :close-on-content-click="false"
                         v-model="mainMenu"
-                        :nudge-right="0"
-                        lazy
-                        transition="scale-transition"
-                        offset-y
-                        full-width
-                        max-width="330px"
-                        min-width="290px"
-                        content-class="blue-grey darken-4 pa-4"
+                        absolute
+                        temporary
+                        class="blue-grey darken-4 pa-3"
                 >
-
+                    <h2 class="mb-2 headline">Filters</h2>
                     <v-switch
                             :label="'Include Levels'"
                             v-model="includeLevels"
+                            hide-details
                     ></v-switch>
-                    <v-radio-group :label="'Video Type'" v-model="videoType" row default="0">
+                    <v-radio-group :label="'Video Type'" v-model="videoType" row default="0" hide-details>
                         <v-radio label="All" value="0"></v-radio>
                         <v-radio label="Twitch" value="1"></v-radio>
                         <v-radio label="Youtube" value="2"></v-radio>
                     </v-radio-group>
 
-                    <v-radio-group :label="'Competition'" v-model="competition" row default="0">
+                    <v-radio-group :label="'Competition'" v-model="competition" row default="0" hide-details>
                         <v-radio label="All" value="0"></v-radio>
                         <v-radio label="Low" value="1"></v-radio>
                         <v-radio label="Med" value="2"></v-radio>
                         <v-radio label="High" value="3"></v-radio>
                     </v-radio-group>
-
                             <v-select
                             v-model="platform"
                             :items="platforms"
@@ -55,7 +50,7 @@
                             <v-menu
                                     :close-on-content-click="false"
                                     v-model="dateMenu2"
-                                    :nudge-right="40"
+                                    :nudge-left="100"
                                     lazy
                                     transition="scale-transition"
                                     offset-y
@@ -76,7 +71,7 @@
                             <v-menu
                                     :close-on-content-click="false"
                                     v-model="dateMenu1"
-                                    :nudge-right="40"
+                                    :nudge-left="290"
                                     lazy
                                     transition="scale-transition"
                                     offset-y
@@ -95,13 +90,30 @@
                         </v-flex>
 
                     </v-layout>
-                    <v-btn @click="clear">clear</v-btn>
-                    <v-btn @click="toggleMenu"
-                           slot="activator"
-                           class="thin-button"
-                    ><v-icon>settings</v-icon></v-btn>
-                </v-menu>
+                    <v-layout row>
+                        <v-flex xs6>
+                            <v-btn
+                                    @click="clear"
+                                    flat
+                                    block
+                            >clear</v-btn>
+                        </v-flex>
+                        <v-flex cs6>
+                            <v-btn
+                                    @click="toggleMenu"
+                                    color="primary"
+                                    flat
+                                    block
+                            >Done</v-btn>
+                        </v-flex>
+                    </v-layout>
 
+
+
+                </v-navigation-drawer>
+                <v-btn @click="toggleMenu"
+                       class="thin-button"
+                ><v-icon>settings</v-icon></v-btn>
             </div>
             <v-flex>
                 <v-btn @click="getNewRun" block
@@ -205,6 +217,7 @@
             clear() {
                 this.$refs.form.reset()
                 this.videoType = '0'
+                this.competition = '0'
             },
             toggleMenu() {
                 if(this.mainMenu === false) {

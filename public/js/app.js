@@ -64997,6 +64997,18 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -65079,6 +65091,7 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
         clear: function clear() {
             this.$refs.form.reset();
             this.videoType = '0';
+            this.competition = '0';
         },
         toggleMenu: function toggleMenu() {
             if (this.mainMenu === false) {
@@ -65146,18 +65159,13 @@ var render = function() {
             "div",
             [
               _c(
-                "v-menu",
+                "v-navigation-drawer",
                 {
+                  staticClass: "blue-grey darken-4 pa-3",
                   attrs: {
                     "close-on-content-click": false,
-                    "nudge-right": 0,
-                    lazy: "",
-                    transition: "scale-transition",
-                    "offset-y": "",
-                    "full-width": "",
-                    "max-width": "330px",
-                    "min-width": "290px",
-                    "content-class": "blue-grey darken-4 pa-4"
+                    absolute: "",
+                    temporary: ""
                   },
                   model: {
                     value: _vm.mainMenu,
@@ -65168,8 +65176,12 @@ var render = function() {
                   }
                 },
                 [
+                  _c("h2", { staticClass: "mb-2 headline" }, [
+                    _vm._v("Filters")
+                  ]),
+                  _vm._v(" "),
                   _c("v-switch", {
-                    attrs: { label: "Include Levels" },
+                    attrs: { label: "Include Levels", "hide-details": "" },
                     model: {
                       value: _vm.includeLevels,
                       callback: function($$v) {
@@ -65182,7 +65194,12 @@ var render = function() {
                   _c(
                     "v-radio-group",
                     {
-                      attrs: { label: "Video Type", row: "", default: "0" },
+                      attrs: {
+                        label: "Video Type",
+                        row: "",
+                        default: "0",
+                        "hide-details": ""
+                      },
                       model: {
                         value: _vm.videoType,
                         callback: function($$v) {
@@ -65204,7 +65221,12 @@ var render = function() {
                   _c(
                     "v-radio-group",
                     {
-                      attrs: { label: "Competition", row: "", default: "0" },
+                      attrs: {
+                        label: "Competition",
+                        row: "",
+                        default: "0",
+                        "hide-details": ""
+                      },
                       model: {
                         value: _vm.competition,
                         callback: function($$v) {
@@ -65306,7 +65328,7 @@ var render = function() {
                             {
                               attrs: {
                                 "close-on-content-click": false,
-                                "nudge-right": 40,
+                                "nudge-left": 100,
                                 lazy: "",
                                 transition: "scale-transition",
                                 "offset-y": "",
@@ -65370,7 +65392,7 @@ var render = function() {
                             {
                               attrs: {
                                 "close-on-content-click": false,
-                                "nudge-right": 40,
+                                "nudge-left": 290,
                                 lazy: "",
                                 transition: "scale-transition",
                                 "offset-y": "",
@@ -65428,20 +65450,52 @@ var render = function() {
                     1
                   ),
                   _vm._v(" "),
-                  _c("v-btn", { on: { click: _vm.clear } }, [_vm._v("clear")]),
-                  _vm._v(" "),
                   _c(
-                    "v-btn",
-                    {
-                      staticClass: "thin-button",
-                      attrs: { slot: "activator" },
-                      on: { click: _vm.toggleMenu },
-                      slot: "activator"
-                    },
-                    [_c("v-icon", [_vm._v("settings")])],
+                    "v-layout",
+                    { attrs: { row: "" } },
+                    [
+                      _c(
+                        "v-flex",
+                        { attrs: { xs6: "" } },
+                        [
+                          _c(
+                            "v-btn",
+                            {
+                              attrs: { flat: "", block: "" },
+                              on: { click: _vm.clear }
+                            },
+                            [_vm._v("clear")]
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-flex",
+                        { attrs: { cs6: "" } },
+                        [
+                          _c(
+                            "v-btn",
+                            {
+                              attrs: { color: "primary", flat: "", block: "" },
+                              on: { click: _vm.toggleMenu }
+                            },
+                            [_vm._v("Done")]
+                          )
+                        ],
+                        1
+                      )
+                    ],
                     1
                   )
                 ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-btn",
+                { staticClass: "thin-button", on: { click: _vm.toggleMenu } },
+                [_c("v-icon", [_vm._v("settings")])],
                 1
               )
             ],
@@ -66384,13 +66438,13 @@ if (false) {
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(623)
+  __webpack_require__(534)
 }
 var normalizeComponent = __webpack_require__(12)
 /* script */
 var __vue_script__ = __webpack_require__(536)
 /* template */
-var __vue_template__ = __webpack_require__(625)
+var __vue_template__ = __webpack_require__(537)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -66429,8 +66483,46 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 534 */,
-/* 535 */,
+/* 534 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(535);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(14)("1514bbda", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-62007766\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./LikeRun.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-62007766\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./LikeRun.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 535 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(13)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\nbutton.btn[data-v-62007766] { margin: 5px 0 0 0;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
 /* 536 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -66539,7 +66631,88 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 537 */,
+/* 537 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _vm.userLoggedIn
+        ? _c(
+            "v-btn",
+            {
+              attrs: {
+                color: "primary",
+                flat: "",
+                outline: "",
+                loading: _vm.loading,
+                disabled: _vm.loading
+              },
+              on: {
+                click: function($event) {
+                  _vm.likeRun()
+                }
+              }
+            },
+            [
+              _c("v-icon", { attrs: { left: "" } }, [_vm._v("favorite")]),
+              _vm._v(" "),
+              _vm.liked ? _c("span", [_vm._v("Unlike")]) : _vm._e(),
+              _vm._v(" "),
+              !_vm.liked ? _c("span", [_vm._v("Like")]) : _vm._e()
+            ],
+            1
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      !_vm.userLoggedIn
+        ? _c(
+            "v-tooltip",
+            { attrs: { top: "" } },
+            [
+              _c(
+                "v-btn",
+                {
+                  attrs: {
+                    slot: "activator",
+                    color: "primary",
+                    flat: "",
+                    outline: ""
+                  },
+                  slot: "activator"
+                },
+                [
+                  _c("v-icon", { attrs: { left: "" } }, [_vm._v("favorite")]),
+                  _vm._v(" "),
+                  _c("span", [_vm._v("Like")])
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("span", [_vm._v("You must be logged in to like runs!")])
+            ],
+            1
+          )
+        : _vm._e()
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-62007766", module.exports)
+  }
+}
+
+/***/ }),
 /* 538 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -70926,137 +71099,6 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 614 */,
-/* 615 */,
-/* 616 */,
-/* 617 */,
-/* 618 */,
-/* 619 */,
-/* 620 */,
-/* 621 */,
-/* 622 */,
-/* 623 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(624);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(14)("1514bbda", content, false, {});
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-62007766\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./LikeRun.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-62007766\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./LikeRun.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 624 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(13)(false);
-// imports
-
-
-// module
-exports.push([module.i, "\nbutton.btn[data-v-62007766] { margin: 5px 0 0 0;\n}\n", ""]);
-
-// exports
-
-
-/***/ }),
-/* 625 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _vm.userLoggedIn
-        ? _c(
-            "v-btn",
-            {
-              attrs: {
-                color: "primary",
-                flat: "",
-                outline: "",
-                loading: _vm.loading,
-                disabled: _vm.loading
-              },
-              on: {
-                click: function($event) {
-                  _vm.likeRun()
-                }
-              }
-            },
-            [
-              _c("v-icon", { attrs: { left: "" } }, [_vm._v("favorite")]),
-              _vm._v(" "),
-              _vm.liked ? _c("span", [_vm._v("Unlike")]) : _vm._e(),
-              _vm._v(" "),
-              !_vm.liked ? _c("span", [_vm._v("Like")]) : _vm._e()
-            ],
-            1
-          )
-        : _vm._e(),
-      _vm._v(" "),
-      !_vm.userLoggedIn
-        ? _c(
-            "v-tooltip",
-            { attrs: { top: "" } },
-            [
-              _c(
-                "v-btn",
-                {
-                  attrs: {
-                    slot: "activator",
-                    color: "primary",
-                    flat: "",
-                    outline: ""
-                  },
-                  slot: "activator"
-                },
-                [
-                  _c("v-icon", { attrs: { left: "" } }, [_vm._v("favorite")]),
-                  _vm._v(" "),
-                  _c("span", [_vm._v("Like")])
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c("span", [_vm._v("You must be logged in to like runs!")])
-            ],
-            1
-          )
-        : _vm._e()
-    ],
-    1
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-62007766", module.exports)
-  }
-}
 
 /***/ })
 /******/ ]);
