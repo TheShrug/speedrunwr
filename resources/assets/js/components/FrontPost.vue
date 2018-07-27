@@ -62,7 +62,7 @@
                 }
             },
             clickShoe(event) {
-                if(this.gameOver === false) {
+                if(this.gameOver === false && this.showTimer === false) {
                     let shoeId = parseInt(event.target.getAttribute('data-id'));
                     if(shoeId === this.order[this.step]) {
                         this.step += 1;
