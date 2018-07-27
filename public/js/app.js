@@ -65730,7 +65730,7 @@ exports = module.exports = __webpack_require__(13)(false);
 
 
 // module
-exports.push([module.i, "\n.post[data-v-032fe6fc] {font-size:150%;\n}\n", ""]);
+exports.push([module.i, "\n.post[data-v-032fe6fc] {\n font-size:150%;\n}\n.large-icon[data-v-032fe6fc] {\n    font-size: 200px;\n    text-align: center;\n    color:#e8bf6a;\n}\n.shoes[data-v-032fe6fc] {\n    font-size: 75px;\n}\n.shoes > div[data-v-032fe6fc] {\n    display: block;\n    text-align: center;\n}\n.shoes i[data-v-032fe6fc] {\n    -webkit-transform: rotate(270deg);\n            transform: rotate(270deg);\n    color:#2d2d2d;\n}\n", ""]);
 
 // exports
 
@@ -65756,27 +65756,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    mounted: function mounted() {
-        console.log('mountedtest');
-    },
-
     methods: {},
-    computed: {
-        run: function run() {
-            return this.$store.state.activeRun;
-        },
-        userLoggedIn: function userLoggedIn() {
-            return this.$store.state.userLoggedIn;
-        }
-    },
-    watch: {
-        $route: function $route(route) {
-            if (route.params.id !== this.$store.state.activeRun.runId) {}
-        }
-    }
+    computed: {}
 });
 
 /***/ }),
@@ -65791,7 +65785,7 @@ var render = function() {
     "v-layout",
     { staticClass: "post", attrs: { row: "" } },
     [
-      _c("v-flex", { attrs: { lg6: "", sm12: "" } }, [
+      _c("v-flex", { attrs: { lg8: "", sm12: "" } }, [
         _c("h1", [_vm._v("Speedrun World Records")]),
         _vm._v(" "),
         _c("p", [
@@ -65904,6 +65898,24 @@ var render = function() {
             "This site provides you with a world record from a random game and random category in hopes that: you will be entertained, you will follow the runners on twitch/youtube, or even find a new speedgame and compete for a world record!"
           )
         ])
+      ]),
+      _vm._v(" "),
+      _c("v-flex", { attrs: { lg4: "" } }, [
+        _c("div", { staticClass: "large-icon" }, [
+          _c("i", { staticClass: "fa fa-trophy" })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "shoes" }, [
+          _c("div", [_c("i", { staticClass: "fa fa-shoe-prints" })]),
+          _vm._v(" "),
+          _c("div", [_c("i", { staticClass: "fa fa-shoe-prints" })]),
+          _vm._v(" "),
+          _c("div", [_c("i", { staticClass: "fa fa-shoe-prints" })]),
+          _vm._v(" "),
+          _c("div", [_c("i", { staticClass: "fa fa-shoe-prints" })])
+        ]),
+        _vm._v(" "),
+        _c("h1", { staticClass: "large-icon" })
       ])
     ],
     1
