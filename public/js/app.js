@@ -65730,7 +65730,7 @@ exports = module.exports = __webpack_require__(13)(false);
 
 
 // module
-exports.push([module.i, "\n.post[data-v-032fe6fc] {\n font-size:150%;\n}\n.large-icon[data-v-032fe6fc] {\n    text-align: center;\n}\n.large-icon i[data-v-032fe6fc] {\n    font-size: 200px;\n    color:#e8bf6a;\n    margin-top: 30px;\n    margin-bottom: 50px;\n    -webkit-transition:all .3s;\n    transition:all .3s;\n}\n.large-icon i[data-v-032fe6fc]:hover {\n    color:#ffc140;\n    -webkit-transform:scale(1.1);\n            transform:scale(1.1);\n}\n.shoes[data-v-032fe6fc] {\n    font-size: 75px;\n}\n.shoes > div[data-v-032fe6fc] {\n    display: block;\n    text-align: center;\n}\n.shoes i[data-v-032fe6fc] {\n    -webkit-transform: rotate(270deg);\n            transform: rotate(270deg);\n    color:#272727;\n    -webkit-transition:all .3s;\n    transition:all .3s;\n}\n.shoes i[data-v-032fe6fc]:hover {\n    color:#444444;\n}\n", ""]);
+exports.push([module.i, "\n.post[data-v-032fe6fc] {\n font-size:150%;\n}\n.trophy[data-v-032fe6fc] {\n    text-align: center;\n    position: relative;\n    -webkit-user-select: none; /* Safari */\n    -moz-user-select: none; /* Firefox */\n    -ms-user-select: none; /* IE10+/Edge */\n    user-select: none; /* Standard */\n}\n.trophy:hover i.fa-trophy[data-v-032fe6fc] {\n    color:#ffc140;\n    -webkit-transform:scale(1.1);\n            transform:scale(1.1);\n}\n.trophy i.fa-trophy[data-v-032fe6fc] {\n    font-size: 200px;\n    color:#e8bf6a;\n    margin-top: 30px;\n    margin-bottom: 50px;\n    -webkit-transition:all .3s;\n    transition:all .3s;\n}\n.shoes[data-v-032fe6fc] {\n    font-size: 75px;\n}\n.shoes > div[data-v-032fe6fc] {\n    display: block;\n    text-align: center;\n}\n.shoes i[data-v-032fe6fc] {\n    -webkit-transform: rotate(270deg);\n            transform: rotate(270deg);\n    color:#272727;\n    -webkit-transition:all .3s;\n    transition:all .3s;\n}\n.shoes i[data-v-032fe6fc]:hover {\n    color:#444444;\n}\n.timer[data-v-032fe6fc] {\n    position: absolute;\n    bottom: 0;\n    left: 0;\n    right: 0;\n    text-align: center;\n}\n.number-display[data-v-032fe6fc] {\n    position: absolute;\n    top: 20%;\n    left: 0;\n    right: 0;\n    font-size: 64px;\n    font-weight: 700;\n    color: #303030;\n}\n.number-display.place[data-v-032fe6fc]  {\n    top: 30%;\n    font-size: 30px;\n    color:#fff;\n    text-shadow:0 0 3px #000;\n}\n", ""]);
 
 // exports
 
@@ -65766,11 +65766,120 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    methods: {},
-    computed: {}
+    data: function data() {
+        return {
+            sound1: new Audio('/sounds/success.wav'),
+            sound2: new Audio('/sounds/start.wav'),
+            order: [2, 3, 1],
+            step: 0,
+            showNumber: false,
+            numberDisplay: 3,
+            gamePlaying: false,
+            timer: 0,
+            startTime: 0,
+            showTimer: false,
+            intervalRunning: false,
+            gameOver: false,
+            showPlace: false,
+            place: 0,
+            loadingScore: false
+        };
+    },
+
+    methods: {
+        clickTrophy: function clickTrophy() {
+            if (this.gamePlaying === false) {
+                return null;
+            } else {
+                this.numberDisplay -= 1;
+            }
+        },
+        clickShoe: function clickShoe(event) {
+            if (this.gameOver === false) {
+                var shoeId = parseInt(event.target.getAttribute('data-id'));
+                if (shoeId === this.order[this.step]) {
+                    this.step += 1;
+                    if (this.step === 3) {
+                        this.startCountdown();
+                    } else {
+                        this.sound1.currentTime = 0;
+                        this.sound1.play();
+                    }
+                } else {
+                    this.step = 0;
+                }
+            }
+        },
+        startGame: function startGame() {
+            this.numberDisplay = 5;
+            this.gamePlaying = true;
+            this.startTime = Date.now();
+            this.showTimer = true;
+            this.intervalRunning = true;
+            var $this = this;
+
+            var interval = setInterval(function () {
+                if ($this.intervalRunning === false) {
+                    clearInterval(interval);
+                }
+                $this.timer = Date.now() - $this.startTime;
+                if ($this.numberDisplay === 0) {
+                    clearInterval(interval);
+                    $this.endGame();
+                }
+            }, 1);
+        },
+        startCountdown: function startCountdown() {
+            this.sound2.currentTime = 0;
+            this.sound2.play();
+            this.showNumber = true;
+            this.intervalRunning = true;
+            var $this = this;
+
+            var interval = setInterval(function () {
+                if ($this.intervalRunning === false) {
+                    clearInterval(interval);
+                }
+                $this.numberDisplay -= 1;
+                if ($this.numberDisplay === 0) {
+                    clearInterval(interval);
+                    $this.startGame();
+                }
+            }, 1000);
+        },
+        endGame: function endGame() {
+            this.gameOver = true;
+            this.gamePlaying = false;
+            this.loadingScore = true;
+            var $this = this;
+            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('/api/easterEgg', {
+                params: {
+                    'time': this.timer
+                }
+            }).then(function (response) {
+                $this.place = response.data.place;
+                $this.showPlace = true;
+            }).catch(function (error) {}).then(function () {
+                $this.loadingScore = false;
+            });
+        }
+    },
+    destroyed: function destroyed() {
+        this.intervalRunning = false;
+    }
 });
 
 /***/ }),
@@ -65901,18 +66010,81 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("v-flex", { attrs: { lg4: "" } }, [
-        _c("div", { staticClass: "large-icon" }, [
-          _c("i", { staticClass: "fa fa-trophy" })
+        _c("div", { staticClass: "trophy", on: { click: _vm.clickTrophy } }, [
+          _c("i", {
+            staticClass: "fa fa-trophy",
+            attrs: { title: "Twenty three is number one!" }
+          }),
+          _vm._v(" "),
+          _vm.showNumber && !_vm.showPlace
+            ? _c("span", { staticClass: "number-display" }, [
+                _vm._v(_vm._s(_vm.numberDisplay))
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.showPlace
+            ? _c("span", { staticClass: "number-display place" }, [
+                _vm.loadingScore
+                  ? _c("span", [
+                      _c("i", { staticClass: "fa fa-spin fa-spinner" })
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                !_vm.loadingScore
+                  ? _c("span", [
+                      _vm._v(
+                        "\n                #" +
+                          _vm._s(_vm.place) +
+                          "\n                "
+                      )
+                    ])
+                  : _vm._e()
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.showTimer
+            ? _c("span", { staticClass: "timer" }, [
+                _vm._v(_vm._s((_vm.timer / 1000).toFixed(3)))
+              ])
+            : _vm._e()
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "shoes" }, [
-          _c("div", [_c("i", { staticClass: "fa fa-shoe-prints" })]),
+          _c("div", [
+            _c("i", {
+              staticClass: "fa fa-shoe-prints",
+              attrs: { "data-id": "1" },
+              on: {
+                click: function($event) {
+                  _vm.clickShoe($event)
+                }
+              }
+            })
+          ]),
           _vm._v(" "),
-          _c("div", [_c("i", { staticClass: "fa fa-shoe-prints" })]),
+          _c("div", [
+            _c("i", {
+              staticClass: "fa fa-shoe-prints",
+              attrs: { "data-id": "2" },
+              on: {
+                click: function($event) {
+                  _vm.clickShoe($event)
+                }
+              }
+            })
+          ]),
           _vm._v(" "),
-          _c("div", [_c("i", { staticClass: "fa fa-shoe-prints" })]),
-          _vm._v(" "),
-          _c("div", [_c("i", { staticClass: "fa fa-shoe-prints" })])
+          _c("div", [
+            _c("i", {
+              staticClass: "fa fa-shoe-prints",
+              attrs: { "data-id": "3" },
+              on: {
+                click: function($event) {
+                  _vm.clickShoe($event)
+                }
+              }
+            })
+          ])
         ]),
         _vm._v(" "),
         _c("h1", { staticClass: "large-icon" })

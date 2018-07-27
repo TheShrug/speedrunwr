@@ -7,6 +7,7 @@ use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Client;
 use App\Record;
 use App\LikedRun;
+use App\EasterEgg;
 use Mockery\Exception;
 
 class ApiController extends Controller
@@ -152,6 +153,24 @@ class ApiController extends Controller
     		return false;
 	    }
 
+
+    }
+
+    public function easterEgg(Request $request) {
+	    $ip = $request->ip();
+	    $time = $request->params['time'];
+
+    	$easterEgg = Easteregg::updateOrCreate(
+    	    ['ip' => $ip],
+	        ['time' => $time]
+	    );
+
+    	$placesBefore = EasterEgg::where('time', '<', $time)->orderBy('time')->get();
+    	$place = count($placesBefore) + 1;
+
+    	return response()->json([
+    		'place' => $place
+	    ]);
 
     }
 }

@@ -14,6 +14,7 @@
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/api/getNewRun', 'ApiController@newRun');
 Route::get('/api/findRun', 'ApiController@findRun');
+Route::post('/api/easterEgg', 'ApiController@easterEgg');
 
 
 Route::get('/user', 'UserController@user');
@@ -26,9 +27,12 @@ Route::get('/user/likesRun', 'UserController@likesRun');
 
 Route::get('/run/{id}', 'RunController@run');
 
+
+
+
 Route::post('login', 'Auth\LoginController@login');
 Route::post('logout', 'Auth\LoginController@logout');
 Route::post('password/reset/sendEmail', 'Auth\ForgotPasswordController@sendResetLinkEmail');
-$this->get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
 Route::post('password/reset', 'Auth\ResetPasswordController@reset');
+$this->get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
 
