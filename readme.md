@@ -8,7 +8,7 @@ Thank you to everyone who used (and especially those that stuck around) the old 
 
 Quick summary of the recent changes to the website:
 - Filters - The crux of the update lies here, i've had a lot of fun finding interesting videos to watch with these.
-- Users - If you create a user you can "like" runs so you can view them later. Plenty more I could do with this in the future, but I feel ready to move on with other projects unless people really love it.
+- Users - If you create a user you can "like" runs so you can view them later.
 - Autoplay
 - Shareable links
 - Lots of other little things
