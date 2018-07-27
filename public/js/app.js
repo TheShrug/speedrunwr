@@ -65730,7 +65730,7 @@ exports = module.exports = __webpack_require__(13)(false);
 
 
 // module
-exports.push([module.i, "\n.post[data-v-032fe6fc] {\n font-size:150%;\n}\n.large-icon[data-v-032fe6fc] {\n    text-align: center;\n}\n.large-icon i[data-v-032fe6fc] {\n    font-size: 200px;\n    color:#e8bf6a;\n    margin-bottom: 50px;\n    -webkit-transition:all .3s;\n    transition:all .3s;\n}\n.large-icon i[data-v-032fe6fc]:hover {\n    color:#ffc140;\n    -webkit-transform:scale(1.1);\n            transform:scale(1.1);\n}\n.shoes[data-v-032fe6fc] {\n    font-size: 75px;\n}\n.shoes > div[data-v-032fe6fc] {\n    display: block;\n    text-align: center;\n}\n.shoes i[data-v-032fe6fc] {\n    -webkit-transform: rotate(270deg);\n            transform: rotate(270deg);\n    color:#272727;\n    -webkit-transition:all .3s;\n    transition:all .3s;\n}\n.shoes i[data-v-032fe6fc]:hover {\n    color:#444444;\n}\n", ""]);
+exports.push([module.i, "\n.post[data-v-032fe6fc] {\n font-size:150%;\n}\n.large-icon[data-v-032fe6fc] {\n    text-align: center;\n}\n.large-icon i[data-v-032fe6fc] {\n    font-size: 200px;\n    color:#e8bf6a;\n    margin-top: 30px;\n    margin-bottom: 50px;\n    -webkit-transition:all .3s;\n    transition:all .3s;\n}\n.large-icon i[data-v-032fe6fc]:hover {\n    color:#ffc140;\n    -webkit-transform:scale(1.1);\n            transform:scale(1.1);\n}\n.shoes[data-v-032fe6fc] {\n    font-size: 75px;\n}\n.shoes > div[data-v-032fe6fc] {\n    display: block;\n    text-align: center;\n}\n.shoes i[data-v-032fe6fc] {\n    -webkit-transform: rotate(270deg);\n            transform: rotate(270deg);\n    color:#272727;\n    -webkit-transition:all .3s;\n    transition:all .3s;\n}\n.shoes i[data-v-032fe6fc]:hover {\n    color:#444444;\n}\n", ""]);
 
 // exports
 

@@ -43,6 +43,7 @@
     .large-icon i {
         font-size: 200px;
         color:#e8bf6a;
+        margin-top: 30px;
         margin-bottom: 50px;
         transition:all .3s;
     }
