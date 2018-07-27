@@ -15,7 +15,7 @@ Quick summary of the recent changes to the website:
 
 When creating a new project I like to experiment with technology that I'm interested in or want to learn more about. This project uses [Laravel](https://laravel.com/) as a back-end with [Vue.js](https://vuejs.org/) on the front-end and a [Python](https://www.python.org/) script for some api data gathering. 
 
-Learning new things takes time and experimentation and every time I'm nearly finished with something new I have to resist the urge to scrap it all and start again. If you take the time to look through the code you could probably notice some improvement, some regrets, some "getting things done" and probably some things you don't like. I'm always open to constructive criticism and suggestions so please feel free to reach out to me.
+Learning new things takes time and experimentation and I have to resist the urge to scrap it all and start again. If you take the time to look through the code you could probably notice some improvement, some regrets, some "getting things done" and probably some things you don't like. I'm always open to constructive criticism and suggestions so please feel free to reach out to me.
 
 I don't plan on spending much more time on the project because it's time to move on to new ones!
 
