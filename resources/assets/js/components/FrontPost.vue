@@ -38,9 +38,17 @@
      font-size:150%;
     }
     .large-icon {
-        font-size: 200px;
         text-align: center;
+    }
+    .large-icon i {
+        font-size: 200px;
         color:#e8bf6a;
+        margin-bottom: 50px;
+        transition:all .3s;
+    }
+    .large-icon i:hover {
+        color:#ffc140;
+        transform:scale(1.1);
     }
     .shoes {
         font-size: 75px;
@@ -52,6 +60,10 @@
     }
     .shoes i {
         transform: rotate(270deg);
-        color:#2d2d2d;
+        color:#272727;
+        transition:all .3s;
+    }
+    .shoes i:hover {
+        color:#444444;
     }
 </style>
