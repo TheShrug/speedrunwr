@@ -78,7 +78,7 @@
                 }
             },
             startGame() {
-                this.numberDisplay = 5;
+                this.numberDisplay = 100;
                 this.gamePlaying = true;
                 this.startTime = Date.now();
                 this.showTimer = true;
