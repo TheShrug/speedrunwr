@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     @if (isset($meta))
-        <title>{{ $meta['title'] }}</title>
+        <title>Random Speedrun World Record Videos | Speedrun Web Randomizer</title>
         <meta name="description" content="{{ $meta['description'] }}">
         <meta property="og:title" content="{{ $meta['title'] }}" />
         <meta property="og:description" content="{{ $meta['description'] }}" />
