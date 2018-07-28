@@ -21,7 +21,7 @@ I don't plan on spending much more time on the project because it's time to move
 
 ## Contact
 
-If you find any bugs, would like to work with me or would just like to chat about the website you can email me at [webmaster@speedrunwr.com](mailto:webmaster@speedrunwr.com).
+If you find any bugs or would just like to chat about the website you can email me at [webmaster@speedrunwr.com](mailto:webmaster@speedrunwr.com).
 
 ## License
 
