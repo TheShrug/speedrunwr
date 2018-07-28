@@ -65772,11 +65772,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -65897,120 +65892,7 @@ var render = function() {
     "v-layout",
     { staticClass: "post", attrs: { row: "" } },
     [
-      _c("v-flex", { attrs: { sm8: "", xs12: "" } }, [
-        _c("h1", [_vm._v("Speedrun World Records")]),
-        _vm._v(" "),
-        _c("p", [
-          _vm._v(
-            "Find new interesting speedgames, speedruns, or speedrunners by watching "
-          ),
-          _c("em", [_vm._v("only the best")]),
-          _vm._v(".")
-        ]),
-        _vm._v(" "),
-        _c("p", [
-          _vm._v("The speedrunning community is "),
-          _c(
-            "a",
-            {
-              attrs: {
-                href:
-                  "http://kotaku.com/awesome-games-done-quick-raises-a-record-breaking-2-2-1791230734",
-                target: "_blank",
-                title:
-                  "Awesome Games Done Quick Raises A Record Breaking $2.2 Million For Cancer Prevention"
-              }
-            },
-            [_vm._v("large")]
-          ),
-          _vm._v("! The number of "),
-          _c(
-            "a",
-            {
-              attrs: {
-                href: "http://www.speedrun.com/statistics",
-                title: "",
-                target: "_blank"
-              }
-            },
-            [_vm._v("games")]
-          ),
-          _vm._v(", categories and "),
-          _c(
-            "a",
-            {
-              attrs: {
-                href: "http://www.speedrun.com/statistics/users",
-                title: "Theres lots of em, trust me!"
-              }
-            },
-            [_vm._v("users")]
-          ),
-          _vm._v(" at "),
-          _c(
-            "a",
-            {
-              attrs: {
-                href: "http://www.speedrun.com",
-                title:
-                  "Thanks to speedrun.com for their API and making this whole project possible"
-              }
-            },
-            [_vm._v("speedrun.com")]
-          ),
-          _vm._v(" is getting larger every day.")
-        ]),
-        _vm._v(" "),
-        _c("h2", [_vm._v("This is a tool to explore the community further.")]),
-        _vm._v(" "),
-        _c("p", [
-          _vm._v("We've seen our fair share of "),
-          _c(
-            "a",
-            {
-              attrs: {
-                target: "_blank",
-                href: "http://www.speedrun.com/sm64",
-                title: "Super Mairo 64 on speedrun.com"
-              }
-            },
-            [_vm._v("Super Mario 64")]
-          ),
-          _vm._v(", "),
-          _c(
-            "a",
-            {
-              attrs: {
-                target: "_blank",
-                href: "http://www.speedrun.com/oot",
-                title: "Ocarina of Time on speedrun.com"
-              }
-            },
-            [_vm._v("Ocarina of Time")]
-          ),
-          _vm._v(" and "),
-          _c(
-            "a",
-            {
-              attrs: {
-                target: "_blank",
-                href: "http://www.speedrun.com/sms",
-                title: "Super Mario Sunshine on speedrun.com"
-              }
-            },
-            [_vm._v("Super Mario Sunshine")]
-          ),
-          _vm._v(
-            " runs (if you haven't, you should). But we might not have given enough attention to some of the less well known speedrunners or communities."
-          )
-        ]),
-        _vm._v(" "),
-        _c("p", [
-          _vm._v(
-            "This site provides you with a world record from a random game and random category in hopes that: you will be entertained, you will follow the runners on twitch/youtube, or even find a new speedgame and compete for a world record!"
-          )
-        ])
-      ]),
+      _c("v-flex", { attrs: { sm8: "", xs12: "" } }, [_vm._t("default")], 2),
       _vm._v(" "),
       _c("v-flex", { attrs: { sm4: "", "hidden-xs-only": "" } }, [
         _c("div", { staticClass: "trophy", on: { click: _vm.clickTrophy } }, [

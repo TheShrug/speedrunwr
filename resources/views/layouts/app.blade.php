@@ -4,8 +4,18 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Random Speedrun World Record Videos - Speedrun World Records</title>
-    <meta name="description" content="Find new interesting speedgames, speedruns, or speedrunners by watching only the best.">
+
+    @if (isset($meta))
+        <title>{{ $meta['title'] }}</title>
+        <meta name="description" content="{{ $meta['description'] }}">
+        <meta property="og:title" content="{{ $meta['title'] }}" />
+        <meta property="og:description" content="{{ $meta['description'] }}" />
+        <meta property="og:image" content="{{ $meta['image'] }}" />
+    @else
+        <title>Random Speedrun World Record Videos | Speedrun Web Randomizer</title>
+        <meta property="og:title" content="Random Speedrun World Record Videos | Speedrun Web Randomizer" />
+        <meta name="description" content="Find new interesting speedgames, speedruns, or speedrunners by watching only the best.">
+    @endif
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -26,6 +36,8 @@
 
 </head>
 <body>
+
+
     @yield('content')
 </body>
 </html>

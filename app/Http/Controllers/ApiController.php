@@ -110,7 +110,7 @@ class ApiController extends Controller
 
 	    $likedRun = LikedRun::where('runId', $runId)->first();
 		if($likedRun) {
-			return $likedRun;
+			return response()->json($likedRun);
 		}
 
     	return response()->json(['message' => 'No Run Found'], 404);

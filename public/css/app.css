@@ -15242,3 +15242,7 @@ table.table tfoot tr td {
   }
 }
 
+[v-cloak] {
+  display: none;
+}
+

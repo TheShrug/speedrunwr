@@ -14,12 +14,10 @@ Route::post('register', 'Auth\RegisterController@register');
 Route::post('/user/likeRun', 'UserController@likeRun');
 Route::get('/user/likesRun', 'UserController@likesRun');
 
-Route::post('login', 'Auth\LoginController@login');
-Route::post('logout', 'Auth\LoginController@logout');
-Route::post('password/reset/sendEmail', 'Auth\ForgotPasswordController@sendResetLinkEmail');
-Route::post('password/reset', 'Auth\ResetPasswordController@reset');
-Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
+Route::post('/login', 'Auth\LoginController@login');
+Route::post('/logout', 'Auth\LoginController@logout');
+Route::post('/password/reset/sendEmail', 'Auth\ForgotPasswordController@sendResetLinkEmail');
+Route::post('/password/reset', 'Auth\ResetPasswordController@reset');
+Route::get('/password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
 
-Route::get('/{vue_capture?}', function () {
-	return view('home');
-})->where('vue_capture', '[\/\w\.-]*');
+Route::get('/run/{vue_capture?}', 'HomeController@run')->where('vue_capture', '[\/\w\.-]*');
