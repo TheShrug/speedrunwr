@@ -66,7 +66,15 @@ const store = new Vuex.Store({
             state.userLoggedIn = false
         },
         addRunDataToHistory(state, payload) {
-            state.runHistory.unshift(payload)
+            let gameIsInHistory = false
+            for(var i = 0; i < state.runHistory.length; i++) {
+                if(state.runHistory[i].data.id === payload.data.id) {
+                    gameIsInHistory = true;
+                }
+            }
+            if(!gameIsInHistory) {
+                state.runHistory.unshift(payload)
+            }
         },
         setLikedRuns(state, payload) {
             state.likedRuns = payload

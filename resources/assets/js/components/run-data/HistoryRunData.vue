@@ -93,7 +93,7 @@
                     : ''
             },
             currentlyPlaying() {
-                return (this.record === this.$store.state.activeRun)
+                return (this.record.runId === this.$store.state.activeRun.runId)
             },
             color() {
                 return 'white'
