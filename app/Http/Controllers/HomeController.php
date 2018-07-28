@@ -27,15 +27,15 @@ class HomeController extends Controller
      */
     public function index()
     {
-
-
-
         return view('home');
     }
 
-	public function run($vue_capture)
+	public function run($vue_capture = null)
 	{
 
+		if(is_null($vue_capture)) {
+			abort(404);
+		}
 		// One of my biggest regrets is not considering SEO/meta value early enough and using something like Nuxt
 		// this is going to be a pretty hacky attempt to provide some OpenGraph meta
 
