@@ -69,7 +69,7 @@ def get_games(offset):
 
 def get_records(game, offset):
     url = 'https://www.speedrun.com/api/v1/games/' + game['id'] + '/records'
-    params = dict(top=2000, embed='players', max=200, offset=offset)
+    params = dict(top=1200, embed='players', max=200, offset=offset)
     request = requests.get(url, params)
     if request.status_code == 200:
         parsed_json = json.loads(request.text)
@@ -82,6 +82,7 @@ def get_records(game, offset):
 
         return parsed_json['data']
     else:
+        print('500 error on game ', game)
         return None
 
 
@@ -90,12 +91,9 @@ def store_all_game_records(game):
 
 
 def valid_video_id(record):
-    #print('record: ', record)
     try:
         uri = record['runs'][0]['run']['videos']['links'][0]['uri']
-
         if 'twitch' in uri:
-
             twitchShort = re.search(
                 '(v).(\d{6,})',
                 uri)
@@ -114,7 +112,6 @@ def valid_video_id(record):
             youtube = re.search(
                 r'(https?://)?(www\.)?' '(youtube|youtu|youtube-nocookie)\.(com|be)/' '(watch\?.*?(?=v=)v=|embed/|v/|.+\?v=)?([^&=%\?]{11})',
                 uri)
-            # print(youtube)
             if youtube:
                 youtubeId = re.search(r'((?<=(v|V)/)|(?<=be/)|(?<=(\?|\&)v=)|(?<=embed/))([\w-]+)', uri)
                 return dict(site='youtube', id=youtubeId.group(0))
@@ -122,11 +119,11 @@ def valid_video_id(record):
         print('invalid video id', record['runs'][0]['run']['videos']['links'][0]['uri'])
         return False;
     except:
-        #print('didnt have a run or video', record['weblink'])
         return False
 
 
 def store_record(record, valid_video_id):
+
     try:
         recordId = record['runs'][0]['run']['id']
     except:
@@ -220,7 +217,7 @@ for index, game in enumerate(allGames):
 
 update_active_table()
 
-print('it took ', time.time()-start, ' seconds')
+print('it took ', time.time()-start, ' seconds. Stored in ', table_name)
 
 
 
