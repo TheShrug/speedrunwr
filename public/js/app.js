@@ -23610,7 +23610,15 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
             state.userLoggedIn = false;
         },
         addRunDataToHistory: function addRunDataToHistory(state, payload) {
-            state.runHistory.unshift(payload);
+            var gameIsInHistory = false;
+            for (var i = 0; i < state.runHistory.length; i++) {
+                if (state.runHistory[i].data.id === payload.data.id) {
+                    gameIsInHistory = true;
+                }
+            }
+            if (!gameIsInHistory) {
+                state.runHistory.unshift(payload);
+            }
         },
         setLikedRuns: function setLikedRuns(state, payload) {
             state.likedRuns = payload;
@@ -70739,7 +70747,7 @@ var momentDurationFormatSetup = __webpack_require__(100);
             return this.run.players.data[0].youtube ? this.run.players.data[0].youtube.uri : '';
         },
         currentlyPlaying: function currentlyPlaying() {
-            return this.record === this.$store.state.activeRun;
+            return this.record.runId === this.$store.state.activeRun.runId;
         },
         color: function color() {
             return 'white';

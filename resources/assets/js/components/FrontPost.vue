@@ -1,9 +1,9 @@
 <template>
     <v-layout row class="post">
-        <v-flex sm8 xs12>
+        <v-flex  sm8 xs12>
             <slot />
-                    </v-flex>
-        <v-flex sm4 hidden-xs-only>
+        </v-flex>
+        <v-flex  sm4 hidden-xs-only>
             <div class="trophy" @click="clickTrophy">
                 <i class="fa fa-trophy" title="Twenty three is number one!"></i>
                 <span v-if="showNumber && !showPlace" class="number-display">{{ numberDisplay }}</span>
