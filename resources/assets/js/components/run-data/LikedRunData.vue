@@ -129,6 +129,7 @@
 <style>
 
     .history-link { height: 100%; width: 100%;text-align: left; text-transform: none; margin: 0; min-height: 123px; box-shadow:none !important; border:1px solid transparent;}
+    .history-link h3 { white-space:normal;}
     .history-link.active {border:1px solid rgba(255, 255, 255, 0.34);}
     .history-link .btn__content { padding: 0; white-space:normal;}
     .history-link .card { width: 100%; background: none;}
