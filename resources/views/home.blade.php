@@ -24,7 +24,7 @@
                             <p>Experiment with the settings to narrow down the results to the types of runs that you want to see. </p>
                             <h2>It's now easier than ever to find new speedgames to play.</h2>
                             <p>Narrow down your settings to find runs on platforms that you can play and start experiment with the rest of the settings to find the perfect game! Use the date filter to find old records to beat or find runs with little competition to join the race to the top!</p>
-                            <h6 style="margin-top:100px;margin-bottom: 30px;">Made with <span style="color:deeppink">❤</span> by <a target="_blank" href="https://github.com/TheShrug" title="Github profile"> TheShrug</a> | <a href="mailto:webmaster@speedrunwr.com" title="Email Me">Contact</a></h6>
+                            <h6 style="margin-top:100px;margin-bottom: 30px;"><a target="_blank" href="https://github.com/TheShrug/speedrunwr">Made with <span style="color:deeppink">❤</span></a> | <a href="mailto:webmaster@speedrunwr.com" title="Email Me">Contact</a></h6>
                         </router-view>
                     </v-flex>
                 </v-layout>

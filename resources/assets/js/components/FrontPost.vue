@@ -1,5 +1,5 @@
 <template>
-    <v-layout row class="post">
+    <v-layout row class="post" fill-height>
         <v-flex  sm8 xs12>
             <slot />
         </v-flex>
@@ -138,8 +138,11 @@
 </script>
 
 <style scoped>
+    a {
+        text-decoration: none;
+    }
     .post {
-     font-size:150%;
+     font-size:140%;
     }
     .trophy {
         text-align: center;
