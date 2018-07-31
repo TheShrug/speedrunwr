@@ -5,6 +5,7 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
+import "babel-polyfill";
 import Vue from 'vue'
 import Vuex from 'vuex'
 import Axios from 'axios'

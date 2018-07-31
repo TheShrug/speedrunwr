@@ -24,6 +24,7 @@
     },
     "dependencies": {
         "babel-polyfill": "^6.26.0",
+        "es6-promise": "^4.2.4",
         "moment": "^2.22.2",
         "moment-duration-format": "^2.2.2",
         "vue-router": "^3.0.1",
