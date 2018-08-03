@@ -119,6 +119,8 @@
                 <v-btn @click="getNewRun" block
                        :loading="loading"
                        :disabled="loading"
+                       color="primary"
+                       class="new-run-button"
                 >
                     New Run
                 </v-btn>
@@ -272,4 +274,5 @@
 <style>
     .settings-menu { background: #000;}
     .thin-button { min-width: 0; margin-left: 0;}
+    .new-run-button {color:#1b1b1b !important;}
 </style>
