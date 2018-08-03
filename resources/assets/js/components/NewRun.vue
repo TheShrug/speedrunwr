@@ -200,6 +200,7 @@
                     $this.loading = false
                 })
 
+                ga('send', 'event', 'General', 'Click', 'New Run');
 
             },
             showNotFound() {
