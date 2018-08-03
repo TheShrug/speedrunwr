@@ -92,7 +92,7 @@ class ApiController extends Controller
 
 
 		if($this->verifiedRecord($record)){
-			return ['record' => $record, 'query' => $recordQuery];
+			return ['record' => $record];
 		} else {
 			$this->newRun($request);
 		}

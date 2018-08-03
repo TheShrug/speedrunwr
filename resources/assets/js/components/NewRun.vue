@@ -218,6 +218,7 @@
                 this.$refs.form.reset()
                 this.videoType = '0'
                 this.competition = '0'
+                this.includeLevels = false
             },
             toggleMenu() {
                 if(this.mainMenu === false) {
