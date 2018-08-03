@@ -27,6 +27,7 @@
         "es6-promise": "^4.2.4",
         "moment": "^2.22.2",
         "moment-duration-format": "^2.2.2",
+        "vue-analytics": "^5.12.3",
         "vue-router": "^3.0.1",
         "vuebar": "0.0.18",
         "vuelidate": "^0.7.4",

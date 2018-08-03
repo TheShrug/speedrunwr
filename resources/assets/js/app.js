@@ -13,6 +13,7 @@ import Vuetify from 'vuetify'
 import Vuelidate from 'vuelidate'
 import Vuebar from 'vuebar'
 import VueRouter from 'vue-router'
+import VueAnalytics from 'vue-analytics'
 
 import LoadScript from 'vue-plugin-load-script';
 import VueYouTubeEmbed from 'vue-youtube-embed'
@@ -33,6 +34,9 @@ Vue.use(VueTwitchPlayer);
 Vue.use(Vuelidate);
 Vue.use(Vuebar);
 Vue.use(VueRouter);
+Vue.use(VueAnalytics, {
+    id: 'UA-90130519-1'
+})
 
 
 const store = new Vuex.Store({
