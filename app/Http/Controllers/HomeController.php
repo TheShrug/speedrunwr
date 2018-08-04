@@ -127,7 +127,7 @@ class HomeController extends Controller
     	$meta['title'] = ($details['game']) ? $details['game'] : '';
     	$meta['title'] .= ($details['category']) ? ' ' . $details['category'] : '';
     	$meta['title'] .= ($details['level']) ? ' ' . $details['level'] : '';
-    	$meta['title'] .= ' Speedrun World Record Video | Speedrun Web Randomizer';
+    	$meta['title'] .= ' Speedrun World Record Video | Speedrun World Record Web Randomizer';
 
     	if($details['description']) {
     		$meta['description'] = $details['description'];
