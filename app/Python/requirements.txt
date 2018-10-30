@@ -1,5 +1,5 @@
 PyMySQL==0.8.1
 configparser==3.5.0
 poolmanager==0.0.5
-requests==2.18.4
+requests==2.20.0
 mysql-connector==2.1.6
