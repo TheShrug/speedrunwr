@@ -13,7 +13,7 @@ Quick summary of the recent changes to the website:
 - Shareable links
 - Lots of other little things
 
-When creating a new project I like to experiment with technology that I'm interested in or want to learn more about. This project uses [Laravel](https://laravel.com/) as a back-end with [Vue.js](https://vuejs.org/) on the front-end and a [Python](https://www.python.org/) script for some api data gathering. 
+When creating a new project I like to experiment with technology that I'm interested in or want to learn more about. This project uses [Laravel](https://laravel.com/) as a back-end with [Vue.js](https://vuejs.org/) on the front-end. World records are gathered from the speedrun.com API by `php artisan speedrunwr:sync`, which runs on the scheduler (it used to be a [Python](https://www.python.org/) script). 
 
 Learning new things takes time and experimentation and I have to resist the urge to scrap it all and start again. If you take the time to look through the code you could probably notice some improvement, some regrets, some "getting things done" and probably some things you don't like. I'm always open to constructive criticism and suggestions so please feel free to reach out to me.
 
