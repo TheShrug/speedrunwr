@@ -23,7 +23,10 @@ class CreateLikedRunsTable extends Migration
 	        $table->string('platformId')->nullable();
 	        $table->string('regionId')->nullable();
 	        $table->integer('competition')->default(null)->nullable();
-	        $table->float('primaryTime',12,3)->nullable();
+	        // `double precision`, matching records.primaryTime. See the note in
+	        // 2018_04_26_013655_create_records_table: float()'s old (12,3)
+	        // asked Postgres for `real` and lost milliseconds on long runs.
+	        $table->float('primaryTime')->nullable();
 	        $table->dateTime('date')->nullable();
 	        $table->string('youtubeId')->nullable();
 	        $table->string('twitchId')->nullable();

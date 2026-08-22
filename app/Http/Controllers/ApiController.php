@@ -8,10 +8,18 @@ use GuzzleHttp\Client;
 use App\Record;
 use App\LikedRun;
 use App\EasterEgg;
-use Mockery\Exception;
 
 class ApiController extends Controller
 {
+
+    /**
+     * How many candidate records newRun() will check against speedrun.com
+     * before giving up.
+     *
+     * Each attempt is one outbound HTTP request, so this is the request's
+     * worst-case latency budget as much as it is a bound on the search.
+     */
+    private const VERIFICATION_ATTEMPTS = 5;
 
     public function newRun(Request $request) {
 
@@ -78,24 +86,25 @@ class ApiController extends Controller
 	    }
 
 
-	    $recordQuery = $recordsQuery->toSql();
-
-		$records = $recordsQuery->get();
+		// Let the database draw the random sample. The whole matching set is
+		// never hydrated, and the loop below cannot cost more than
+		// VERIFICATION_ATTEMPTS calls out to speedrun.com.
+		$records = $recordsQuery->inRandomOrder()->limit(self::VERIFICATION_ATTEMPTS)->get();
 
 		if(count($records) < 1) {
 			return response(['message' => 'no runs found'], 404);
 		}
 
-    	//$records = Record::where('levelId', null)->get();
-    	$record = $records->random();
-
-
-
-		if($this->verifiedRecord($record)){
-			return ['record' => $record];
-		} else {
-			$this->newRun($request);
+		foreach($records as $record) {
+			if($this->verifiedRecord($record)) {
+				return ['record' => $record];
+			}
 		}
+
+		// Candidates exhausted: they are all stale on speedrun.com, or the API
+		// is unreachable. Same response as no candidates at all — rather than
+		// the null this used to return, or the recursion it used to spin in.
+		return response(['message' => 'no runs found'], 404);
 
     }
 
@@ -149,7 +158,11 @@ class ApiController extends Controller
 		    } else {
 			    return false;
 		    }
-	    } catch(Exception $e) {
+	    } catch(\Exception $e) {
+	    	// Guzzle's transfer and HTTP-status exceptions all extend
+	    	// \Exception. An import at the top of this file used to point the
+	    	// bare `Exception` here at a require-dev class instead, which does
+	    	// not exist under --no-dev, so the catch never fired in production.
     		return false;
 	    }
 
