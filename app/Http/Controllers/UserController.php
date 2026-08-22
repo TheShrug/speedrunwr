@@ -51,7 +51,7 @@ class UserController extends Controller
 
 		    $run = $request->params['activeRun'];
 
-			unset($run['id'], $run['created_at'], $run['updated_at'], $run['pivot']);
+			unset($run['id'], $run['created_at'], $run['updated_at'], $run['pivot'], $run['synced_at']);
 
 		    $likedRun = LikedRun::firstOrCreate($run);
 
