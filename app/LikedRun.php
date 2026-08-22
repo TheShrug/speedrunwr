@@ -11,6 +11,15 @@ class LikedRun extends Model
 		'runId', 'gameId', 'categoryId', 'levelId', 'userId', 'platformId', 'regionId', 'competition', 'primaryTime', 'date', 'youtubeId', 'twitchId'
 	];
 
+	protected function casts(): array
+	{
+		return [
+			'date' => 'datetime',
+			'primaryTime' => 'float',
+			'competition' => 'integer',
+		];
+	}
+
 	public function users() {
 		return $this->belongsToMany('App\User');
 	}
