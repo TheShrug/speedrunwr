@@ -149,6 +149,21 @@ class ApiController extends Controller
 		// Let the database draw the random sample. The whole matching set is
 		// never hydrated, and the loop below cannot cost more than
 		// VERIFICATION_ATTEMPTS calls out to speedrun.com.
+		//
+		// This is ORDER BY RANDOM() LIMIT 5, which Postgres cannot push the
+		// limit into: it seq-scans the matching set and top-N heapsorts it.
+		// Measured before leaving it alone (issue #10) on Postgres 16 with
+		// 275,000 synthetic rows at production width — 39 MB heap, 143 bytes
+		// avg per row, the production scale of ~275k:
+		//
+		//   unfiltered, warm, ten runs: 98-125 ms, median ~103 ms
+		//   whereNotNull('twitchId') + a date bound over 52k matches: ~34-42 ms
+		//
+		// Under the 150 ms bar, so it stays. It is linear in the size of the
+		// matching set, though, and it is warm-cache linear only while the
+		// heap fits in shared_buffers — recheck if records grows well past
+		// 275k or the row gets wider.
+
 		$records = $recordsQuery->inRandomOrder()->limit(self::VERIFICATION_ATTEMPTS)->get();
 
 		if(count($records) < 1) {
