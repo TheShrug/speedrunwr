@@ -16,10 +16,70 @@ class ApiController extends Controller
      * How many candidate records newRun() will check against speedrun.com
      * before giving up.
      *
-     * Each attempt is one outbound HTTP request, so this is the request's
-     * worst-case latency budget as much as it is a bound on the search.
+     * Each attempt is one outbound HTTP request, and that request is bounded
+     * by VERIFY_CONNECT_TIMEOUT / VERIFY_TIMEOUT below, so this really is the
+     * request's worst-case latency budget as much as it is a bound on the
+     * search.
      */
     private const VERIFICATION_ATTEMPTS = 5;
+
+    /**
+     * Wall-clock bounds for one verification call to speedrun.com. Guzzle
+     * defaults both of these to 0, i.e. no timeout at all, which is how five
+     * bounded attempts could still run until max_execution_time.
+     *
+     * The arithmetic: `timeout` is curl's total-transfer bound and already
+     * covers the connect phase, so the true ceiling is
+     * VERIFICATION_ATTEMPTS * VERIFY_TIMEOUT = 5 * 3s = 15s. Reading the two
+     * as additive — the pessimistic version the ticket asks for — gives
+     * 5 * (2s + 3s) = 25s. Both sit under PHP's max_execution_time of 30s,
+     * which is the 500 that issue #7 set out to kill.
+     *
+     * One leaderboard lookup with top=1 is a small response, so 3s of transfer
+     * is generous; 2s to connect leaves room for DNS plus a TLS handshake to a
+     * host that is not always nearby.
+     */
+    private const VERIFY_CONNECT_TIMEOUT = 2.0;
+    private const VERIFY_TIMEOUT = 3.0;
+
+    /**
+     * Guzzle handler for the verification client. Left null in production so
+     * Guzzle picks its own; a test sets it to a MockHandler stack to exercise
+     * verifiedRecord() without touching speedrun.com.
+     *
+     * @var callable|null
+     */
+    private $verificationHandler = null;
+
+    private ?Client $verificationClient = null;
+
+    public function setVerificationHandler(callable $handler): void
+    {
+	    $this->verificationHandler = $handler;
+	    $this->verificationClient = null;
+    }
+
+    /**
+     * The client both branches of verifiedRecord() share. Built once: the two
+     * branches only ever differed in the URL.
+     */
+    private function verificationClient(): Client
+    {
+	    if($this->verificationClient === null) {
+		    $config = [
+			    'connect_timeout' => self::VERIFY_CONNECT_TIMEOUT,
+			    'timeout'         => self::VERIFY_TIMEOUT,
+		    ];
+
+		    if($this->verificationHandler !== null) {
+			    $config['handler'] = $this->verificationHandler;
+		    }
+
+		    $this->verificationClient = new Client($config);
+	    }
+
+	    return $this->verificationClient;
+    }
 
     public function newRun(Request $request) {
 
@@ -135,21 +195,18 @@ class ApiController extends Controller
 		    $runId = $record['runId'];
 		    $levelId = $record['levelId'];
 
+		    // The two cases differ only in the URL, so build the client once.
 		    if($levelId) {
-			    $client = new Client();
-			    $result = $client->request('GET','https://www.speedrun.com/api/v1/leaderboards/' . $gameId . '/level/' . $levelId . '/' . $categoryId, [
-				    'query'  => [
-					    'top' => 1,
-				    ]
-			    ]);
+			    $url = 'https://www.speedrun.com/api/v1/leaderboards/' . $gameId . '/level/' . $levelId . '/' . $categoryId;
 		    } else {
-			    $client = new Client();
-			    $result = $client->request('GET','https://www.speedrun.com/api/v1/leaderboards/' . $gameId . '/category/' . $categoryId, [
-				    'query'  => [
-					    'top' => 1,
-				    ]
-			    ]);
+			    $url = 'https://www.speedrun.com/api/v1/leaderboards/' . $gameId . '/category/' . $categoryId;
 		    }
+
+		    $result = $this->verificationClient()->request('GET', $url, [
+			    'query'  => [
+				    'top' => 1,
+			    ]
+		    ]);
 
 		    $jsonResult = json_decode($result->getBody());
 			// TODO : update entry with new values here
