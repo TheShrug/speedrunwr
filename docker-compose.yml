@@ -1,0 +1,33 @@
+services:
+  app:
+    build:
+      context: .
+      target: dev
+    volumes:
+      - .:/var/www/html
+    ports:
+      - "8000:80"
+    env_file:
+      - .env
+    environment:
+      DB_HOST: db
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: speedrunwr
+      POSTGRES_USER: speedrunwr
+      POSTGRES_PASSWORD: secret
+    volumes:
+      - srwr-pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U speedrunwr"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+
+volumes:
+  srwr-pgdata:
