@@ -19,6 +19,35 @@ Learning new things takes time and experimentation and I have to resist the urge
 
 I don't plan on spending much more time on the project because it's time to move on to new ones!
 
+## Development
+
+There is no PHP or Composer on the host — everything runs through Docker. From
+a cold checkout:
+
+```sh
+cp .env.example .env
+docker compose up -d db
+docker compose build app
+docker compose run --rm app php artisan key:generate
+docker compose run --rm app php artisan migrate
+docker compose run --rm app php artisan test
+docker compose up -d app
+```
+
+`docker compose run --rm app <command>` runs any `artisan` or `composer`
+command inside the `dev` image (PHP 8.3, Composer, dev dependencies). Source
+is bind-mounted, so edits on the host take effect immediately — no rebuild
+needed unless `composer.json`/`composer.lock` changes. `docker compose up -d
+app` serves the app at http://localhost:8000.
+
+The production image is the same `Dockerfile`'s `production` target: one
+container running nginx + php-fpm on port 80, built with `composer install
+--no-dev --optimize-autoloader` and no Node or Composer binary baked in.
+
+```sh
+docker build --target production -t speedrunwr .
+```
+
 ## Contact
 
 If you find any bugs or would just like to chat about the website you can email me at [webmaster@speedrunwr.com](mailto:webmaster@speedrunwr.com).
