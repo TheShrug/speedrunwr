@@ -2,8 +2,6 @@
 
 namespace App;
 
-use Mockery\Exception;
-
 class VideoIdParser {
 
 	private $id = null;
