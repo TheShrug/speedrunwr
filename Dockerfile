@@ -14,13 +14,16 @@ RUN apk add --no-cache nginx postgresql-libs postgresql16-client icu-libs onigur
 
 WORKDIR /var/www/html
 
-COPY docker/www.conf /usr/local/etc/php-fpm.d/www.conf
-COPY docker/nginx.conf /etc/nginx/http.d/default.conf
+COPY docker/php-fpm/www.conf /usr/local/etc/php-fpm.d/www.conf
+COPY docker/nginx/default.conf /etc/nginx/http.d/default.conf
+COPY docker/php/opcache.ini /usr/local/etc/php/conf.d/opcache.ini
 
 # ---------------------------------------------------------------------------
 # dev: PHP + Composer + dev dependencies, for local work and for verifying
 # this Dockerfile itself. Source is bind-mounted by docker-compose, not
-# copied in, so edits on the host are picked up live.
+# copied in, so edits on the host are picked up live. Serves over port 80
+# like production, since the database tickets' remaining acceptance criteria
+# include checking every page by hand.
 # ---------------------------------------------------------------------------
 FROM base AS dev
 
@@ -28,6 +31,8 @@ RUN apk add --no-cache git unzip bash
 COPY --from=composer:2 /usr/bin/composer /usr/local/bin/composer
 COPY docker/entrypoint-dev.sh /usr/local/bin/entrypoint-dev.sh
 RUN chmod +x /usr/local/bin/entrypoint-dev.sh
+
+EXPOSE 80
 
 ENTRYPOINT ["entrypoint-dev.sh"]
 
@@ -57,13 +62,15 @@ FROM base AS production
 COPY . .
 COPY --from=vendor /var/www/html/vendor ./vendor
 COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
-COPY docker/opcache-production.ini /usr/local/etc/php/conf.d/opcache-production.ini
+
+# --no-scripts in the vendor stage skips package:discover (it would run
+# against a partial source copy); bake it here instead, now vendor/ and the
+# full app are both in place. Needs no database or runtime environment.
+RUN php artisan package:discover --ansi
 
 RUN chmod +x /usr/local/bin/entrypoint.sh \
     && chown -R www-data:www-data storage bootstrap/cache \
     && mkdir -p /run/nginx
-
-VOLUME ["/var/www/html/storage/app"]
 
 EXPOSE 80
 

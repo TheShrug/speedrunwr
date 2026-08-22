@@ -8,14 +8,16 @@ if [ -n "$DB_HOST" ]; then
     done
 fi
 
-php artisan migrate --force
-
 # Baked at build time these would freeze in whatever env is present during
 # `docker build` (none); doing it here means they reflect the real runtime
-# environment Coolify injects.
+# environment Coolify injects. config:cache goes first so everything after
+# it reads one consistent config.
 php artisan config:cache
 php artisan route:cache
 php artisan view:cache
+
+# migrate goes last so a schema failure kills the container before it serves.
+php artisan migrate --force
 
 php-fpm -D
 exec nginx -g "daemon off;"
