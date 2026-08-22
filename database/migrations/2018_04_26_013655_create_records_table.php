@@ -23,7 +23,11 @@ class CreateRecordsTable extends Migration
 	        $table->string('platformId')->nullable()->index();
 	        $table->string('regionId')->nullable()->index();
 	        $table->integer('competition')->default(0);
-	        $table->float('primaryTime',12,3)->nullable();
+	        // `double precision`. Laravel 11+ reads float()'s second argument as
+	        // a bit precision, not a digit count, so the old (12,3) asked for
+	        // float(12) - which Postgres resolves to `real`, and a 12-hour run
+	        // at millisecond resolution does not survive single precision.
+	        $table->float('primaryTime')->nullable();
 	        $table->dateTime('date')->nullable();
 	        $table->string('youtubeId')->nullable()->index();
 	        $table->string('twitchId')->nullable()->index();
