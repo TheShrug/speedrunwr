@@ -1,0 +1,83 @@
+# Run the test suite on every branch except master, and on every pull request.
+#
+# master is deliberately absent: deploy.yml will own it and run this same suite as the gate in
+# front of the deploy. Two workflows triggering on master would run the suite twice and tell you
+# the same thing - and the copy that matters is the one that can stop a release.
+#
+# Trunk-based development removed the staging beat (Conventions/Branching.md in the homelab
+# vault): merging to master IS the release, so this job is the only thing between a merged PR and
+# the live site.
+name: CI
+
+on:
+  push:
+    branches-ignore: [master]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: artisan test
+    runs-on: ubuntu-latest
+
+    # A throwaway Postgres, NOT the repo's docker-compose.yml. See the env: block below for why
+    # that distinction is load-bearing rather than stylistic.
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: testing
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+
+    # Configuration comes from here and nowhere else. No .env is written.
+    #
+    # This is deliberate and it is the whole point of the job's shape. compose passes
+    # `env_file: .env` to the app service, which puts DB_* into the container's real OS
+    # environment; Laravel's env() reads $_SERVER while PHPUnit's <env> only sets $_ENV, so
+    # phpunit.xml's sqlite config never wins and RefreshDatabase truncates whatever the container
+    # points at. That is speedrunwr#14. Running the suite through compose here would inherit the
+    # same footgun - harmless against a throwaway service container, which is exactly how the
+    # pattern gets copied back to a laptop pointing at a real database.
+    #
+    # Real environment variables beat phpunit.xml's <env> for the same $_SERVER reason, so these
+    # win and the suite genuinely runs against Postgres - the engine production uses.
+    env:
+      APP_ENV: testing
+      APP_DEBUG: 'true'
+      DB_CONNECTION: pgsql
+      DB_HOST: 127.0.0.1
+      DB_PORT: '5432'
+      DB_DATABASE: testing
+      DB_USERNAME: postgres
+      DB_PASSWORD: postgres
+      SESSION_DRIVER: array
+      CACHE_STORE: array
+      QUEUE_CONNECTION: sync
+      MAIL_MAILER: array
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: pdo_pgsql, pgsql
+          coverage: none
+
+      # Generated per run rather than committed. A literal key here would read as a leaked secret
+      # to anyone skimming the file, and there is no reason for CI to reuse one.
+      - name: Generate a throwaway APP_KEY
+        run: echo "APP_KEY=base64:$(openssl rand -base64 32)" >> "$GITHUB_ENV"
+
+      - run: composer install --no-interaction --prefer-dist --no-progress
+
+      - run: php artisan migrate --force
+
+      - run: php artisan test
