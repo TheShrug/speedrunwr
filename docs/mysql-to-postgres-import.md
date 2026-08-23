@@ -1,7 +1,27 @@
 # Importing the production MySQL dump into Postgres
 
 This is the procedure for the one-time data carry-over at cutover, referenced by
-homelab#17. It has been run end-to-end against the actual production dump
+homelab#17.
+
+> [!important] Run against **production** on 2026-08-23, and verified
+> 325 / 679 / 602 / 60 / 40 / 13 exactly, zero orphaned foreign keys, Cyrillic
+> and accented usernames clean, all 40 `easteregg.ip` values parsed as `inet`,
+> all five sequences advanced, and the live app reads `users=325 liked=679`
+> through Eloquent. Target was the standalone Coolify Postgres
+> `bril3o7qf2iam4qmytvktcip` (role `postgres`, database `speedrunwr`) — not
+> the dev stack every command below assumes. See "Production variant".
+
+> [!warning] On Windows, `export MSYS_NO_PATHCONV=1` before anything else
+> Git Bash rewrites absolute paths in `docker exec` / `docker cp` arguments
+> before the container sees them: `/var/lib/mysql-files/` silently becomes
+> `C:/Program Files/Git/var/lib/mysql-files/`. It surfaces as
+> **`ERROR 1290 ... --secure-file-priv`**, which reads as a permissions problem
+> and is a shell problem. Two attempts were lost to this on the production run.
+
+> [!note] speedrunwr has no user-generated files
+> Checked 2026-08-23 for homelab#17: no upload code anywhere in `app/` or
+> `routes/`, nothing tracked under `storage/app` beyond `.gitignore` stubs, no
+> upload directories. **There is no file migration** — only these six tables. It has been run end-to-end against the actual production dump
 (`speedrunwr.sql`, MySQL 5.7 source, taken 2026-08-16) and a freshly-migrated
 Postgres 16 database, using the `dev` container from this repo's
 `docker-compose.yml`. Row counts, foreign keys, and encoding were verified after
@@ -121,11 +141,16 @@ Expect exactly `325 / 679 / 602 / 60 / 40 / 13`. This matched on the real dump.
 
 `mysqldump --tab` writes into whatever directory `secure_file_priv` allows
 (check with `SHOW VARIABLES LIKE 'secure_file_priv'`; on the stock `mysql:5.7`
-image it's `/var/lib/mysql-files/`):
+image it's `/var/lib/mysql-files/`).
+
+**Match it exactly, trailing slash included.** `--tab=/var/lib/mysql-files`
+without the slash is rejected with the *same* misleading `secure_file_priv`
+error as the Windows path rewriting above — two unrelated causes, one
+message, so check both:
 
 ```sh
 docker exec srwr-mysql-import mysqldump --default-character-set=utf8mb4 \
-  -uroot -proot --no-create-info --tab=/var/lib/mysql-files \
+  -uroot -proot --no-create-info --tab=/var/lib/mysql-files/ \
   speedrunwr users liked_runs liked_run_user user_verifications easteregg password_resets
 
 docker cp srwr-mysql-import:/var/lib/mysql-files/users.txt "$OUT/users.txt"
@@ -194,6 +219,85 @@ docker stop srwr-mysql-import
 ```
 
 (Started with `--rm`, so stopping it also removes it — no leftover volume.)
+
+## Production variant — what was actually run
+
+Steps 1-4 are identical (they only touch the throwaway MySQL). Steps 5-7 differ:
+production is a **standalone Coolify Postgres**, not the dev compose `db`
+service, so there is no `docker compose` and the role is `postgres`.
+
+| | dev | production |
+| --- | --- | --- |
+| Reached by | `docker compose exec db` | `docker exec bril3o7qf2iam4qmytvktcip` |
+| Role | `speedrunwr` | `postgres` |
+| Database | `speedrunwr` | `speedrunwr` |
+| File transfer | `docker compose cp` | `scp` to the host, then `docker cp` |
+
+The container name is a Coolify resource uuid and **will change if the resource
+is recreated**. Never hard-code it in a script — look it up:
+
+```sh
+docker ps --format '{{.Names}} {{.Image}}' | awk '$2 ~ /postgres/ && $1 !~ /coolify/'
+```
+
+### Ship the text files, not the dump
+
+The six exports total ~183 KB. The dump is 88 MB. Do steps 1-4 wherever the dump
+already lives and copy only the results:
+
+```sh
+ssh <host> 'mkdir -p /tmp/srwr-import'
+scp "$OUT"/{users,liked_runs,liked_run_user,user_verifications,easteregg,password_resets}.txt \n  <host>:/tmp/srwr-import/
+```
+
+### Import: one transaction, and refuse to double-import
+
+Six sequential `\copy` calls can leave a **half-imported** database if the
+fourth fails. Wrap them, and check the tables are empty before starting — that
+makes a double import impossible rather than merely unlikely.
+
+```sh
+PG=bril3o7qf2iam4qmytvktcip
+
+TOTAL=$(docker exec "$PG" psql -U postgres -d speedrunwr -tAc "select
+  (select count(*) from users)+(select count(*) from liked_runs)+
+  (select count(*) from liked_run_user)+(select count(*) from user_verifications)+
+  (select count(*) from easteregg)+(select count(*) from password_resets)")
+[ "$TOTAL" = "0" ] || { echo "ABORT: not empty ($TOTAL rows)"; exit 1; }
+
+for t in users liked_runs liked_run_user user_verifications easteregg password_resets; do
+  docker cp "/tmp/srwr-import/$t.txt" "$PG:/tmp/$t.txt"
+done
+
+docker exec -i "$PG" psql -U postgres -d speedrunwr -v ON_ERROR_STOP=1 <<'SQL'
+BEGIN;
+\copy users ("id","userName","email","password","remember_token","created_at","updated_at","verified") FROM '/tmp/users.txt'
+\copy liked_runs ("id","runId","gameId","categoryId","levelId","userId","platformId","regionId","competition","primaryTime","date","youtubeId","twitchId","created_at","updated_at") FROM '/tmp/liked_runs.txt'
+\copy liked_run_user ("id","user_id","liked_run_id","created_at","updated_at") FROM '/tmp/liked_run_user.txt'
+\copy user_verifications ("id","user_id","key","created_at","updated_at") FROM '/tmp/user_verifications.txt'
+\copy easteregg ("id","ip","time","created_at","updated_at") FROM '/tmp/easteregg.txt'
+\copy password_resets ("email","token","created_at") FROM '/tmp/password_resets.txt'
+SELECT setval('users_id_seq', (SELECT MAX(id) FROM users));
+SELECT setval('liked_runs_id_seq', (SELECT MAX(id) FROM liked_runs));
+SELECT setval('liked_run_user_id_seq', (SELECT MAX(id) FROM liked_run_user));
+SELECT setval('user_verifications_id_seq', (SELECT MAX(id) FROM user_verifications));
+SELECT setval('easteregg_id_seq', (SELECT MAX(id) FROM easteregg));
+COMMIT;
+SQL
+
+docker exec "$PG" sh -c 'rm -f /tmp/*.txt'
+rm -f /tmp/srwr-import/*.txt
+```
+
+`ON_ERROR_STOP=1` matters: without it `psql` reports the failure and carries on
+to the next `\copy`, so the transaction commits whatever happened to work.
+
+### Sequence values from the real run
+
+Useful as a fingerprint that an import matched this dump: `users` 325,
+`liked_runs` 679, `liked_run_user` **700**, `user_verifications` **278**,
+`easteregg` 40. Two of those exceed their row counts because the source tables
+have gaps from deleted rows — that is expected, not a miscount.
 
 ## Verification
 
