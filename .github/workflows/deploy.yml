@@ -1,0 +1,157 @@
+# Production deploy. Pushing to master IS the release.
+#
+# Coolify builds the image from this repo, so this workflow ships no artefact - it runs the gate,
+# then tells Coolify to pull and rebuild, then proves the result is actually serving. All the
+# deploy logic that could live on the host does live on the host: see the note on the SSH key.
+#
+# What stands between a merge and production is the `test` job below, which `deploy` needs. A red
+# suite never reaches the host.
+#
+# Secrets this needs (Settings -> Secrets and variables -> Actions):
+#   DEPLOY_SSH_KEY     private half of a DEDICATED deploy key, not a personal one.
+#   DEPLOY_KNOWN_HOSTS the host's public key line, so the runner is not trusting on first use.
+#                      ssh-keyscan -t ed25519 <host-ip>. In a secret rather than this file because
+#                      rebuilding the host changes it, and that should not need a commit.
+#
+# Note what is NOT here: no Coolify API token and no application config. The key is restricted on
+# the host to a forced command that accepts only `deploy` or `status`, against ONE hard-coded
+# application uuid. It cannot open a shell, read the API token, or touch another app - so the
+# blast radius of this secret leaking is "someone can redeploy speedrunwr". SSH is the single
+# credential GitHub holds.
+name: Deploy
+
+on:
+  push:
+    branches: [master]
+    # A docs-only commit does not need a cold image rebuild. Use the manual dispatch if one does.
+    paths-ignore:
+      - 'docs/**'
+      - '**/*.md'
+      - '.gitignore'
+      - '.github/ISSUE_TEMPLATE/**'
+  workflow_dispatch:
+
+# Deploys queue rather than cancel. cancel-in-progress would be actively harmful: killing this
+# mid-flight leaves Coolify part-way through a rebuild.
+concurrency:
+  group: production-deploy
+  cancel-in-progress: false
+
+env:
+  DEPLOY_HOST: 104.168.22.102
+
+jobs:
+  # Deliberately duplicated from ci.yml rather than shared. ci.yml covers branches and PRs; this
+  # copy is the one that can stop a release, and a release gate should not depend on another
+  # workflow file staying correct.
+  test:
+    name: artisan test
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: testing
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      APP_ENV: testing
+      APP_DEBUG: 'true'
+      DB_CONNECTION: pgsql
+      DB_HOST: 127.0.0.1
+      DB_PORT: '5432'
+      DB_DATABASE: testing
+      DB_USERNAME: postgres
+      DB_PASSWORD: postgres
+      SESSION_DRIVER: array
+      CACHE_STORE: array
+      QUEUE_CONNECTION: sync
+      MAIL_MAILER: array
+    steps:
+      - uses: actions/checkout@v6
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: pdo_pgsql, pgsql
+          coverage: none
+      - name: Generate a throwaway APP_KEY
+        run: echo "APP_KEY=base64:$(openssl rand -base64 32)" >> "$GITHUB_ENV"
+      - run: composer install --no-interaction --prefer-dist --no-progress
+      - name: Create an empty .env so the framework stops warning
+        run: touch .env
+      - run: php artisan migrate --force
+      - run: php artisan test --fail-on-warning
+
+  deploy:
+    name: Redeploy and verify
+    needs: test
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: https://speedrunwr.com
+    steps:
+      - name: Configure SSH
+        env:
+          DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          DEPLOY_KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
+        run: |
+          mkdir -p ~/.ssh
+          install -m 600 /dev/stdin ~/.ssh/deploy_key <<< "$DEPLOY_SSH_KEY"
+          install -m 644 /dev/stdin ~/.ssh/known_hosts <<< "$DEPLOY_KNOWN_HOSTS"
+
+      # SSH_KEY is set in `run:`, not `env:`, and that is not a style choice. A workflow `env:`
+      # block is literal - no shell expansion - so `SSH_KEY: ~/.ssh/deploy_key` arrives as the
+      # characters `~/.ssh/...` and every file test fails on a path that does not exist. That
+      # cost one failed production deploy on the sibling repo, 2026-08-09.
+      - name: Record the state before deploying
+        run: |
+          SSH_KEY="$HOME/.ssh/deploy_key"
+          BEFORE=$(ssh -i "$SSH_KEY" -o IdentitiesOnly=yes -o BatchMode=yes \
+            "root@$DEPLOY_HOST" status | python3 -c 'import json,sys; print(json.load(sys.stdin)["last_online_at"])')
+          echo "Container last came online at: $BEFORE"
+          echo "BEFORE_ONLINE=$BEFORE" >> "$GITHUB_ENV"
+
+      - name: Trigger the redeploy
+        run: |
+          SSH_KEY="$HOME/.ssh/deploy_key"
+          ssh -i "$SSH_KEY" -o IdentitiesOnly=yes -o BatchMode=yes "root@$DEPLOY_HOST" deploy
+
+      # A queued deployment is not a released one. Coolify answers the trigger immediately, so
+      # without this the workflow would go green on "the API accepted my request" - which is
+      # exactly the class of green-means-nothing check this pipeline exists to avoid.
+      #
+      # Two conditions, both required: status is running:healthy, AND last_online_at has moved.
+      # Healthy alone would pass instantly against the OLD container that is still serving.
+      - name: Wait for the new container to be serving
+        run: |
+          SSH_KEY="$HOME/.ssh/deploy_key"
+          for i in $(seq 1 60); do
+            OUT=$(ssh -i "$SSH_KEY" -o IdentitiesOnly=yes -o BatchMode=yes "root@$DEPLOY_HOST" status) || true
+            STATUS=$(echo "$OUT" | python3 -c 'import json,sys; print(json.load(sys.stdin).get("status",""))' 2>/dev/null || echo "?")
+            ONLINE=$(echo "$OUT" | python3 -c 'import json,sys; print(json.load(sys.stdin).get("last_online_at",""))' 2>/dev/null || echo "?")
+            echo "attempt $i: status=$STATUS last_online_at=$ONLINE"
+            if [ "$STATUS" = "running:healthy" ] && [ "$ONLINE" != "$BEFORE_ONLINE" ]; then
+              echo "new container is healthy and serving"
+              exit 0
+            fi
+            sleep 15
+          done
+          echo "::error::deploy did not reach running:healthy on a new container within 15 minutes"
+          echo "production is NOT on this commit"
+          exit 1
+
+      # Confirms from outside the box, which is the only vantage that proves the edge and the
+      # tunnel agree with the container. Being up locally proves nothing.
+      - name: Verify from the public internet
+        run: |
+          for path in /up /; do
+            CODE=$(curl -sS -o /dev/null -w '%{http_code}' --max-time 25 "https://speedrunwr.com$path")
+            echo "https://speedrunwr.com$path -> $CODE"
+            [ "$CODE" = "200" ] || { echo "::error::expected 200 from $path, got $CODE"; exit 1; }
+          done
