@@ -109,42 +109,41 @@ jobs:
       # block is literal - no shell expansion - so `SSH_KEY: ~/.ssh/deploy_key` arrives as the
       # characters `~/.ssh/...` and every file test fails on a path that does not exist. That
       # cost one failed production deploy on the sibling repo, 2026-08-09.
-      - name: Record the state before deploying
-        run: |
-          SSH_KEY="$HOME/.ssh/deploy_key"
-          BEFORE=$(ssh -i "$SSH_KEY" -o IdentitiesOnly=yes -o BatchMode=yes \
-            "root@$DEPLOY_HOST" status | python3 -c 'import json,sys; print(json.load(sys.stdin)["last_online_at"])')
-          echo "Container last came online at: $BEFORE"
-          echo "BEFORE_ONLINE=$BEFORE" >> "$GITHUB_ENV"
-
-      - name: Trigger the redeploy
-        run: |
-          SSH_KEY="$HOME/.ssh/deploy_key"
-          ssh -i "$SSH_KEY" -o IdentitiesOnly=yes -o BatchMode=yes "root@$DEPLOY_HOST" deploy
-
-      # A queued deployment is not a released one. Coolify answers the trigger immediately, so
-      # without this the workflow would go green on "the API accepted my request" - which is
-      # exactly the class of green-means-nothing check this pipeline exists to avoid.
+      # `deploy` is SYNCHRONOUS on the host as of homelab#34. It triggers the deployment,
+      # then follows Coolify's own deployment record to a terminal state, and exits non-zero
+      # on `failed` or on a timeout. So a failure here means the DEPLOYMENT failed - not that
+      # a poll gave up.
       #
-      # Two conditions, both required: status is running:healthy, AND last_online_at has moved.
-      # Healthy alone would pass instantly against the OLD container that is still serving.
-      - name: Wait for the new container to be serving
+      # What this replaces, and why: the previous check polled for `running:healthy` AND for
+      # `last_online_at` to move. Both passed against the OLD container on 2026-08-23, because
+      # Coolify sets `last_online_at` from its own health observations rather than from
+      # container creation. A build that died on a transient GitHub 504 was reported as a
+      # successful deploy, and this repo's master sat outside production with a green tick
+      # over it. The second condition had been added specifically to catch that, and did not.
+      - name: Deploy, and wait for Coolify's own verdict
         run: |
           SSH_KEY="$HOME/.ssh/deploy_key"
-          for i in $(seq 1 60); do
-            OUT=$(ssh -i "$SSH_KEY" -o IdentitiesOnly=yes -o BatchMode=yes "root@$DEPLOY_HOST" status) || true
-            STATUS=$(echo "$OUT" | python3 -c 'import json,sys; print(json.load(sys.stdin).get("status",""))' 2>/dev/null || echo "?")
-            ONLINE=$(echo "$OUT" | python3 -c 'import json,sys; print(json.load(sys.stdin).get("last_online_at",""))' 2>/dev/null || echo "?")
-            echo "attempt $i: status=$STATUS last_online_at=$ONLINE"
-            if [ "$STATUS" = "running:healthy" ] && [ "$ONLINE" != "$BEFORE_ONLINE" ]; then
-              echo "new container is healthy and serving"
-              exit 0
-            fi
-            sleep 15
-          done
-          echo "::error::deploy did not reach running:healthy on a new container within 15 minutes"
-          echo "production is NOT on this commit"
-          exit 1
+          set -o pipefail
+          ssh -i "$SSH_KEY" -o IdentitiesOnly=yes -o BatchMode=yes             "root@$DEPLOY_HOST" deploy | tee deploy.log
+
+      # The ONLY condition that means "production is on this commit". Coolify reports the
+      # commit it actually built. Everything else the old check looked at - healthy,
+      # last_online_at, a 200 from the edge - is equally true of an old container that never
+      # stopped serving.
+      - name: Assert production is on this commit
+        run: |
+          BUILT=$(sed -n 's/^coolify-ci: deployment finished, commit=//p' deploy.log | tail -1)
+          echo "built=$BUILT"
+          echo "expected=$GITHUB_SHA"
+          if [ -z "$BUILT" ]; then
+            echo "::error::the deploy reported no commit. The host's /usr/local/bin/coolify-ci is out of date - install scripts/host/coolify-ci from the homelab repo (homelab#34)."
+            exit 1
+          fi
+          if [ "$BUILT" != "$GITHUB_SHA" ]; then
+            echo "::error::Coolify built $BUILT but this run is $GITHUB_SHA. Production is NOT on this commit - most likely another push landed mid-deploy."
+            exit 1
+          fi
+          echo "production is on $GITHUB_SHA"
 
       # Confirms from outside the box, which is the only vantage that proves the edge and the
       # tunnel agree with the container. Being up locally proves nothing.
@@ -156,27 +155,36 @@ jobs:
             [ "$CODE" = "200" ] || { echo "::error::expected 200 from $path, got $CODE"; exit 1; }
           done
 
-      # Last step, and deliberately NON-FATAL. By now the release is live and verified; a stale
-      # edge is a smaller problem than a red deploy that teaches people to ignore the pipeline.
-      # It warns loudly and exits 0 - so read the tail of a deploy before believing a
-      # post-deploy visual bug.
+      # Last step, and non-fatal ONLY for transient failures. By now the release is live and
+      # verified; a stale edge is a smaller problem than a red deploy that teaches people to
+      # ignore the pipeline.
       #
-      # Cloudflare answers HTTP 200 with {"success":false}, so this tests the response BODY.
-      # Exit status alone would pass on a refusal - the same false-green shape as pg_restore
-      # exiting 0 on an empty restore.
+      # But a refusal is not transient. Exit 64 from the host means misconfiguration - an
+      # unknown verb, or no zone id in authorized_keys - and it will never fix itself. Every
+      # purge from every repo was refused from the day this step was written until homelab#35
+      # found it, and it stayed invisible for exactly one reason: the step turned a permanent
+      # failure into the same warning a transient one produces. So 64 is now fatal.
+      #
+      # Cloudflare answers HTTP 200 with {"success":false}, so the host tests the response
+      # BODY. Exit status alone would pass on a refusal - the same false-green shape as
+      # pg_restore exiting 0 on an empty restore.
       #
       # The zone id is baked into authorized_keys on the host, not passed from here: this key
       # can purge exactly one zone and no other.
       - name: Purge the Cloudflare cache
         run: |
           SSH_KEY="$HOME/.ssh/deploy_key"
-          if ! OUT=$(ssh -i "$SSH_KEY" -o IdentitiesOnly=yes -o BatchMode=yes "root@$DEPLOY_HOST" purge 2>&1); then
-            echo "::warning::purge command failed, the edge may be stale: $OUT"
+          set +e
+          OUT=$(ssh -i "$SSH_KEY" -o IdentitiesOnly=yes -o BatchMode=yes "root@$DEPLOY_HOST" purge 2>&1)
+          RC=$?
+          set -e
+          echo "$OUT"
+          if [ "$RC" = "0" ]; then
+            echo "cache purged"
             exit 0
           fi
-          echo "$OUT"
-          if echo "$OUT" | python3 -c 'import json,sys; sys.exit(0 if json.load(sys.stdin).get("success") else 1)' 2>/dev/null; then
-            echo "cache purged"
-          else
-            echo "::warning::Cloudflare did not report success:true, the edge may be stale"
+          if [ "$RC" = "64" ]; then
+            echo "::error::purge refused by the host (exit 64): the verb or the zone id is missing from authorized_keys. See homelab#35."
+            exit 1
           fi
+          echo "::warning::purge failed (exit $RC), the edge may be stale. Transient - read the body above."
