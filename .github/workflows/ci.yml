@@ -78,6 +78,19 @@ jobs:
 
       - run: composer install --no-interaction --prefer-dist --no-progress
 
+      # An empty file, not a copy of .env.example. Something in the framework's boot path reads
+      # base_path('.env') directly and emits a file_get_contents warning when it is absent, which
+      # PHPUnit turns into a test warning - that silently dropped 5 Feature tests from the first
+      # green run. Empty rather than populated because Laravel's Dotenv is mutable: values in the
+      # file can override real environment variables, so a populated .env would fight the env:
+      # block above and there would be two sources of truth for DB_HOST.
+      - name: Create an empty .env so the framework stops warning
+        run: touch .env
+
       - run: php artisan migrate --force
 
-      - run: php artisan test
+      # --fail-on-warning is the point of this job, not a nicety. The first run of this workflow
+      # reported success with "5 warnings, 43 passed" while the suite passes 48 locally: five
+      # Feature tests never executed and the check was still green. A gate that reports green when
+      # tests silently do not run is worse than no gate, because it is trusted.
+      - run: php artisan test --fail-on-warning
