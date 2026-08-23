@@ -50,7 +50,7 @@ docker build --target production -t speedrunwr .
 
 ## Contact
 
-If you find any bugs or would just like to chat about the website you can email me at [webmaster@speedrunwr.com](mailto:webmaster@speedrunwr.com).
+SpeedrunWR is a work in progress. If you'd like to help, suggest ideas (there's so many!), or just say hi (knowing that people like and use the site provides a lot of motivation!), you can reach out to me at `theshrug` on Discord.
 
 ## License
 
