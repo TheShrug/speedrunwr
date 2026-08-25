@@ -1,8 +1,13 @@
 #!/bin/sh
 set -e
 
+# `docker run <img> <cmd>` runs <cmd> instead of serving, like any normal image.
+if [ "$#" -gt 0 ]; then
+    exec "$@"
+fi
+
 if [ -n "$DB_HOST" ]; then
-    until pg_isready -h "$DB_HOST" -p "${DB_PORT:-5432}" -U "${DB_USERNAME:-postgres}" -q; do
+    until pg_isready -h "$DB_HOST" -p "${DB_PORT:-5432}" -U "${DB_USERNAME:-postgres}" -d "$DB_DATABASE" -q; do
         echo "Waiting for postgres at $DB_HOST:${DB_PORT:-5432}..."
         sleep 1
     done
