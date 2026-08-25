@@ -16,7 +16,7 @@ WORKDIR /var/www/html
 
 COPY docker/php-fpm/www.conf /usr/local/etc/php-fpm.d/www.conf
 COPY docker/nginx/default.conf /etc/nginx/http.d/default.conf
-COPY docker/php/opcache.ini /usr/local/etc/php/conf.d/opcache.ini
+COPY docker/php/opcache.ini /usr/local/etc/php/conf.d/zz-opcache.ini
 
 # ---------------------------------------------------------------------------
 # dev: PHP + Composer + dev dependencies, for local work and for verifying
