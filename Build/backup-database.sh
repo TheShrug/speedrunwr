@@ -22,7 +22,13 @@ DB_NAME="${DB_NAME:-speedrunwr}"
 DEST_DIR="${DEST_DIR:-backups}"
 CONFIG="${HOMELAB_BACKUP_ENV:-$HOME/.config/homelab/backups.env}"
 
-if [ ! -r "$CONFIG" ]; then
+# Already in the environment wins. `make database download` runs this INSIDE the
+# dev container and passes the credential in with compose's --env-file, because
+# the file lives on the host at ~/.config/homelab and the container cannot see
+# it. Reading the file directly still works when rclone is on your PATH.
+if [ -n "${R2_ACCESS_KEY_ID:-}" ] && [ -n "${R2_SECRET_ACCESS_KEY:-}" ] && [ -n "${R2_ACCOUNT_ID:-}" ]; then
+  :
+elif [ ! -r "$CONFIG" ]; then
   cat >&2 <<EOF
 error: $CONFIG not readable.
 
@@ -35,9 +41,10 @@ Do NOT copy the credentials from racknerd's /etc/homelab/backup.env — that
 token has write access to the backups.
 EOF
   exit 1
+else
+  # shellcheck disable=SC1090
+  set -a; . "$CONFIG"; set +a
 fi
-# shellcheck disable=SC1090
-set -a; . "$CONFIG"; set +a
 
 for v in R2_ACCOUNT_ID R2_ACCESS_KEY_ID R2_SECRET_ACCESS_KEY; do
   [ -n "${!v:-}" ] || { echo "error: $v is not set in $CONFIG" >&2; exit 1; }

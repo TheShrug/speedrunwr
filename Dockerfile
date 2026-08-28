@@ -27,7 +27,21 @@ COPY docker/php/opcache.ini /usr/local/etc/php/conf.d/zz-opcache.ini
 # ---------------------------------------------------------------------------
 FROM base AS dev
 
-RUN apk add --no-cache git unzip bash
+RUN apk add --no-cache git unzip bash curl
+
+# rclone for `make database download`, pinned and taken from upstream rather
+# than the distro package. Ubuntu ships 1.60 (2022), which fails its first
+# attempt against R2 with 501 NotImplemented and only succeeds on retry - the
+# same reason racknerd's installer pins this version. Alpine's package is newer
+# but still floats, and a backup tool that half-works is worse than one that
+# does not exist.
+ARG RCLONE_VERSION=v1.75.0
+RUN curl -fsSL -o /tmp/rclone.zip \
+      "https://downloads.rclone.org/${RCLONE_VERSION}/rclone-${RCLONE_VERSION}-linux-amd64.zip" \
+ && unzip -oq /tmp/rclone.zip -d /tmp \
+ && install -m 755 "/tmp/rclone-${RCLONE_VERSION}-linux-amd64/rclone" /usr/local/bin/rclone \
+ && rm -rf /tmp/rclone.zip "/tmp/rclone-${RCLONE_VERSION}-linux-amd64"
+
 COPY --from=composer:2 /usr/bin/composer /usr/local/bin/composer
 COPY docker/entrypoint-dev.sh /usr/local/bin/entrypoint-dev.sh
 RUN chmod +x /usr/local/bin/entrypoint-dev.sh

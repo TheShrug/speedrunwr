@@ -16,6 +16,12 @@ TEST_COMPOSE := docker compose --profile test
 
 DB_ACTIONS := download restore migrate
 
+# The fleet's read-only R2 credential, on the HOST. `download` runs inside the
+# dev container (that is where rclone is), so it is passed in with compose's
+# --env-file rather than mounted — one fewer host path baked into compose, and
+# it keeps working whatever ~ resolves to on this machine.
+HOMELAB_BACKUP_ENV ?= $(HOME)/.config/homelab/backups.env
+
 .DEFAULT_GOAL := help
 .PHONY: help build test run database $(DB_ACTIONS)
 
@@ -60,6 +66,12 @@ run: .env ## Serve the app on 8002 (override PORT=); prints the URL last
 	@echo
 	@echo "  speedrunwr serving on http://localhost:$(PORT)/  (postgres on $(DB_HOST_PORT))"
 
+# `download` runs INSIDE the dev container, because that is where rclone is.
+# The credential is sourced on the host and passed through with bare `-e NAME`:
+# the file lives at ~/.config/homelab and the container cannot see it,
+# `compose run` has no --env-file, and bare -e keeps the values off the command
+# line where ps would show them.
+# -e DB_HOST= because entrypoint-dev.sh blocks on pg_isready when DB_HOST is set.
 database: ## Run one or more DB actions in order, e.g. `make database download restore migrate`
 	@actions="$(filter $(DB_ACTIONS),$(MAKECMDGOALS))"; \
 	if [ -z "$$actions" ]; then \
@@ -68,7 +80,10 @@ database: ## Run one or more DB actions in order, e.g. `make database download r
 	fi; \
 	for action in $$actions; do \
 		case "$$action" in \
-			download) ./Build/backup-database.sh ;; \
+			download) set -a; . "$(HOMELAB_BACKUP_ENV)"; set +a; \
+			  $(COMPOSE) run --rm -T --no-deps -e DB_HOST= \
+			    -e R2_ACCOUNT_ID -e R2_ACCESS_KEY_ID -e R2_SECRET_ACCESS_KEY -e R2_BUCKET \
+			    app ./Build/backup-database.sh ;; \
 			restore)  ./Build/restore-database.sh ;; \
 			migrate)  ./Build/migrate-database.sh ;; \
 		esac; \
