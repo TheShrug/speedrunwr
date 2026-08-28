@@ -69,6 +69,15 @@ services:
       CACHE_STORE: array
       QUEUE_CONNECTION: sync
       MAIL_MAILER: array
+      # A throwaway key, committed on purpose - it encrypts nothing that
+      # outlives the run. This service has no env_file to inherit APP_KEY from,
+      # and a suite that touches encryption dies on MissingAppKeyException.
+      APP_KEY: "base64:ddDEncXaDJQhQzevaldile/qvrzsAOKkgPLMX2cFZbg="
+      # stderr, not a file. This service runs as root over the same bind mount
+      # as `app`, so a file log leaves a root-owned storage/logs/laravel.log
+      # that php-fpm (www-data) cannot write - `make run` then 500s after
+      # `make test`, with the cause nowhere near the symptom. Found in esavods.
+      LOG_CHANNEL: stderr
     depends_on:
       test-db:
         condition: service_healthy
