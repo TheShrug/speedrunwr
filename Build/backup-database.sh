@@ -58,6 +58,14 @@ export RCLONE_CONFIG_R2_PROVIDER=Cloudflare
 export RCLONE_CONFIG_R2_ACCESS_KEY_ID="$R2_ACCESS_KEY_ID"
 export RCLONE_CONFIG_R2_SECRET_ACCESS_KEY="$R2_SECRET_ACCESS_KEY"
 export RCLONE_CONFIG_R2_ENDPOINT="https://${R2_ACCOUNT_ID}.r2.cloudflarestorage.com"
+# R2 ignores regions but the S3 client insists on one.
+export RCLONE_CONFIG_R2_REGION=auto
+# The token is scoped to this bucket alone and therefore cannot create
+# buckets. Without this, rclone probes with a CreateBucket that R2 answers 403
+# before falling back. The per-remote form is the one that takes effect for a
+# remote defined through RCLONE_CONFIG_* — the generic --s3-no-check-bucket
+# does not.
+export RCLONE_CONFIG_R2_NO_CHECK_BUCKET=true
 
 # The prefix is chosen from the date at WRITE time: the 1st of a month goes to
 # monthly/, Sunday to weekly/, everything else to daily/. So on a Monday the
