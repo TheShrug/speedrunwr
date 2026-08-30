@@ -5,8 +5,10 @@ services:
       target: dev
     volumes:
       - .:/var/www/html
+    # Assigned in the fleet port table, not defaulted, so esavods and this can
+    # run at once. Moved off 8000 by TheShrug/homelab#39.
     ports:
-      - "8000:80"
+      - "${PORT:-8002}:80"
     env_file:
       - .env
     environment:
@@ -21,6 +23,13 @@ services:
       POSTGRES_DB: speedrunwr
       POSTGRES_USER: speedrunwr
       POSTGRES_PASSWORD: secret
+    # DB_HOST_PORT, deliberately NOT DB_PORT. Compose substitutes from this
+    # repo's .env, where Laravel's own DB_PORT=5432 is the port the app uses to
+    # reach the db service INTERNALLY. Reusing that name here published Postgres
+    # on 5432 instead of the assigned 55402 — and esavods would have collided on
+    # it identically. Measured, not guessed: `docker compose port db 5432`.
+    ports:
+      - "${DB_HOST_PORT:-55402}:5432"
     volumes:
       - srwr-pgdata:/var/lib/postgresql/data
     healthcheck:
@@ -28,6 +37,69 @@ services:
       interval: 2s
       timeout: 3s
       retries: 30
+
+  # `make test` runs HERE, not on `app`, and the difference is load-bearing
+  # rather than stylistic.
+  #
+  # `app` carries `env_file: .env`, which puts DB_* into the container's real OS
+  # environment. Laravel's env() reads $_SERVER; phpunit.xml's
+  # <env name="DB_CONNECTION" value="sqlite"/> only sets $_ENV/putenv() and does
+  # not win - force="true" included, verified. RefreshDatabase then migrates and
+  # truncates whatever the container points at. That is #14.
+  #
+  # So this service has NO env_file. Configuration comes from the explicit block
+  # below and nowhere else, mirroring .github/workflows/ci.yml, which already
+  # solved this and documents it at length.
+  test:
+    build:
+      context: .
+      target: dev
+    volumes:
+      - .:/var/www/html
+    environment:
+      APP_ENV: testing
+      APP_DEBUG: "true"
+      DB_CONNECTION: pgsql
+      DB_HOST: test-db
+      DB_PORT: "5432"
+      DB_DATABASE: testing
+      DB_USERNAME: postgres
+      DB_PASSWORD: postgres
+      SESSION_DRIVER: array
+      CACHE_STORE: array
+      QUEUE_CONNECTION: sync
+      MAIL_MAILER: array
+      # A throwaway key, committed on purpose - it encrypts nothing that
+      # outlives the run. This service has no env_file to inherit APP_KEY from,
+      # and a suite that touches encryption dies on MissingAppKeyException.
+      APP_KEY: "base64:ddDEncXaDJQhQzevaldile/qvrzsAOKkgPLMX2cFZbg="
+      # stderr, not a file. This service runs as root over the same bind mount
+      # as `app`, so a file log leaves a root-owned storage/logs/laravel.log
+      # that php-fpm (www-data) cannot write - `make run` then 500s after
+      # `make test`, with the cause nowhere near the symptom. Found in esavods.
+      LOG_CHANNEL: stderr
+    depends_on:
+      test-db:
+        condition: service_healthy
+    profiles: ["test"]
+
+  # Throwaway by construction: tmpfs, no named volume, and NOT the `db` service
+  # that `make run` seeds from a production dump. A suite that can reach the
+  # dev database is one .env away from reaching a real one.
+  test-db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: testing
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    tmpfs:
+      - /var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+    profiles: ["test"]
 
 volumes:
   srwr-pgdata:

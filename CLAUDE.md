@@ -6,6 +6,45 @@ repository.
 speedrunwr.com — a Laravel 12 (PHP `^8.3`) app that syncs and serves speedrun.com records,
 deployed as a container via Coolify.
 
+## Local dev interface
+
+`make` is the interface, and it lives **inside the devcontainer** — PHP and `make` are neither of
+them on the Windows host. The fleet-wide table and reasoning live in the `homelab` vault at
+`Conventions/Local Dev Interface.md`; restated here because that vault is private.
+
+| | |
+| --- | --- |
+| `make` | List the targets. `.DEFAULT_GOAL := help` |
+| `make build` | Build the dev image |
+| `make test` | The suite, against a throwaway Postgres — see the warning below |
+| `make run` | Serve on **8002**, Postgres on **55402**, URL printed last |
+| `make database download restore migrate` | Newest R2 dump → local database → schema forward |
+
+**Ports 8002 / 55402 are assigned, not defaulted.** Every app has fixed numbers so two can run at
+once; `PORT=` and **`DB_HOST_PORT=`** override. This repo moved off 8000.
+
+`DB_HOST_PORT`, not `DB_PORT`: compose substitutes variables from this repo's `.env`, where
+Laravel's own `DB_PORT=5432` is the port the app uses to reach the `db` service *internally*.
+Naming the published port `DB_PORT` silently published Postgres on 5432 instead of 55402 — which
+is the exact collision the port table exists to prevent.
+
+> [!CAUTION]
+> **Never run the suite through the `app` service.** `docker compose run app php artisan test`
+> can wipe a real database. `env_file: .env` puts `DB_*` into the container's real OS environment;
+> Laravel's `env()` reads `$_SERVER` while PHPUnit's `<env name="DB_CONNECTION" value="sqlite"/>`
+> only sets `$_ENV`/`putenv()`, so `phpunit.xml` never wins — `force="true"` included, verified.
+> `RefreshDatabase` then truncates whatever the container points at. That is #14.
+>
+> `make test` uses the separate `test` service, which carries **no `env_file`** and an explicit
+> environment block, against a **tmpfs** `test-db`. Locally the victim of getting this wrong is a
+> disposable volume, which is exactly what lets the pattern get copied to a laptop pointing
+> somewhere real.
+
+`make database download` reads the nightly backup from R2, not a live `pg_dump` over SSH, so a dev
+machine needs no production access. It wants a **read-only** fleet R2 token at
+`~/.config/homelab/backups.env` — not this repo's `.env`, and not a copy of racknerd's write
+token. `backups/` is gitignored: those dumps are production data.
+
 ## Work queue
 
 Work lives in this repo's **GitHub Issues**, one issue per item, with exactly one `type:` label

@@ -1,0 +1,23 @@
+{
+  "name": "speedrunwr",
+  "dockerComposeFile": ["../docker-compose.yml"],
+  "service": "app",
+  "workspaceFolder": "/var/www/html",
+  "shutdownAction": "stopCompose",
+  // App on 8002, Postgres on 55402 — assigned in the fleet port table so this
+  // and esavods can be up at the same time.
+  "forwardPorts": [8002, 55402],
+  "portsAttributes": {
+    "8002": { "label": "speedrunwr (http)" },
+    "55402": { "label": "speedrunwr (postgres)" }
+  },
+  "features": {
+    "ghcr.io/devcontainers/features/github-cli:1": {}
+  },
+  "postCreateCommand": "bash .devcontainer/setup.sh",
+  "customizations": {
+    "vscode": {
+      "extensions": ["anthropic.claude-code", "bmewburn.vscode-intelephense-client"]
+    }
+  }
+}

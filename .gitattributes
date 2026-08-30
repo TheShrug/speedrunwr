@@ -10,3 +10,5 @@
 *.sh text eol=lf
 
 CHANGELOG.md export-ignore
+
+Makefile text eol=lf
