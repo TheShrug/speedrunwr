@@ -11,7 +11,7 @@ deployed as a container via Coolify.
 `make` is the interface. The fleet-wide table and reasoning live in the `homelab` vault at
 `Conventions/Local Dev Interface.md`; restated here because that vault is private.
 
-**It is not on the Windows host, and not in this repo's dev image either.** Read
+**It is in the dev image but not on the Windows host.** Read
 [When `make` is not on PATH](#when-make-is-not-on-path) before running anything by hand.
 
 | | |
@@ -49,11 +49,18 @@ token. `backups/` is gitignored: those dumps are production data.
 
 ### When `make` is not on PATH
 
-You are on the Windows host, and in this repo there is no way around that: **`make` is on neither
-the host nor the dev image.** Verified 2026-08-30 — Git Bash and PowerShell have no `make`, and
-`speedrunwr_app` (the `dev` target, which is also what the devcontainer opens as) has neither `make`
-nor a `docker` CLI. Reopening in the devcontainer does not fix it: every target below wraps
-`docker compose`, and only the host daemon can serve that.
+`make` **is** in the dev image — the `dev` stage installs it, which is also what the devcontainer
+opens as. So `make` and `make help` list the targets from inside the container.
+
+**Every other target still has to run on the Windows host**, and that is not a packaging
+oversight. Each one wraps `docker compose`, and the dev image carries no `docker` CLI. Adding one
+plus the host socket would not fix it either, and this is the part worth knowing: the `app`
+service binds `.:/var/www/html`, so compose running *inside* the container resolves that source to
+its own `/var/www/html` and hands the daemon a host path that does not exist. Verified
+2026-09-04 — `docker compose config` from inside the container reports `source: /var/www/html`.
+Docker-outside-of-docker would not error; it would silently mount the wrong thing.
+
+Git Bash and PowerShell have no `make`, so on the host you still run the recipes by hand.
 
 That is not a licence to improvise. **Never translate a target into "the same steps directly."**
 The obvious translation of `make test` is `docker compose run app php artisan test`, which is the
@@ -75,8 +82,10 @@ a `.env` first — the Makefile's `.env:` target writes one — and compose alre
 in it — `--profile test`, `-T`, `--no-deps`, `--fail-on-warning` — is there because something
 broke without it.
 
-The real fix is `make` on the host, which would retire this whole section. Until someone installs
-it, this is the path.
+The real fix is `make` on the host, which would retire this section. The other route — making the
+targets work from inside the container — needs the workspace to sit at the *same absolute path*
+inside and out, so compose's relative bind mounts resolve to the same directory either way. That is
+a devcontainer layout change, not a package.
 
 ## Work queue
 
