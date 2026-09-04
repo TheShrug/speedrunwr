@@ -8,9 +8,11 @@ deployed as a container via Coolify.
 
 ## Local dev interface
 
-`make` is the interface, and it lives **inside the devcontainer** — PHP and `make` are neither of
-them on the Windows host. The fleet-wide table and reasoning live in the `homelab` vault at
+`make` is the interface. The fleet-wide table and reasoning live in the `homelab` vault at
 `Conventions/Local Dev Interface.md`; restated here because that vault is private.
+
+**It is not on the Windows host, and not in this repo's dev image either.** Read
+[When `make` is not on PATH](#when-make-is-not-on-path) before running anything by hand.
 
 | | |
 | --- | --- |
@@ -44,6 +46,37 @@ is the exact collision the port table exists to prevent.
 machine needs no production access. It wants a **read-only** fleet R2 token at
 `~/.config/homelab/backups.env` — not this repo's `.env`, and not a copy of racknerd's write
 token. `backups/` is gitignored: those dumps are production data.
+
+### When `make` is not on PATH
+
+You are on the Windows host, and in this repo there is no way around that: **`make` is on neither
+the host nor the dev image.** Verified 2026-08-30 — Git Bash and PowerShell have no `make`, and
+`speedrunwr_app` (the `dev` target, which is also what the devcontainer opens as) has neither `make`
+nor a `docker` CLI. Reopening in the devcontainer does not fix it: every target below wraps
+`docker compose`, and only the host daemon can serve that.
+
+That is not a licence to improvise. **Never translate a target into "the same steps directly."**
+The obvious translation of `make test` is `docker compose run app php artisan test`, which is the
+one command that can wipe a real database — see the CAUTION above, and issue #14. Run the
+target's own recipe, verbatim, from the repo root on the host:
+
+| Target | Verbatim host equivalent |
+| --- | --- |
+| `make build` | `docker compose build` |
+| `make test` | `docker compose --profile test run --rm -T test php artisan test --fail-on-warning` |
+| `make run` | `docker compose up -d`, then `docker compose exec -T app php artisan migrate --force` |
+| `make database …` | Copy the recipe out of the Makefile. It sources the host R2 credential and passes it through `compose run` with bare `-e`, and that shape is the point |
+
+The `make test` line is verified: run from Git Bash on 2026-08-30, 48 passed. `make run` wants
+a `.env` first — the Makefile's `.env:` target writes one — and compose already defaults
+`${PORT:-8002}` / `${DB_HOST_PORT:-55402}`, so nothing needs exporting.
+
+**Copy from the Makefile; don't reconstruct from memory.** The recipe is the spec, and every flag
+in it — `--profile test`, `-T`, `--no-deps`, `--fail-on-warning` — is there because something
+broke without it.
+
+The real fix is `make` on the host, which would retire this whole section. Until someone installs
+it, this is the path.
 
 ## Work queue
 
