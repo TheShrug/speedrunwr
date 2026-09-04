@@ -27,7 +27,7 @@ COPY docker/php/opcache.ini /usr/local/etc/php/conf.d/zz-opcache.ini
 # ---------------------------------------------------------------------------
 FROM base AS dev
 
-RUN apk add --no-cache git unzip bash curl
+RUN apk add --no-cache git unzip bash curl make
 
 # rclone for `make database download`, pinned and taken from upstream rather
 # than the distro package. Ubuntu ships 1.60 (2022), which fails its first

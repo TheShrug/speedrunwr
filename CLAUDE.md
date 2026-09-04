@@ -8,9 +8,11 @@ deployed as a container via Coolify.
 
 ## Local dev interface
 
-`make` is the interface, and it lives **inside the devcontainer** — PHP and `make` are neither of
-them on the Windows host. The fleet-wide table and reasoning live in the `homelab` vault at
+`make` is the interface. The fleet-wide table and reasoning live in the `homelab` vault at
 `Conventions/Local Dev Interface.md`; restated here because that vault is private.
+
+**It is in the dev image but not on the Windows host.** Read
+[When `make` is not on PATH](#when-make-is-not-on-path) before running anything by hand.
 
 | | |
 | --- | --- |
@@ -45,6 +47,46 @@ machine needs no production access. It wants a **read-only** fleet R2 token at
 `~/.config/homelab/backups.env` — not this repo's `.env`, and not a copy of racknerd's write
 token. `backups/` is gitignored: those dumps are production data.
 
+### When `make` is not on PATH
+
+`make` **is** in the dev image — the `dev` stage installs it, which is also what the devcontainer
+opens as. So `make` and `make help` list the targets from inside the container.
+
+**Every other target still has to run on the Windows host**, and that is not a packaging
+oversight. Each one wraps `docker compose`, and the dev image carries no `docker` CLI. Adding one
+plus the host socket would not fix it either, and this is the part worth knowing: the `app`
+service binds `.:/var/www/html`, so compose running *inside* the container resolves that source to
+its own `/var/www/html` and hands the daemon a host path that does not exist. Verified
+2026-09-04 — `docker compose config` from inside the container reports `source: /var/www/html`.
+Docker-outside-of-docker would not error; it would silently mount the wrong thing.
+
+Git Bash and PowerShell have no `make`, so on the host you still run the recipes by hand.
+
+That is not a licence to improvise. **Never translate a target into "the same steps directly."**
+The obvious translation of `make test` is `docker compose run app php artisan test`, which is the
+one command that can wipe a real database — see the CAUTION above, and issue #14. Run the
+target's own recipe, verbatim, from the repo root on the host:
+
+| Target | Verbatim host equivalent |
+| --- | --- |
+| `make build` | `docker compose build` |
+| `make test` | `docker compose --profile test run --rm -T test php artisan test --fail-on-warning` |
+| `make run` | `docker compose up -d`, then `docker compose exec -T app php artisan migrate --force` |
+| `make database …` | Copy the recipe out of the Makefile. It sources the host R2 credential and passes it through `compose run` with bare `-e`, and that shape is the point |
+
+The `make test` line is verified: run from Git Bash on 2026-08-30, 48 passed. `make run` wants
+a `.env` first — the Makefile's `.env:` target writes one — and compose already defaults
+`${PORT:-8002}` / `${DB_HOST_PORT:-55402}`, so nothing needs exporting.
+
+**Copy from the Makefile; don't reconstruct from memory.** The recipe is the spec, and every flag
+in it — `--profile test`, `-T`, `--no-deps`, `--fail-on-warning` — is there because something
+broke without it.
+
+The real fix is `make` on the host, which would retire this section. The other route — making the
+targets work from inside the container — needs the workspace to sit at the *same absolute path*
+inside and out, so compose's relative bind mounts resolve to the same directory either way. That is
+a devcontainer layout change, not a package.
+
 ## Work queue
 
 Work lives in this repo's **GitHub Issues**, one issue per item, with exactly one `type:` label
@@ -78,11 +120,11 @@ only review point there is; treat an untested code path as unverified regardless
 Name the branch:
 
 ```
-TheShrug/<issue>-<type>-<slug>
+<issue>-<type>-<slug>
 ```
 
 ```
-^TheShrug/[0-9]+-(tckt|feat|bug|chore|spike)-[a-z0-9]+(-[a-z0-9]+)*$
+^[0-9]+-(tckt|feat|bug|chore|spike)-[a-z0-9]+(-[a-z0-9]+)*$
 ```
 
 - `<issue>` is the **issue number in this repo** — not a PR number. A PR number doesn't exist
@@ -93,7 +135,14 @@ TheShrug/<issue>-<type>-<slug>
   issue holds the full title, so this is a handle, not a summary.
 
 So issue #26 `type: chore` "Add CLAUDE.md branch policy" becomes
-`TheShrug/26-chore-add-claude-md-branch-policy`.
+`26-chore-add-claude-md-branch-policy`.
+
+**No owner prefix.** The name used to start `TheShrug/`. It was dropped 2026-09-03: in a
+single-maintainer fleet every branch carried it, so it distinguished nothing, and Orca's own
+`branchPrefix` setting prepends the git username silently — two layers adding a prefix at once,
+which is how `TheShrug/TheShrug-79-...` got created. Orca is set to `None` now, so `--name` is
+the whole branch name. Existing `TheShrug/...` branches are grandfathered by the same date rule
+below.
 
 **No issue, no branch** — the number is mandatory, so every branch traces back to the queue.
 This replaces the old `chore/<slug>` / `feat/<slug>` convention and, deliberately, the "or
