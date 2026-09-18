@@ -1,0 +1,41 @@
+name: Work item
+description: A unit of work for the queue — feat, tckt, bug, chore or spike.
+title: "Short imperative title"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        One atomic change per `tckt`. If a ticket grows two unrelated goals, split it.
+
+        Durable facts don't live here — they go in `Projects/speedrunwr.md` in the homelab
+        vault. An issue closes and stops being read; a note is what you'll open at 2am
+        six months from now. A "decide X" item produces a note edit as its output.
+
+        After filing, add the `type:` label that matches (`feat`, `tckt`, `bug`, `chore`,
+        `spike`). Leave `status:` off while it's queued.
+
+  - type: textarea
+    id: goal
+    attributes:
+      label: Goal
+      description: One or two sentences — what this delivers and why.
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: The observable outcomes that mean this is done. Checkboxes, ticked on close.
+      value: |
+        - [ ]
+    validations:
+      required: true
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes
+      description: Context, links, gotchas. Link the relevant note and sibling issues (`#N`).
+    validations:
+      required: false
