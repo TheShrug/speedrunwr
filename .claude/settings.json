@@ -1,0 +1,18 @@
+{
+  "autoMemoryEnabled": true,
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Read|Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .claude/hooks/no-auto-memory.js",
+            "shell": "bash",
+            "statusMessage": "Checking memory-store access"
+          }
+        ]
+      }
+    ]
+  }
+}
