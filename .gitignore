@@ -23,4 +23,5 @@ yarn-error.log
 
 # Production dumps pulled by `make database download`. Real users, real
 # email addresses, real password hashes — never commit these.
+*.dump
 /backups
