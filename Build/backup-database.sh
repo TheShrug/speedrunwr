@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
 # `make database download` — fetch this app's newest nightly dump out of Cloudflare R2.
 #
-# NOT a live pg_dump over SSH. The nightly backup already produces a verified
-# dump of every app database and puts it in R2 (homelab Conventions/Backups.md),
-# so a dev machine needs no production SSH access and no write path to a live
-# database.
+# NOT a live pg_dump over SSH. The nightly backup already produces a verified dump of every app
+# database and puts it in R2 (homelab Conventions/Backups.md), so a dev machine needs no production
+# SSH access and no write path to a live database.
 #
 # Credentials come from a fleet-level READ-ONLY R2 token, shared by every repo in the fleet:
 #
